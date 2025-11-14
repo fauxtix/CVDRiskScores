@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2RiskScorePage"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2;assembly=CVDRiskScores"
+    x:DataType="vm:Score2ViewModel"
+    Title="SCORE2 Risk Score">
+    <VerticalStackLayout Padding="24">
+        <Label Text="SCORE2 Calculator (ESC 2021)" FontAttributes="Bold" />
+        <Entry Placeholder="Idade 40-69" Text="{Binding Score2Model.Age}" Keyboard="Numeric"/>
+        <Picker Title="Género" SelectedIndex="{Binding Score2Model.Gender}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Entry Placeholder="Pressão Sistólica" Text="{Binding Score2Model.SystolicBloodPressure}" Keyboard="Numeric"/>
+        <Entry Placeholder="Colesterol Total" Text="{Binding Score2Model.TotalCholesterol}" Keyboard="Numeric"/>
+        <Entry Placeholder="HDL Colesterol" Text="{Binding Score2Model.HDLCholesterol}" Keyboard="Numeric"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Fumador?" />
+            <Switch IsToggled="{Binding Score2Model.IsSmoker}"/>
+        </StackLayout>
+        <Button Text="Calcular" Command="{Binding CalculateCommand}" Margin="12"/>
+        <Label IsVisible="{Binding Score2Model.ValidationError, Converter={StaticResource StringNotEmptyConverter}}"
+               Text="{Binding Score2Model.ValidationError}" TextColor="Red" FontSize="14"/>
+    </VerticalStackLayout>
+</ContentPage>

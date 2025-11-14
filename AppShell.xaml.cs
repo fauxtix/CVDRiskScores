@@ -1,0 +1,27 @@
+﻿using CVDRiskScores.MVVM.Views.Framingham;
+
+namespace CVDRiskScores
+{
+    public partial class AppShell : Shell
+    {
+        public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
+
+        public AppShell()
+        {
+            InitializeComponent();
+            RegisterRoutes();
+        }
+
+        void RegisterRoutes()
+        {
+            Routes.Add(nameof(FraminghamIntroPage), typeof(FraminghamIntroPage));
+            Routes.Add(nameof(FraminghamRiskScorePage), typeof(FraminghamRiskScorePage));
+            Routes.Add(nameof(FraminghamResultsPage), typeof(FraminghamResultsPage));
+            foreach (var item in Routes)
+            {
+                Routing.RegisterRoute(item.Key, item.Value);
+            }
+        }
+
+    }
+}

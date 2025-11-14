@@ -1,0 +1,64 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2"
+    Title="SCORE2 Resultado"
+    BackgroundColor="#F4F5FA">
+
+    <VerticalStackLayout Padding="24" Spacing="12">
+        <Label Text="SCORE2: Probabilidade de evento CV fatal/não fatal em 10 anos"
+               FontAttributes="Bold"
+               FontSize="15"
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding Score2Model.RiskScore, StringFormat='Risco SCORE2: {0:F1}%'}"
+               TextColor="{Binding Score2Model.RiskColor}"
+               FontAttributes="Bold"
+               FontSize="24"
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding Score2Model.RiskCategory}"
+               FontAttributes="Bold"
+               FontSize="24"
+               TextColor="{Binding Score2Model.RiskColor}"
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding Score2Model.ClinicalAdvice}"
+               FontAttributes="Italic"
+               FontSize="13"
+               Margin="8,2,8,12"
+               HorizontalOptions="Center"/>
+
+        <StackLayout Margin="15,10,15,20">
+            <Label Text="{Binding Score2Model.AgePoints, StringFormat='Idade: {0:F2}'}"/>
+            <Label Text="{Binding Score2Model.NonHDLPoints, StringFormat='Non-HDL: {0:F2}'}"/>
+            <Label Text="{Binding Score2Model.SBPPoints, StringFormat='TA Sistólica: {0:F2}'}"/>
+            <Label Text="{Binding Score2Model.SmokingPoints, StringFormat='Tabaco: {0:F2}'}"/>
+        </StackLayout>
+
+        <toolkit:Expander Header="Sobre o método, referências..." Margin="0,16,0,0">
+            <VerticalStackLayout>
+                <Label Text="Algoritmo SCORE2, guidelines ESC 2021, calibrado para a população portuguesa."
+                       FontSize="11"
+                       Margin="0,3"/>
+                <Label Text="Referência: ESC Guidelines on Cardiovascular Disease Prevention 2021"
+                       FontSize="10"
+                       TextColor="DarkBlue"
+                       Margin="0,3"/>
+                <Label Text="Este resultado representa o risco combinado de eventos cardiovasculares fatais e não fatais (ex: enfarte, AVC, morte súbita) em 10 anos."
+                       FontSize="10"
+                       Margin="0,3"/>
+                <Label Text="App de apoio à decisão clínica; para decisões finais siga sempre as guidelines oficiais."
+                       FontSize="9"
+                       TextColor="DarkRed"
+                       Margin="0,3"/>
+            </VerticalStackLayout>
+        </toolkit:Expander>
+
+        <Button Text="Voltar"
+                Command="{Binding GoBackCommand}"
+                Margin="8"
+                HorizontalOptions="Fill"/>
+        <Button Text="Nova Simulação"
+                Command="{Binding NewSimulationCommand}"
+                Margin="8"
+                HorizontalOptions="Fill"/>
+    </VerticalStackLayout>
+</ContentPage>

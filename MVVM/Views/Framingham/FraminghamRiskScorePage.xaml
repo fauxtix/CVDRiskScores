@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CVDRiskScores.MVVM.Views.Framingham.FraminghamRiskScorePage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.Framingham"
-             xmlns:models="clr-namespace:CVDRiskScores.Models.Framingham"
              x:DataType="vm:FraminghamRiskScoreViewModel"
              BackgroundColor="#F4F5FA"
              Title="Framingham Risk Score">
@@ -30,150 +29,199 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout>
-            <Grid Margin="0, 30, 0, 0">
-                <BoxView Color="{StaticResource Secondary}"
-                         CornerRadius="10"
-                         Margin="0,0"
-                         HeightRequest="3"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Fill" />
-            </Grid>
-            <!-- Section: Idade -->
-            <Grid Margin="10, 5" ColumnDefinitions="220,50, *">
-                <Label Grid.Column="0" Text="Idade" Margin="10"
-                       VerticalOptions="Center"/>
-                <Entry Grid.Column="1" x:Name="AgeEntry" 
-                       Keyboard="Numeric"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Center"
-                       Text="{Binding Age}">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior 
-                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                            ValidStyle="{StaticResource ValidEntryStyle}"
-                                            Flags="ValidateOnValueChanged"
-                                            MinimumValue="20"
-                                            MaximumValue="79"
-                                            MaximumDecimalPlaces="0" />
-                    </Entry.Behaviors>
-                </Entry>
-                <Label Grid.Row="2" Grid.Column="2" Text="entre 20 and 79" HorizontalOptions="End" VerticalOptions="Center" TextColor="Green"/>
-            </Grid>
+        <!-- Reduzido o espaçamento vertical para 6 -->
+        <VerticalStackLayout Padding="24" Spacing="2">
 
-            <!-- Section: Género e Fumador -->
-            <Grid Margin="10, 5" ColumnDefinitions="220, *">
-                <!-- Género -->
-                <Label Text="Género"
+            <!-- Título --><!--
+            <Label Text="Calculadora de risco cardiovascular (Framingham)"
+                   FontAttributes="Bold"
+                   FontSize="15"
+                   Margin="0,0,0,8"
+                   TextColor="#2B0B98" />-->
+
+            <!-- Idade -->
+            <Label FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#111"
+                   Margin="0,12,0,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Idade " />
+                        <Span Text="(20–79)" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry x:Name="AgeEntry"
+                   Keyboard="Numeric"
+                   Placeholder="Exemplo: 45"
+                   Margin="0,2,0,2"
+                   Text="{Binding Age}">
+                <Entry.Behaviors>
+                    <mct:NumericValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        ValidStyle="{StaticResource ValidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="20"
+                        MaximumValue="79"
+                        MaximumDecimalPlaces="0"/>
+                </Entry.Behaviors>
+            </Entry>
+
+            <!-- Género -->
+            <Label FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#111"
+                   Margin="0,8,0,0"
+                   Text="Género"/>
+            <Picker x:Name="GenderPicker"
+                    Title="Escolha o género"
+                    Margin="0,2,0,2"
+                    SelectedIndexChanged="Gender_SelectedIndexChanged">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Feminino</x:String>
+                        <x:String>Masculino</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <!-- Fumador -->
+            <Grid Margin="0,6,0,0" ColumnDefinitions="*,Auto">
+                <Label FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="#111"
+                       VerticalOptions="Center"
                        Grid.Column="0"
-                       Margin="10"/>
-                <Picker  x:Name="GenderPicker"
-                         Title=" Selecione género "
-                         Margin="2,0"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Start"
-                         Grid.Column="1" 
-                         CharacterSpacing="2"
-                         BackgroundColor="LightGray"
-                         SelectedIndexChanged="Gender_SelectedIndexChanged">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Feminino</x:String>
-                            <x:String>Masculino</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                       Text="Fumador?"/>
+                <Switch x:Name="SmokerSwitch"
+                        IsToggled="False"
+                        Toggled="SmokerSwitch_Toggled"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"/>
             </Grid>
-            <Grid Margin="10, 5" ColumnDefinitions="220, *">
-                <!-- Fumador -->
-                <Label Text="Fumador" Margin="10"
-                               Grid.Column="0"/>
-                <Switch x:Name="SmokerSwitch" Grid.Column="1" 
-                        IsToggled="False" HorizontalOptions="Start" 
-                        VerticalOptions="Center" Toggled="SmokerSwitch_Toggled"/>
-            </Grid>
-            <Grid Margin="10, 5" ColumnDefinitions="220, *">
-                <Label Grid.Column="0" Margin="10" Text="Toma medicação para a TA?" />
-                <Switch Grid.Column="1"  
-                            x:Name="BloodPressureTreated" 
-                            IsToggled="False" 
-                            HorizontalOptions="Start"
-                            VerticalOptions="Center"                         
-                            Toggled="BllodPressureTreated_Toggled" />
-            </Grid>
-            <Grid Margin="10, 5"
-                  RowDefinitions="Auto, Auto, Auto, Auto"
-                  ColumnDefinitions="220, 50">
-                <Label Grid.Row="1" Grid.Column="0" 
-                       VerticalOptions="Center" 
-                       Margin="10"
-                       Text="Colesterol Total (mg/dL)" />
-                <Entry Grid.Row="1" Grid.Column="1" 
-                       x:Name="TotalCholesterolEntry" Keyboard="Numeric" Text="{Binding TotalCholesterol}">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior 
-                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                            ValidStyle="{StaticResource ValidEntryStyle}"
-                                            Flags="ValidateOnValueChanged"
-                                            MinimumValue="100"
-                                            MaximumValue="199"
-                                            MaximumDecimalPlaces="0" />
-                    </Entry.Behaviors>
-                </Entry>
-                <Label Grid.Row="2" Grid.Column="0" 
-                       VerticalOptions="Center" 
-                       Margin="10"
-                       Text="HDL Colesterol (mg/dL)" />
-                <Entry Grid.Row="2" Grid.Column="1" 
-                       x:Name="HDLCholesterolEntry" Keyboard="Numeric" Text="{Binding HDLCholesterol}">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior 
-                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                            ValidStyle="{StaticResource ValidEntryStyle}"
-                                            Flags="ValidateOnValueChanged"
-                                            MinimumValue="40"
-                                            MaximumValue="129"
-                                            MaximumDecimalPlaces="0" />
-                    </Entry.Behaviors>
-                </Entry>
-                <Label Grid.Row="3" Grid.Column="0" 
-                       VerticalOptions="Center" 
-                       Margin="10"
-                       Text="Pressão arterial sistólica" />
-                <Entry Grid.Row="3" Grid.Column="1" 
-                       x:Name="SystolicBloodPressureEntry" Keyboard="Numeric" Text="{Binding SystolicBloodPressure}" >
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior 
-                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                            ValidStyle="{StaticResource ValidEntryStyle}"
-                                            Flags="ValidateOnValueChanged"
-                                            MinimumValue="100"
-                                            MaximumValue="139"
-                                            MaximumDecimalPlaces="0" />
-                    </Entry.Behaviors>
 
-                </Entry>
-
+            <!-- Medicação TA -->
+            <Grid Margin="0,6,0,0" ColumnDefinitions="*,Auto">
+                <Label FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="#111"
+                       VerticalOptions="Center"
+                       Grid.Column="0"
+                       Text="Toma medicação para a TA?"/>
+                <Switch x:Name="BloodPressureTreated"
+                        IsToggled="False"
+                        Toggled="BllodPressureTreated_Toggled"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"/>
             </Grid>
-            <!-- Section: Button -->
-            <VerticalStackLayout>
-                <BoxView Color="{StaticResource Secondary}"
-                         CornerRadius="10"
-                         Margin="0,0"
-                         HeightRequest="3"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Fill" />
-                <Button Text="Calcular" BackgroundColor="Green" FontSize="16"
-                        Margin="10,20"
-                        Command="{Binding CalculateCommand}"                       
-                        HorizontalOptions="Fill"
-                        VerticalOptions="Center" />
-                <Button Text="Intro" BackgroundColor="{StaticResource Primary}" FontSize="16"
-                        Margin="10,-10" TextColor="White" FontAttributes="Bold"
-                        Command="{Binding GoHomeCommand}"                       
-                        HorizontalOptions="Fill"
-                        VerticalOptions="Center" />
-            </VerticalStackLayout>
+
+            <!-- Colesterol Total -->
+            <Label FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#111"
+                   Margin="0,8,0,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Colesterol Total (mg/dL) " />
+                        <Span Text="Exº 180" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry x:Name="TotalCholesterolEntry"
+                   Keyboard="Numeric"
+                   Placeholder="Exemplo: 180"
+                   Margin="0,2,0,2"
+                   Text="{Binding TotalCholesterol}">
+                <Entry.Behaviors>
+                    <mct:NumericValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        ValidStyle="{StaticResource ValidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="100"
+                        MaximumValue="199"
+                        MaximumDecimalPlaces="0"/>
+                </Entry.Behaviors>
+            </Entry>
+
+            <!-- HDL Colesterol -->
+            <Label FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#111"
+                   Margin="0,8,0,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="HDL Colesterol (mg/dL) " />
+                        <Span Text="Exº 55" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry x:Name="HDLCholesterolEntry"
+                   Keyboard="Numeric"
+                   Placeholder="Exemplo: 55"
+                   Margin="0,2,0,2"
+                   Text="{Binding HDLCholesterol}">
+                <Entry.Behaviors>
+                    <mct:NumericValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        ValidStyle="{StaticResource ValidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="40"
+                        MaximumValue="129"
+                        MaximumDecimalPlaces="0"/>
+                </Entry.Behaviors>
+            </Entry>
+
+            <!-- Pressão arterial sistólica -->
+            <Label FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#111"
+                   Margin="0,8,0,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Pressão arterial sistólica " />
+                        <Span Text="Exº 120" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry x:Name="SystolicBloodPressureEntry"
+                   Keyboard="Numeric"
+                   Placeholder="Exemplo: 120"
+                   Margin="0,2,0,2"
+                   Text="{Binding SystolicBloodPressure}">
+                <Entry.Behaviors>
+                    <mct:NumericValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        ValidStyle="{StaticResource ValidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="100"
+                        MaximumValue="139"
+                        MaximumDecimalPlaces="0"/>
+                </Entry.Behaviors>
+            </Entry>
+
+            <!-- Botões -->
+            <HorizontalStackLayout Spacing="12" Margin="0,14,0,0" HorizontalOptions="Center">
+                <Button Text="Calcular"
+                        Command="{Binding CalculateCommand}"
+                        BackgroundColor="#219150"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        CornerRadius="8"
+                        HeightRequest="44"
+                        WidthRequest="120"/>
+                <Button Text="Intro"
+                        Command="{Binding GoHomeCommand}"
+                        BackgroundColor="#2376bb"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        CornerRadius="8"
+                        HeightRequest="44"
+                        WidthRequest="120"/>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -16,42 +16,42 @@
 
     <VerticalStackLayout Padding="24" Spacing="8">
         <!-- Label de orientação -->
-        <Label Text="Introduza os valores (intervalos válidos entre parênteses)"
+        <!--<Label Text="Introduza os valores (intervalos válidos entre parênteses)"
                FontAttributes="Bold"
-               FontSize="14" />
+               FontSize="16" />-->
 
-        <Label Text="Idade (40–69)" FontSize="12" TextColor="#666" />
+        <Label Text="Idade (40–69)" FontSize="16" TextColor="#666" />
         <Entry Placeholder="Idade 40-69 (ex.: 49)"
                Text="{Binding Score2.Age, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
                Keyboard="Numeric"/>
 
-        <Label Text="Género" FontSize="12" TextColor="#666" />
+        <Label Text="Género" FontSize="16" TextColor="#666" />
         <Picker Title="Género" SelectedIndex="{Binding Score2.Gender}">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
-                    <x:String>Male</x:String>
-                    <x:String>Female</x:String>
+                    <x:String>Masculino</x:String>
+                    <x:String>Feminino</x:String>
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
 
-        <Label Text="Tensão Arterial Sistólica (mmHg)" FontSize="12" TextColor="#666" />
+        <Label Text="Tensão Arterial Sistólica (mmHg)" FontSize="16" TextColor="#666" />
         <Entry Placeholder="TA Sistólica (ex.: 120)"
                Text="{Binding Score2.SystolicBloodPressure, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
                Keyboard="Numeric"/>
 
-        <Label Text="Colesterol Total (deve ser > HDL)" FontSize="12" TextColor="#666" />
+        <Label Text="Colesterol Total (deve ser > HDL)" FontSize="16" TextColor="#666" />
         <Entry Placeholder="Colesterol Total (ex.: 160)"
                Text="{Binding Score2.TotalCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
                Keyboard="Numeric"/>
 
-        <Label Text="Colesterol HDL" FontSize="12" TextColor="#666" />
+        <Label Text="Colesterol HDL" FontSize="16" TextColor="#666" />
         <Entry Placeholder="HDL Colesterol (ex.: 50)"
                Text="{Binding Score2.HDLCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
                Keyboard="Numeric"/>
 
         <StackLayout Orientation="Horizontal" Spacing="8" VerticalOptions="Center">
-            <Label Text="Fumador?" VerticalOptions="Center" />
+            <Label Text="Fumador?" VerticalOptions="Center" FontSize="16" />
             <Switch IsToggled="{Binding Score2.IsSmoker}"/>
         </StackLayout>
 

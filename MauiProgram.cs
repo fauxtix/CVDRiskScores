@@ -30,15 +30,15 @@ namespace CVDRiskScores
             builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddSingleton<FraminghamIntroPage>();
-            builder.Services.AddSingleton<FraminghamRiskScorePage>();
-            builder.Services.AddSingleton<FraminghamResultsPage>();
+            builder.Services.AddTransient<FraminghamIntroPage>();
+            builder.Services.AddTransient<FraminghamRiskScorePage>();
+            builder.Services.AddTransient<FraminghamResultsPage>();
 
-            builder.Services.AddSingleton<FraminghamRiskScoreViewModel>();
-            builder.Services.AddSingleton<IFRS_Service, FRS_Service>();
+            builder.Services.AddTransient<FraminghamRiskScoreViewModel>();
+            builder.Services.AddTransient<IFRS_Service, FRS_Service>();
 
             builder.Services.AddTransient<ISCORE2_Service, SCORE2_Service>();
-            builder.Services.AddSingleton<IScore2NavigationStore, Score2NavigationStore>();
+            builder.Services.AddTransient<IScore2NavigationStore, Score2NavigationStore>();
 
             builder.Services.AddTransient<Score2ViewModel>();
             builder.Services.AddTransient<Score2ResultsViewModel>();
@@ -47,7 +47,7 @@ namespace CVDRiskScores
             builder.Services.AddTransient<Score2ResultsPage>();
             builder.Services.AddTransient<Score2IntroPage>();
 
-            builder.Services.AddSingleton<IUIPopupService, UIPopupService>();
+            builder.Services.AddTransient<IUIPopupService, UIPopupService>();
 
             return builder.Build();
         }

@@ -149,7 +149,9 @@
 
         <!-- Actions -->
         <VerticalStackLayout Grid.Row="2" Spacing="8">
-            <Button x:Name="CloseAndBackButton" Text="Fechar e Voltar" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="8" HeightRequest="48" Clicked="OnCloseAndBackClicked" />
+            <Button x:Name="CloseAndBackButton" Text="Fechar e Voltar" 
+                    BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="8" HeightRequest="48" 
+                    Clicked="OnCloseAndBackClicked" />
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="16" Padding="0,6,0,0">
                 <Button Text="Partilhar" BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Clicked="OnShareClicked" />
                 <Button Text="Copiar" BackgroundColor="Transparent" TextColor="#666" Clicked="OnCopyClicked" />

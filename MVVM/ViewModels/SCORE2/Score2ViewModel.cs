@@ -34,17 +34,12 @@ namespace CVDRiskScores.MVVM.ViewModels.SCORE2
                 return;
             }
 
-            // keep result in store for backward compatibility
             navStore.LastResult = Score2;
 
             // show popup via UI service — pass the concrete model (not the ViewModel)
             var badge = Score2?.RiskScore.ToString("F1") ?? "-";
             var subtitle = Score2?.ClinicalAdvice ?? string.Empty;
             await _popupService.ShowSimulationResultAsync(Score2, title: "SCORE2", subtitle: subtitle, badge: $"{badge}%");
-
-
-            // previously navigated to Score2ResultsPage — now replaced by popup
-            // await Shell.Current.GoToAsync("Score2ResultsPage");
         }
 
         [RelayCommand]

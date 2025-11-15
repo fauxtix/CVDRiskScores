@@ -114,7 +114,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
             // Do NOT add "Pontuação de risco" here — it's shown in header badge only.
             // ValidationError still shown in details if present.
-            AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError"));
+            AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
         }
 
         void BuildFraminghamDetails(object model, object parentVm)
@@ -133,7 +133,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue("Pontos — TA", GetFormattedProp(model, "SystolicBloodPressurePoints"));
 
             // Do NOT add "Pontuação de risco" here — it's shown in header badge only.
-            AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError"));
+            AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
         }
 
         // avoid duplicates and suppress empty validation/advice
@@ -550,103 +550,33 @@ namespace CVDRiskScores.MVVM.Views.Shared
             });
         }
 
-        // Attempt to close popup by reflection; returns true if closed
-        bool TryClosePopup()
-        {
-            var candidateNames = new[] { "Close", "Dismiss", "Hide", "Pop" };
-            foreach (var name in candidateNames)
-            {
-                try
-                {
-                    var mi = this.GetType().GetMethod(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy, null, Type.EmptyTypes, null);
-                    if (mi != null)
-                    {
-                        mi.Invoke(this, null);
-                        return true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"TryClosePopup: reflection invoke '{name}' failed: {ex.Message}");
-                }
-            }
-
-            // try the base type methods as fallback
-            try
-            {
-                var baseType = typeof(CommunityToolkit.Maui.Views.Popup);
-                foreach (var name in candidateNames)
-                {
-                    try
-                    {
-                        var baseMi = baseType.GetMethod(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                        if (baseMi != null)
-                        {
-                            baseMi.Invoke(this, null);
-                            return true;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"TryClosePopup: base reflection invoke '{name}' failed: {ex.Message}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"TryClosePopup: base type reflection failed: {ex.Message}");
-            }
-
-            return false;
-        }
-
-        // Close handler: try reflection, otherwise hide/remove visual, then navigate back
+        // Close handler: agora usa CloseAsync()
         async void OnCloseAndBackClicked(object sender, EventArgs e)
         {
-            bool closed = false;
             try
             {
-                closed = TryClosePopup();
+                await this.CloseAsync();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"OnCloseAndBackClicked: TryClosePopup threw: {ex.Message}");
+                Debug.WriteLine($"OnCloseAndBackClicked: CloseAsync() failed: {ex.Message}");
             }
 
-            // small delay to let toolkit finish internal cleanup
+            // Pequeno delay para garantir limpeza interna do toolkit
             await Task.Delay(80);
 
-            // Defensive: pop any leftover modal pages that could be blocking input
-            try
-            {
-                var nav = Shell.Current?.Navigation;
-                if (nav != null)
-                {
-                    // Pop modals without animation to be fast and safe
-                    while (nav.ModalStack.Count > 0)
-                    {
-                        try { await nav.PopModalAsync(false); } catch { break; }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"OnCloseAndBackClicked: PopModalAsync cleanup failed: {ex.Message}");
-            }
-
-            // Ensure main page is enabled and receives input
+            // Reabilitar a UI (opcional)
             try
             {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    var mp = Application.Current?.MainPage;
+                    var mp = Application.Current?.Windows[0]?.Page;
                     if (mp != null)
                     {
                         mp.InputTransparent = false;
                         mp.IsEnabled = true;
                     }
 
-                    // also ensure current shell page is interactive
                     var cp = Shell.Current?.CurrentPage;
                     if (cp != null)
                     {
@@ -660,7 +590,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 Debug.WriteLine($"OnCloseAndBackClicked: re-enable UI failed: {ex.Message}");
             }
 
-            // finally navigate back
             await NavigateBackToSimulationAsync();
         }
 
@@ -691,13 +620,13 @@ namespace CVDRiskScores.MVVM.Views.Shared
             if (nested != null)
             {
                 var nname = nested.GetType().Name;
-                if (nname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "//Score2RiskScorePage";
-                if (nname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "//FraminghamRiskScorePage";
+                if (nname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "Score2RiskScorePage";
+                if (nname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "FraminghamRiskScorePage";
             }
 
             var tname = obj.GetType().Name;
-            if (tname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "//Score2RiskScorePage";
-            if (tname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "//FraminghamRiskScorePage";
+            if (tname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "Score2RiskScorePage";
+            if (tname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "FraminghamRiskScorePage";
 
             return "..";
         }

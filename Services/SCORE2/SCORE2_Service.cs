@@ -9,23 +9,40 @@ namespace CVDRiskScores.Services.SCORE2
         {
             score2Model.ValidationError = null;
 
-            if (score2Model.Age < 40 || score2Model.Age > 69)
+            // validate presence first
+            if (!score2Model.Age.HasValue)
+                score2Model.ValidationError = "Idade é obrigatória.";
+            else if (score2Model.Age < 40 || score2Model.Age > 69)
                 score2Model.ValidationError = "Escolha idade entre 40 e 69 anos para SCORE2";
+            else if (!score2Model.TotalCholesterol.HasValue)
+                score2Model.ValidationError = "Colesterol total é obrigatório.";
             else if (score2Model.TotalCholesterol <= 0)
                 score2Model.ValidationError = "Colesterol total deve ser positivo.";
+            else if (!score2Model.HDLCholesterol.HasValue)
+                score2Model.ValidationError = "HDL é obrigatório.";
             else if (score2Model.HDLCholesterol < 0)
                 score2Model.ValidationError = "HDL não pode ser negativo.";
             else if (score2Model.TotalCholesterol < score2Model.HDLCholesterol)
                 score2Model.ValidationError = "Colesterol total deve ser maior que HDL.";
+            else if (!score2Model.SystolicBloodPressure.HasValue)
+                score2Model.ValidationError = "Pressão sistólica é obrigatória.";
             else if (score2Model.SystolicBloodPressure <= 0)
                 score2Model.ValidationError = "Pressão sistólica deve ser positiva.";
 
             if (score2Model.ValidationError != null)
                 return score2Model;
 
-            score2Model.AgePoints = score2Model.Gender == Genero.Male ? score2Model.Age * 0.20 : score2Model.Age * 0.16;
-            score2Model.NonHDLPoints = score2Model.NonHDLCholesterol * 0.022;
-            score2Model.SBPPoints = score2Model.SystolicBloodPressure * 0.015;
+            // capture validated non-nullable locals to satisfy the compiler's nullability analysis
+            var age = score2Model.Age!.Value;
+            var nonHDL = score2Model.NonHDLCholesterol!.Value;
+            var sbp = score2Model.SystolicBloodPressure!.Value;
+
+            score2Model.AgePoints = score2Model.Gender == Genero.Male
+                ? age * 0.20
+                : age * 0.16;
+
+            score2Model.NonHDLPoints = nonHDL * 0.022;
+            score2Model.SBPPoints = sbp * 0.015;
             score2Model.SmokingPoints = score2Model.IsSmoker ? (score2Model.Gender == Genero.Male ? 3.2 : 2.4) : 0;
             score2Model.RiskScore = 0.35 + score2Model.AgePoints + score2Model.NonHDLPoints + score2Model.SBPPoints + score2Model.SmokingPoints;
 

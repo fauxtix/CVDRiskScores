@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CVDRiskScores.Models.SCORE2;
+using CVDRiskScores.Services.Navigation;
+using CVDRiskScores.Services.Popup;
 using CVDRiskScores.Services.SCORE2;
 
 namespace CVDRiskScores.MVVM.ViewModels.SCORE2
@@ -12,10 +14,14 @@ namespace CVDRiskScores.MVVM.ViewModels.SCORE2
         private Score2Model score2 = new Score2Model();
 
         private readonly ISCORE2_Service score2Service;
+        private readonly IScore2NavigationStore navStore;
+        private readonly IUIPopupService _popupService;
 
-        public Score2ViewModel(ISCORE2_Service service)
+        public Score2ViewModel(ISCORE2_Service service, IScore2NavigationStore navigationStore, IUIPopupService popupService)
         {
             score2Service = service;
+            navStore = navigationStore;
+            _popupService = popupService;
         }
 
         [RelayCommand]
@@ -28,8 +34,17 @@ namespace CVDRiskScores.MVVM.ViewModels.SCORE2
                 return;
             }
 
-            var navParams = new Dictionary<string, object> { { "Score2Model", Score2 } };
-            await Shell.Current.GoToAsync("Score2ResultsPage", true, navParams);
+            // keep result in store for backward compatibility
+            navStore.LastResult = Score2;
+
+            // show popup via UI service — pass the concrete model (not the ViewModel)
+            var badge = Score2?.RiskScore.ToString("F1") ?? "-";
+            var subtitle = Score2?.ClinicalAdvice ?? string.Empty;
+            await _popupService.ShowSimulationResultAsync(Score2, title: "SCORE2", subtitle: subtitle, badge: $"{badge}%");
+
+
+            // previously navigated to Score2ResultsPage — now replaced by popup
+            // await Shell.Current.GoToAsync("Score2ResultsPage");
         }
 
         [RelayCommand]

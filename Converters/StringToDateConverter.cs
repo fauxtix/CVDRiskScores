@@ -1,35 +1,21 @@
-﻿using CVDRiskScores.Formatters;
-using System.Globalization;
+﻿using System.Globalization;
 
-namespace CVDRiskScores.Converters;
-
-public class StringToDateConverter : IValueConverter
+namespace CVDRiskScores.Converters
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public class StringToDateConverter : IValueConverter
     {
-        object date = null;
-        //if (culture.Name.ToLower().Contains("us"))
-        //    culture = new CultureInfo("pt-PT");
-
-        if (value is string)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            date = DataFormat.DateParse(value);
-        }
-        else if (value is DateTime)
-        {
-            date = (DateTime)value;
+            if (value is string s && DateTime.TryParse(s, out var date))
+                return date;
+            return null;
         }
 
-        return date;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is DateTime date)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            return date.ToString("yyyy-MM-dd");
+            if (value is DateTime dt)
+                return dt.ToString("yyyy-MM-dd");
+            return null;
         }
-
-        return null;
     }
 }

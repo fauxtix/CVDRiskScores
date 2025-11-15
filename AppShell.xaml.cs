@@ -1,4 +1,5 @@
 ﻿using CVDRiskScores.MVVM.Views.Framingham;
+using CVDRiskScores.MVVM.Views.SCORE2;
 
 namespace CVDRiskScores
 {
@@ -17,6 +18,11 @@ namespace CVDRiskScores
             Routes.Add(nameof(FraminghamIntroPage), typeof(FraminghamIntroPage));
             Routes.Add(nameof(FraminghamRiskScorePage), typeof(FraminghamRiskScorePage));
             Routes.Add(nameof(FraminghamResultsPage), typeof(FraminghamResultsPage));
+
+            Routes.Add(nameof(Score2IntroPage), typeof(Score2IntroPage));
+            Routes.Add(nameof(Score2RiskScorePage), typeof(Score2RiskScorePage));
+            Routes.Add(nameof(Score2ResultsPage), typeof(Score2ResultsPage));
+
             foreach (var item in Routes)
             {
                 Routing.RegisterRoute(item.Key, item.Value);

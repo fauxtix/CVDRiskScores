@@ -5,7 +5,7 @@ namespace CVDRiskScores.Converters
 {
     public class VisibilityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             if (value == null)
             {
@@ -21,7 +21,7 @@ namespace CVDRiskScores.Converters
             return value.ToString() == "Category";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             throw new NotImplementedException();
         }

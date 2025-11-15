@@ -4,12 +4,29 @@
     x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2RiskScorePage"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2;assembly=CVDRiskScores"
+    xmlns:conv="clr-namespace:CVDRiskScores.Converters;assembly=CVDRiskScores"
     x:DataType="vm:Score2ViewModel"
-    Title="SCORE2 Risk Score">
-    <VerticalStackLayout Padding="24">
-        <Label Text="SCORE2 Calculator (ESC 2021)" FontAttributes="Bold" />
-        <Entry Placeholder="Idade 40-69" Text="{Binding Score2Model.Age}" Keyboard="Numeric"/>
-        <Picker Title="Género" SelectedIndex="{Binding Score2Model.Gender}">
+    Title="SCORE2 — Cálculo">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:StringToIntConverter x:Key="StringToIntConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Padding="24" Spacing="8">
+        <!-- Label de orientação -->
+        <Label Text="Introduza os valores (intervalos válidos entre parênteses)"
+               FontAttributes="Bold"
+               FontSize="14" />
+
+        <Label Text="Idade (40–69)" FontSize="12" TextColor="#666" />
+        <Entry Placeholder="Idade 40-69 (ex.: 49)"
+               Text="{Binding Score2.Age, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+               Keyboard="Numeric"/>
+
+        <Label Text="Género" FontSize="12" TextColor="#666" />
+        <Picker Title="Género" SelectedIndex="{Binding Score2.Gender}">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Male</x:String>
@@ -17,15 +34,29 @@
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
-        <Entry Placeholder="Pressão Sistólica" Text="{Binding Score2Model.SystolicBloodPressure}" Keyboard="Numeric"/>
-        <Entry Placeholder="Colesterol Total" Text="{Binding Score2Model.TotalCholesterol}" Keyboard="Numeric"/>
-        <Entry Placeholder="HDL Colesterol" Text="{Binding Score2Model.HDLCholesterol}" Keyboard="Numeric"/>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Fumador?" />
-            <Switch IsToggled="{Binding Score2Model.IsSmoker}"/>
+
+        <Label Text="Tensão Arterial Sistólica (mmHg)" FontSize="12" TextColor="#666" />
+        <Entry Placeholder="TA Sistólica (ex.: 120)"
+               Text="{Binding Score2.SystolicBloodPressure, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+               Keyboard="Numeric"/>
+
+        <Label Text="Colesterol Total (deve ser > HDL)" FontSize="12" TextColor="#666" />
+        <Entry Placeholder="Colesterol Total (ex.: 160)"
+               Text="{Binding Score2.TotalCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+               Keyboard="Numeric"/>
+
+        <Label Text="Colesterol HDL" FontSize="12" TextColor="#666" />
+        <Entry Placeholder="HDL Colesterol (ex.: 50)"
+               Text="{Binding Score2.HDLCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+               Keyboard="Numeric"/>
+
+        <StackLayout Orientation="Horizontal" Spacing="8" VerticalOptions="Center">
+            <Label Text="Fumador?" VerticalOptions="Center" />
+            <Switch IsToggled="{Binding Score2.IsSmoker}"/>
         </StackLayout>
+
         <Button Text="Calcular" Command="{Binding CalculateCommand}" Margin="12"/>
-        <Label IsVisible="{Binding Score2Model.ValidationError, Converter={StaticResource StringNotEmptyConverter}}"
-               Text="{Binding Score2Model.ValidationError}" TextColor="Red" FontSize="14"/>
+        <Label IsVisible="{Binding Score2.ValidationError, Converter={StaticResource StringNotEmptyConverter}}"
+               Text="{Binding Score2.ValidationError}" TextColor="Red" FontSize="14"/>
     </VerticalStackLayout>
 </ContentPage>

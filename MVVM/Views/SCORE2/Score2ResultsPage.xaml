@@ -1,64 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2"
+    xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2;assembly=CVDRiskScores"
+    x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2ResultsPage"
+    x:DataType="vm:Score2ResultsViewModel"
     Title="SCORE2 Resultado"
     BackgroundColor="#F4F5FA">
 
-    <VerticalStackLayout Padding="24" Spacing="12">
-        <Label Text="SCORE2: Probabilidade de evento CV fatal/não fatal em 10 anos"
-               FontAttributes="Bold"
-               FontSize="15"
-               HorizontalOptions="Center"/>
-        <Label Text="{Binding Score2Model.RiskScore, StringFormat='Risco SCORE2: {0:F1}%'}"
-               TextColor="{Binding Score2Model.RiskColor}"
-               FontAttributes="Bold"
-               FontSize="24"
-               HorizontalOptions="Center"/>
-        <Label Text="{Binding Score2Model.RiskCategory}"
-               FontAttributes="Bold"
-               FontSize="24"
-               TextColor="{Binding Score2Model.RiskColor}"
-               HorizontalOptions="Center"/>
-        <Label Text="{Binding Score2Model.ClinicalAdvice}"
-               FontAttributes="Italic"
-               FontSize="13"
-               Margin="8,2,8,12"
-               HorizontalOptions="Center"/>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Voltar" Command="{Binding GoBackCommand}" Priority="0" Order="Primary" />
+    </ContentPage.ToolbarItems>
 
-        <StackLayout Margin="15,10,15,20">
-            <Label Text="{Binding Score2Model.AgePoints, StringFormat='Idade: {0:F2}'}"/>
-            <Label Text="{Binding Score2Model.NonHDLPoints, StringFormat='Non-HDL: {0:F2}'}"/>
-            <Label Text="{Binding Score2Model.SBPPoints, StringFormat='TA Sistólica: {0:F2}'}"/>
-            <Label Text="{Binding Score2Model.SmokingPoints, StringFormat='Tabaco: {0:F2}'}"/>
-        </StackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
 
-        <toolkit:Expander Header="Sobre o método, referências..." Margin="0,16,0,0">
-            <VerticalStackLayout>
-                <Label Text="Algoritmo SCORE2, guidelines ESC 2021, calibrado para a população portuguesa."
-                       FontSize="11"
-                       Margin="0,3"/>
-                <Label Text="Referência: ESC Guidelines on Cardiovascular Disease Prevention 2021"
-                       FontSize="10"
-                       TextColor="DarkBlue"
-                       Margin="0,3"/>
-                <Label Text="Este resultado representa o risco combinado de eventos cardiovasculares fatais e não fatais (ex: enfarte, AVC, morte súbita) em 10 anos."
-                       FontSize="10"
-                       Margin="0,3"/>
-                <Label Text="App de apoio à decisão clínica; para decisões finais siga sempre as guidelines oficiais."
-                       FontSize="9"
-                       TextColor="DarkRed"
-                       Margin="0,3"/>
-            </VerticalStackLayout>
-        </toolkit:Expander>
+            <!-- Header -->
+            <Label Text="SCORE2"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-        <Button Text="Voltar"
-                Command="{Binding GoBackCommand}"
-                Margin="8"
-                HorizontalOptions="Fill"/>
-        <Button Text="Nova Simulação"
-                Command="{Binding NewSimulationCommand}"
-                Margin="8"
-                HorizontalOptions="Fill"/>
-    </VerticalStackLayout>
+            <!-- Result card -->
+            <Border Padding="16" Background="{Binding Score2Model.RiskColor}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#44000000" Offset="0,4" Radius="8" Opacity="0.25" />
+                </Border.Shadow>
+
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="6">
+                    <StackLayout Grid.Column="0" Spacing="2">
+                        <Label Text="{Binding Score2Model.RiskCategory}"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="{Binding Score2Model.ClinicalAdvice}"
+                               FontSize="12"
+                               TextColor="White"
+                               Opacity="0.95"/>
+                    </StackLayout>
+
+                    <Label Grid.Column="1"
+                           Text="{Binding Score2Model.RiskScore, StringFormat='{0:F1}%'}"
+                           FontSize="34"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           HorizontalOptions="End"
+                           TextColor="White"/>
+                </Grid>
+            </Border>
+
+            <!-- Summary tiles -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="8">
+                <Border Padding="10" Background="White" Grid.Column="0" Grid.Row="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Text="Idade (pontos)" FontSize="12" TextColor="#333" />
+                        <Label Text="{Binding Score2Model.AgePoints, StringFormat='{0:F2}'}" FontSize="16" FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Padding="10" Background="White" Grid.Column="1" Grid.Row="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Text="Non‑HDL (pontos)" FontSize="12" TextColor="#333" />
+                        <Label Text="{Binding Score2Model.NonHDLPoints, StringFormat='{0:F2}'}" FontSize="16" FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Padding="10" Background="White" Grid.Column="0" Grid.Row="1">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Text="TA Sistólica (pontos)" FontSize="12" TextColor="#333" />
+                        <Label Text="{Binding Score2Model.SBPPoints, StringFormat='{0:F2}'}" FontSize="16" FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Padding="10" Background="White" Grid.Column="1" Grid.Row="1">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Text="Tabaco (pontos)" FontSize="12" TextColor="#333" />
+                        <Label Text="{Binding Score2Model.SmokingPoints, StringFormat='{0:F2}'}" FontSize="16" FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Collapsible details (toolkit) -->
+            <toolkit:Expander>
+                <toolkit:Expander.Header>
+                    <Label Text="Sobre o método, referências..." FontAttributes="Bold" />
+                </toolkit:Expander.Header>
+                <VerticalStackLayout BackgroundColor="White" Padding="12" Spacing="6">
+                    <Label Text="Algoritmo SCORE2, guidelines ESC 2021, calibrado para a população portuguesa." FontSize="12" TextColor="#444" />
+                    <Label Text="Referência: ESC Guidelines on Cardiovascular Disease Prevention 2021" FontSize="11" TextColor="DarkBlue" />
+                </VerticalStackLayout>
+            </toolkit:Expander>
+
+            <!-- Single primary action -->
+            <Button Text="Nova Simulação"
+                    Command="{Binding NewSimulationCommand}"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#007ACC"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="48" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

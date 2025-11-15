@@ -1,13 +1,29 @@
-<Shell
+﻿<Shell
     x:Class="CVDRiskScores.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CVDRiskScores.MVVM.Views.Framingham"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:Score2Pages="clr-namespace:CVDRiskScores.MVVM.Views.SCORE2"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarBackgroundColor="#FFFFFF"
+    Shell.TabBarForegroundColor="#1F2937"
+    Shell.TabBarUnselectedColor="#9CA3AF">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:FraminghamIntroPage}"
-        Route="FraminghamIntroPage" />
+    <TabBar>
 
+        <Tab Title="🫀 Framingham">
+            <ShellContent
+                Title="Framingham"
+                Route="FraminghamIntroPage"
+                ContentTemplate="{DataTemplate local:FraminghamIntroPage}" />
+        </Tab>
+
+        <Tab Title="📊 SCORE2">
+            <ShellContent
+                Title="SCORE2"
+                Route="Score2IntroPage"
+                ContentTemplate="{DataTemplate Score2Pages:Score2IntroPage}" />
+        </Tab>
+
+    </TabBar>
 </Shell>

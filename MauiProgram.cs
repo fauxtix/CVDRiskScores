@@ -4,7 +4,10 @@ using CVDRiskScores.MVVM.ViewModels.SCORE2;
 using CVDRiskScores.MVVM.Views.Framingham;
 using CVDRiskScores.MVVM.Views.SCORE2;
 using CVDRiskScores.Services.Framingham;
+using CVDRiskScores.Services.Navigation;
+using CVDRiskScores.Services.Popup;
 using CVDRiskScores.Services.SCORE2;
+using CVDRiskScores.Services.UI;
 using Microsoft.Extensions.Logging;
 
 namespace CVDRiskScores
@@ -35,8 +38,16 @@ namespace CVDRiskScores
             builder.Services.AddSingleton<IFRS_Service, FRS_Service>();
 
             builder.Services.AddTransient<ISCORE2_Service, SCORE2_Service>();
+            builder.Services.AddSingleton<IScore2NavigationStore, Score2NavigationStore>();
+
             builder.Services.AddTransient<Score2ViewModel>();
+            builder.Services.AddTransient<Score2ResultsViewModel>();
+
             builder.Services.AddTransient<Score2RiskScorePage>();
+            builder.Services.AddTransient<Score2ResultsPage>();
+            builder.Services.AddTransient<Score2IntroPage>();
+
+            builder.Services.AddSingleton<IUIPopupService, UIPopupService>();
 
             return builder.Build();
         }

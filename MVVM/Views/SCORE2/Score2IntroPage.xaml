@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2IntroPage"
+             Title="SCORE2 — Introdução">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BorderColor1">#FF7A59</Color>
+            <Color x:Key="BorderColor2">#D9480F</Color>
+
+            <Style x:Key="CustomBorderStyle" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="2" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 20,0,0,20" />
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Background" Value="#FF7A59" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="10">
+            <Border Style="{StaticResource CustomBorderStyle}">
+                <Border.Stroke>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="White" Offset="0.0" />
+                        <GradientStop Color="#FFF3F2" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+
+                <Label Text="Introdução"
+                       TextColor="White"
+                       FontSize="18"
+                       FontAttributes="Bold" />
+            </Border>
+
+            <BoxView Color="#FF7A59" HeightRequest="3" HorizontalOptions="Fill" />
+
+            <VerticalStackLayout Padding="0,6">
+                <Label FontAttributes="Italic" Text="(Resumo)"/>
+                <Label Text="SCORE2 é um algoritmo desenvolvido para estimar o risco combinado de eventos cardiovasculares fatais e não fatais a 10 anos. É recomendado pelas guidelines europeias (ESC 2021) e está calibrado para diferentes populações."/>
+                <Label Margin="0,6" Text="Esta versão (SCORE2) inclui fatores como idade, colesterol não‑HDL, tensão arterial sistólica e tabagismo, e tem limites de idade específicos (40–69 anos) para esta aplicação."/>
+            </VerticalStackLayout>
+
+            <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
+
+            <TableView Intent="Menu">
+                <TableRoot>
+                    <TableSection Title="Dados usados nesta simulação">
+                        <TextCell Text="1. Idade" Detail="- Entre 40 e 69 anos" />
+                        <TextCell Text="2. Género" Detail="- Male / Female" />
+                        <TextCell Text="3. Tensão Arterial Sistólica" Detail="- Valor em mmHg (positivo)" />
+                        <TextCell Text="4. Colesterol Total" Detail="- Deve ser maior que HDL" />
+                        <TextCell Text="5. Colesterol HDL" Detail="- Valor em mg/dL" />
+                        <TextCell Text="6. Fumador" Detail="- Sim / Não" />
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+
+            <VerticalStackLayout>
+                <Label Text="Interpretação rápida:" FontAttributes="Bold" />
+                <Label Text="• Risco baixo: reforçar medidas preventivas."/>
+                <Label Text="• Risco intermédio: considerar intervenção clínica."/>
+                <Label Text="• Risco alto: avaliar terapêuticas e seguimento intensivo."/>
+            </VerticalStackLayout>
+
+            <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
+
+            <FlexLayout JustifyContent="Center" Margin="0,6,0,12">
+                <Button x:Name="SimulationBtn"
+                        Text="Ir para Simulação"
+                        Clicked="SimulationBtn_Clicked"
+                        BackgroundColor="#D9480F"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="12,8"
+                        FontSize="16" />
+            </FlexLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

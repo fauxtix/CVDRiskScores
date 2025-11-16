@@ -4,6 +4,7 @@ using CVDRiskScores.Enums;
 using CVDRiskScores.Formatters;
 using CVDRiskScores.Models.Framingham;
 using CVDRiskScores.MVVM.Views.Framingham;
+using CVDRiskScores.Resources.Languages;
 using CVDRiskScores.Services.Framingham;
 using CVDRiskScores.Services.Popup;
 using System.Collections.ObjectModel;
@@ -65,7 +66,6 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             _service = service;
             _popupService = popupService;
 
-            // Initialize non-nullable fields to default values
             _model = new FraminghamModel();
             riskCategory = string.Empty;
             riskColor = Colors.Transparent;
@@ -78,7 +78,8 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
         {
             List<Score> womanScores = new()
             {
-                new Score{ Points = "Abaixo de 9", Percentage = "< 1"},
+                // localized examples (you can add specific keys for each label)
+                new Score{ Points = AppResources.FemalePoints_Below9 ?? "Abaixo de 9", Percentage = "< 1"},
                 new Score{ Points = "9 - 12", Percentage = "1"},
                 new Score{ Points = "13 - 14", Percentage = "2"},
                 new Score{ Points = "15", Percentage = "3"},
@@ -91,7 +92,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                 new Score{ Points = "22", Percentage = "17"},
                 new Score{ Points = "23", Percentage = "22"},
                 new Score{ Points = "24", Percentage = "27"},
-                new Score{ Points = ">= 25", Percentage = "Mais de 30"},
+                new Score{ Points = ">= 25", Percentage = AppResources.MoreThan30 ?? "Mais de 30"},
             };
 
             return womanScores;
@@ -114,7 +115,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                 new Score{ Points = "14", Percentage = "16"},
                 new Score{ Points = "15", Percentage = "20"},
                 new Score{ Points = "16", Percentage = "25"},
-                new Score{ Points = ">= 17", Percentage = "Mais de 30"},
+                new Score{ Points = ">= 17", Percentage = AppResources.MoreThan30 ?? "Mais de 30"},
             };
 
             return manScores;
@@ -144,14 +145,18 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                     sb.AppendLine(entry);
                 }
 
-                await Shell.Current.DisplayAlert("Preencha dados requeridos, p.f.", sb.ToString(), "Ok");
+                // localized alert title and OK button (fallback to "Ok")
+                await Shell.Current.DisplayAlert(AppResources.FillRequiredDataTitle ?? "Preencha dados requeridos, p.f.", sb.ToString(), "Ok");
                 return;
             }
 
             RiskScore = CalculateCVDRiskScores();
             RiskCategory = GetRiskCategory(RiskScore);
 
-            RiskColor = RiskCategory == "Baixo" ? Colors.DarkGreen : RiskCategory == "Intermédio" ? Colors.DarkOrange : Colors.DarkRed;
+            // localize risk color logic remains same, riskCategory is localized
+            RiskColor = RiskCategory == (AppResources.Risk_Low ?? "Baixo") ? Colors.DarkGreen
+                        : RiskCategory == (AppResources.Risk_Medium ?? "Intermédio") ? Colors.DarkOrange
+                        : Colors.DarkRed;
 
             FraminghamModel resultModel = new()
             {
@@ -175,13 +180,9 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             IsMale = Gender.Equals(Genero.Male);
             IsFemale = Gender.Equals(Genero.Female);
 
-            // update Model property so other code can read it
             this.Model = resultModel;
 
-            // show popup via service (pass the concrete model)
-            await _popupService.ShowSimulationResultAsync(resultModel, title: "Framingham", subtitle: RiskCategory ?? string.Empty, badge: RiskScore.ToString());
-
-            // previously navigated using Shell.Current.GoToAsync(...); removed in favor of popup
+            await _popupService.ShowSimulationResultAsync(resultModel, title: AppResources.TituloFramingham ?? "Framingham", subtitle: RiskCategory ?? string.Empty, badge: RiskScore.ToString());
         }
 
         private int CalculateCVDRiskScores()
@@ -198,9 +199,9 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
         private string GetRiskCategory(int riskScore)
         {
-            if (riskScore <= 10) return "Baixo";
-            else if (riskScore <= 20) return "Intermédio";
-            else return "Muito alto";
+            if (riskScore <= 10) return AppResources.Risk_Low ?? "Baixo";
+            else if (riskScore <= 20) return AppResources.Risk_Medium ?? "Intermédio";
+            else return AppResources.Risk_High ?? "Muito alto";
         }
 
         private List<string> ValidateEntries()
@@ -210,33 +211,33 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             var genderSelected = Gender;
             if (!DataFormat.IsNumeric(Age))
             {
-                errorMessages.Add("Preencha idade");
+                errorMessages.Add(AppResources.Validation_PleaseFillAge ?? "Preencha idade");
                 entryOk = false;
             }
             else if (!DataFormat.IsNumeric(TotalCholesterol))
             {
-                errorMessages.Add("Preencha Cloresterol Total");
+                errorMessages.Add(AppResources.Validation_PleaseFillTotalCholesterol ?? "Preencha Cloresterol Total");
                 entryOk = false;
             }
             else if (!DataFormat.IsNumeric(HDLCholesterol))
             {
-                errorMessages.Add("Preencha Cloresterol HDL");
+                errorMessages.Add(AppResources.Validation_PleaseFillHDL ?? "Preencha Cloresterol HDL");
                 entryOk = false;
             }
             else if (!DataFormat.IsNumeric(SystolicBloodPressure))
             {
-                errorMessages.Add("Preencha T.A. Sistólica");
+                errorMessages.Add(AppResources.Validation_PleaseFillSystolicBP ?? "Preencha T.A. Sistólica");
                 entryOk = false;
             }
 
             if (!DataFormat.IsNumeric(Age))
             {
-                errorMessages.Add("Idade não é um valor numérico");
+                errorMessages.Add(AppResources.Validation_AgeNotNumeric ?? "Idade não é um valor numérico");
                 entryOk = false;
             }
             if (!DataFormat.IsNumeric(TotalCholesterol))
             {
-                errorMessages.Add("Colesterol total não é um valor numérico");
+                errorMessages.Add(AppResources.Validation_TotalCholesterolNotNumeric ?? "Colesterol total não é um valor numérico");
                 entryOk = false;
             }
 
@@ -244,19 +245,19 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             {
                 if (Age < 20 || Age > 79)
                 {
-                    errorMessages.Add("idade entre 20 e 79 anos");
+                    errorMessages.Add(AppResources.Validation_AgeRange ?? "idade entre 20 e 79 anos");
                 }
                 if (TotalCholesterol < 1)
                 {
-                    errorMessages.Add("Cloresterol Total > 0");
+                    errorMessages.Add(AppResources.Validation_TotalCholesterolGTZero ?? "Cloresterol Total > 0");
                 }
                 if (HDLCholesterol < 1)
                 {
-                    errorMessages.Add("Cloresterol HDL > 0");
+                    errorMessages.Add(AppResources.Validation_HDLCholesterolGTZero ?? "Cloresterol HDL > 0");
                 }
                 if (SystolicBloodPressure < 1)
                 {
-                    errorMessages.Add("T.A. Sistólica > 0");
+                    errorMessages.Add(AppResources.Validation_SystolicBPGTZero ?? "T.A. Sistólica > 0");
                 }
             }
 

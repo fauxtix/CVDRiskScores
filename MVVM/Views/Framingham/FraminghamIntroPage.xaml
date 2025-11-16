@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
              x:Class="CVDRiskScores.MVVM.Views.Framingham.FraminghamIntroPage"
-             Title="Framingham Risk Score">
+             Title="{resx:Localize Key=TituloFramingham}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -20,8 +21,9 @@
     </ContentPage.Resources>
 
     <ScrollView>
-    <VerticalStackLayout>
-            <Border Style="{StaticResource CustomBorderStyle}" HorizontalOptions="Start" >
+        <VerticalStackLayout Padding="16" Spacing="10">
+            <Border 
+                Style="{StaticResource CustomBorderStyle}" HorizontalOptions="Center" >
                 <Border.Stroke>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="White" Offset="0.1" />
@@ -29,7 +31,7 @@
                     </LinearGradientBrush>
                 </Border.Stroke>
 
-                <Label Text="Introdução"
+                <Label Text="{resx:Localize Key=Tab_Introducao}"
                                TextColor="White"
                                FontSize="18"
                                FontAttributes="Bold" />
@@ -43,8 +45,8 @@
             <VerticalStackLayout>
                 <Grid Margin="20,5" RowDefinitions="Auto, Auto, Auto">
                     <Label Grid.Row="0" Margin = "0, 5" FontAttributes="Italic" Text="(Wikipedia)"/>
-                    <Label Grid.Row="1" Text="A pontuação de risco de Framingham (Framingham Risk Score) é um algoritmo específico para cada sexo, utilizado para estimar o risco cardiovascular de um indivíduo a 10 anos."/>
-                    <Label  Margin = "0, 5" Grid.Row="2" Text="Esta pontuação foi inicialmente desenvolvida com base em dados obtidos no Framingham Heart Study, para estimar o risco a 10 anos de desenvolver doença coronária."/>
+                    <Label Grid.Row="1" Text="{resx:Localize Key=Intro_Paragrafo_1}"/>
+                    <Label  Margin = "0, 5" Grid.Row="2" Text="{resx:Localize Key=Intro_Paragrafo_2}"/>
                 </Grid>
             </VerticalStackLayout>
             <BoxView Grid.Row="0" Color="SteelBlue"
@@ -56,40 +58,46 @@
 
             <TableView Intent="Menu">
                 <TableRoot>
-                    <TableSection Title="Modelo usado nesta simulação">
-                        <TextCell Text="1. Idade"
-                      Detail="- Entre 20 e 79 anos" />
-                        <TextCell Text="2. Género"
+                    <TableSection Title="{resx:Localize Key=Intro_Paragrafo_3}">
+                        <TextCell Text="{Binding Source={resx:Localize Key=TituloIdade}, StringFormat='1. {0}'}"
+                                  Detail="{resx:Localize Key=Intro_Intervalo_Idades}" />
+                        <TextCell Text="{Binding Source={resx:Localize Key=TituloSexo}, StringFormat='2. {0}'}"
                       Detail=""/>
-                        <TextCell Text="3. Hábito de fumar"
+                        <TextCell Text="{Binding Source={resx:Localize Key=Intro_Paragrafo_4}, StringFormat='3. {0}'}"
                       Detail=""/>
-                        <TextCell Text="4. Medicação para a tensão arterial"
+                        <TextCell Text="{Binding Source={resx:Localize Key=Intro_Medicacao_TA}, StringFormat='4. {0}'}"
                       Detail="" />
-                        <TextCell Text="5. Colesterol Total"
+                        <TextCell Text="{Binding Source={resx:Localize Key=TituloColesterolTotal}, StringFormat='5. {0}'}"
                       Detail="" />
-                        <TextCell Text="6. Colesterol HDL"
+                        <TextCell Text="{Binding Source={resx:Localize Key=TituloColesterolHDL}, StringFormat='6. {0}'}"
                       Detail="" />
-                        <TextCell Text="7. Tensão Arterial Sistólica"
+                        <TextCell Text="{Binding Source={resx:Localize Key=TituloPressaoArterial}, StringFormat='7. {0}'}"
                       Detail="" />
                     </TableSection>
                 </TableRoot>
             </TableView>
+            <BoxView 
+                Color="SteelBlue" 
+                HeightRequest="1" 
+                Margin="0,4"
+                HorizontalOptions="Fill" />
+
             <VerticalStackLayout>
                 <Grid Margin="20,5" RowDefinitions="Auto, Auto, Auto">
-                    <Label  Grid.Row="0" Text="O risco de doença coronária (Coronary Heart Disease - CHD) aos 10 anos em percentagem pode ser calculado com a ajuda do Framingham Risk Score."/>
-                    <Label Margin="0, 10" Grid.Row="1" Text="Os indivíduos com risco baixo têm 10% ou menos de risco de CHD aos 10 anos, com risco intermédio 10-20% e com risco elevado 20% ou mais. No entanto, deve ter-se em conta que estas classificações são arbitrárias. "/>
-                    <Label Margin="0, 10" Grid.Row="2" Text="É importante reconhecer que o preditor mais forte de risco cardiovascular em qualquer equação de risco é a idade."/>
+                    <Label  Grid.Row="0" Text="{resx:Localize Key=Intro_Paragrafo_5}"/>
+                    <Label Margin="0, 10" Grid.Row="1" Text="{resx:Localize Key=Intro_Paragrafo_6}"/>
+                    <Label Margin="0, 10" Grid.Row="2" Text="{resx:Localize Key=Intro_Paragrafo_7}"/>
                 </Grid>
             </VerticalStackLayout>
-            <BoxView Grid.Row="0" Color="SteelBlue"
-                     CornerRadius="10"
-                     Margin="0,10"
-                     HeightRequest="1"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Fill" />
+            <BoxView Color="SteelBlue"
+                 CornerRadius="10"
+                 Margin="0,0, 0, 5"
+                 HeightRequest="1"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Fill" />
 
             <FlexLayout JustifyContent="Center" Margin="0, 0, 0, 10">
-                    <Button x:Name="SimulationBtn" Text="Simulação" Clicked="SimulationBtn_Clicked" FontSize="18"></Button>
+                <Button x:Name="SimulationBtn" Text="{resx:Localize Key=Intro_Botao_Simulacao}" Clicked="SimulationBtn_Clicked" FontSize="18"></Button>
                 </FlexLayout>
         </VerticalStackLayout>
     </ScrollView>

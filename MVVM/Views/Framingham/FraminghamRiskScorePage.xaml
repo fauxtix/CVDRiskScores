@@ -4,9 +4,10 @@
              x:Class="CVDRiskScores.MVVM.Views.Framingham.FraminghamRiskScorePage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.Framingham"
+             xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
              x:DataType="vm:FraminghamRiskScoreViewModel"
              BackgroundColor="#F4F5FA"
-             Title="Framingham Risk Score">
+             Title="{resx:Localize Key=TituloFramingham}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -46,14 +47,14 @@
                    Margin="0,12,0,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Idade " />
-                        <Span Text="(20–79)" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                        <Span Text="{resx:Localize Key=TituloIdade}" />
+                        <Span Text=" (20–79)" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
             <Entry x:Name="AgeEntry"
                    Keyboard="Numeric"
-                   Placeholder="Exemplo: 45"
+                   Placeholder="45"
                    Margin="0,2,0,2"
                    Text="{Binding Age}">
                 <Entry.Behaviors>
@@ -72,18 +73,11 @@
                    FontAttributes="Bold"
                    TextColor="#111"
                    Margin="0,8,0,0"
-                   Text="Género"/>
+                   Text="{resx:Localize Key=TituloSexo}"/>
             <Picker x:Name="GenderPicker"
-                    Title="Escolha o género"
+                    Title="{resx:Localize Key=TituloSexo}"
                     Margin="0,2,0,2"
-                    SelectedIndexChanged="Gender_SelectedIndexChanged">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Feminino</x:String>
-                        <x:String>Masculino</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                    SelectedIndexChanged="Gender_SelectedIndexChanged" />
 
             <!-- Fumador -->
             <Grid Margin="0,6,0,0" ColumnDefinitions="*,Auto">
@@ -92,7 +86,7 @@
                        TextColor="#111"
                        VerticalOptions="Center"
                        Grid.Column="0"
-                       Text="Fumador?"/>
+                       Text="{resx:Localize Key=Simulacao_Fumador}"/>
                 <Switch x:Name="SmokerSwitch"
                         IsToggled="False"
                         Toggled="SmokerSwitch_Toggled"
@@ -108,7 +102,7 @@
                        TextColor="#111"
                        VerticalOptions="Center"
                        Grid.Column="0"
-                       Text="Toma medicação para a TA?"/>
+                       Text="{resx:Localize Key=Simulacao_Medicacao_TA}"/>
                 <Switch x:Name="BloodPressureTreated"
                         IsToggled="False"
                         Toggled="BllodPressureTreated_Toggled"
@@ -124,8 +118,8 @@
                    Margin="0,8,0,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Colesterol Total (mg/dL) " />
-                        <Span Text="Exº 180" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                        <Span Text="{resx:Localize Key=TituloColesterolTotal}" />
+                        <Span Text=" Ex. 180" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -152,8 +146,8 @@
                    Margin="0,8,0,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="HDL Colesterol (mg/dL) " />
-                        <Span Text="Exº 55" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                        <Span Text="{resx:Localize Key=TituloColesterolHDL}" />
+                        <Span Text=" Ex. 55" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -180,8 +174,8 @@
                    Margin="0,8,0,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Pressão arterial sistólica " />
-                        <Span Text="Exº 120" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                        <Span Text="{resx:Localize Key=TituloPressaoArterial}" />
+                        <Span Text=" Ex. 120" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -203,7 +197,7 @@
 
             <!-- Botões -->
             <HorizontalStackLayout Spacing="12" Margin="0,14,0,0" HorizontalOptions="Center">
-                <Button Text="Calcular"
+                <Button Text="{resx:Localize Key=Btn_Calcular}"
                         Command="{Binding CalculateCommand}"
                         BackgroundColor="#219150"
                         TextColor="White"

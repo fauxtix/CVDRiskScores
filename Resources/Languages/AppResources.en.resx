@@ -681,22 +681,34 @@
   <data name="TituloProjetos" xml:space="preserve">
     <value>Projects</value>
   </data>
-  <data name="Intro_OQueAvaliaCalculadora" xml:space="preserve">
-    <value>What does this calculator evaluate?</value>
+  <data name="Intro_Paragrafo_1" xml:space="preserve">
+    <value>The Framingham Risk Score is a gender-specific algorithm used to estimate an individual's 10-year cardiovascular risk.</value>
+  </data>
+  <data name="Intro_Paragrafo_Score2_1" xml:space="preserve">
+    <value>SCORE2 is an algorithm developed to estimate the combined risk of fatal and non-fatal cardiovascular events over 10 years. It is recommended by European guidelines (ESC 2021) and is calibrated for different populations.</value>
+  </data>
+  <data name="Intro_Paragrafo_Score2_2" xml:space="preserve">
+    <value>This version (SCORE2) includes factors such as age, non-HDL cholesterol, systolic blood pressure, and smoking, and has specific age limits (40–69 years) for this application.</value>
   </data>
   <data name="Intro_Paragrafo_2" xml:space="preserve">
-    <value>This tool estimates the risk of CVDRiskScores based on demographic factors, habits, and simple tests. The results are indicative and do not replace a clinical evaluation.</value>
+    <value>This score was initially developed based on data obtained from the Framingham Heart Study to estimate the 10-year risk of developing coronary heart disease.</value>
   </data>
   <data name="Intro_Paragrafo_3" xml:space="preserve">
-    <value>Note on accuracy</value>
+    <value>Model used in this simulation</value>
   </data>
   <data name="Intro_Paragrafo_4" xml:space="preserve">
-    <value>Model used</value>
+    <value>Smoking habit</value>
   </data>
   <data name="Intro_Paragrafo_5" xml:space="preserve">
-    <value>This application estimates risk using the FINDRISC score. For greater accuracy, enter your Weight (kg) and Height (cm) in the simulation. If you do not provide this information, your BMI will be estimated based on your waist circumference.</value>
+    <value>The 10-year risk of coronary heart disease (CHD) can be calculated as a percentage using the Framingham Risk Score.</value>
   </data>
   <data name="Intro_Paragrafo_6" xml:space="preserve">
+    <value>Individuals with low risk have a 10% or less risk of CHD at 10 years, with intermediate risk 10-20% and high risk 20% or more. However, it should be noted that these classifications are arbitrary. </value>
+  </data>
+  <data name="Intro_Paragrafo_7" xml:space="preserve">
+    <value>It is important to recognize that the strongest predictor of cardiovascular risk in any risk equation is age.</value>
+  </data>
+  <data name="Intro_Paragrafo_9" xml:space="preserve">
     <value>Results are indicative and do not replace medical evaluation.</value>
   </data>
   <data name="Intro_Botao_Simulacao" xml:space="preserve">
@@ -712,7 +724,7 @@
     <value>History and Exams</value>
   </data>
   <data name="Simulacao_Fumador" xml:space="preserve">
-    <value>Smoker</value>
+    <value>Smoker?</value>
   </data>
   <data name="Simulacao_Hipertensao" xml:space="preserve">
     <value>Do you take blood pressure meds?</value>
@@ -815,5 +827,128 @@
   </data>
   <data name="TituloSemNome" xml:space="preserve">
     <value>No name</value>
+  </data>
+  <data name="TituloFramingham" xml:space="preserve">
+    <value>Framingham Risk Scores</value>
+  </data>
+  <data name="Intro_Intervalo_Idades" xml:space="preserve">
+    <value>- between 20 and 79 years</value>
+  </data>
+  <data name="Intro_Medicacao_TA" xml:space="preserve">
+    <value>Blood pressure medication</value>
+  </data>
+  <data name="TituloColesterolTotal" xml:space="preserve">
+    <value>Total Cholesterol (mg/dL)</value>
+  </data>
+  <data name="TituloColesterolHDL" xml:space="preserve">
+    <value>HDL cholesterol (mg/dL)</value>
+  </data>
+  <data name="TituloPressaoArterial" xml:space="preserve">
+    <value>Systolic Blood Pressure</value>
+  </data>
+  <data name="Simulacao_Medicacao_TA" xml:space="preserve">
+    <value>Do you take medication for HBP?</value>
+  </data>
+  <data name="Risk_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Risk_Medium" xml:space="preserve">
+    <value>Intermediate</value>
+  </data>
+  <data name="Risk_High" xml:space="preserve">
+    <value>Very high</value>
+  </data>
+  <data name="Validation_FillRequiredTitle" xml:space="preserve">
+    <value>Please fill required fields</value>
+  </data>
+  <data name="Validation_PleaseFillAge" xml:space="preserve">
+    <value>Please fill age</value>
+  </data>
+  <data name="Validation_PleaseFillTotalCholesterol" xml:space="preserve">
+    <value>Please fill total cholesterol</value>
+  </data>
+  <data name="Validation_PleaseFillHDL" xml:space="preserve">
+    <value>Please fill HDL cholesterol</value>
+  </data>
+  <data name="Validation_PleaseFillSystolicBP" xml:space="preserve">
+    <value>Please fill systolic blood pressure</value>
+  </data>
+  <data name="Validation_AgeNotNumeric" xml:space="preserve">
+    <value>Age is not a numeric value</value>
+  </data>
+  <data name="Validation_TotalCholesterolNotNumeric" xml:space="preserve">
+    <value>Total cholesterol is not a numeric value</value>
+  </data>
+  <data name="Validation_AgeRange" xml:space="preserve">
+    <value>age must be between 20 and 79</value>
+  </data>
+  <data name="Validation_TotalCholesterolGTZero" xml:space="preserve">
+    <value>Total cholesterol &gt; 0</value>
+  </data>
+  <data name="Validation_SCORE2_IntervaloIdades" xml:space="preserve">
+    <value>Select age between 40 and 69 years old</value>
+  </data>
+  <data name="Validation_SCORE2_Recomendacao_1" xml:space="preserve">
+    <value>Low risk: reinforce prevention.</value>
+  </data>
+  <data name="Validation_SCORE2_Recomendacao_2" xml:space="preserve">
+    <value>Intermediate risk: consider clinical or pharmacological intervention.</value>
+  </data>
+  <data name="Validation_SCORE2_Recomendacao_3" xml:space="preserve">
+    <value>High risk: recommends intensive action — evaluate therapies.</value>
+  </data>
+  <data name="Validation_HDLCholesterolGTZero" xml:space="preserve">
+    <value>HDL cholesterol &gt; 0</value>
+  </data>
+  <data name="Validation_SystolicBPGTZero" xml:space="preserve">
+    <value>Systolic BP &gt; 0</value>
+  </data>
+  <data name="FemalePoints_Below9" xml:space="preserve">
+    <value>Below 9</value>
+  </data>
+  <data name="MoreThan30" xml:space="preserve">
+    <value>More than 30</value>
+  </data>
+  <data name="FillRequiredDataTitle" xml:space="preserve">
+    <value>Please fill required fields</value>
+  </data>
+  <data name="Intro_Score2_Item1_Text" xml:space="preserve">
+    <value>1. Age</value>
+  </data>
+  <data name="Intro_Score2_Item1_Detail" xml:space="preserve">
+    <value>- Between 40 and 69 years</value>
+  </data>
+  <data name="Intro_Score2_Item2_Text" xml:space="preserve">
+    <value>2. Gender</value>
+  </data>
+  <data name="Intro_Score2_Item2_Detail" xml:space="preserve">
+    <value>- Male / Female</value>
+  </data>
+  <data name="Intro_Score2_Item3_Text" xml:space="preserve">
+    <value>3. Systolic blood pressure</value>
+  </data>
+  <data name="Intro_Score2_Item3_Detail" xml:space="preserve">
+    <value>- Value in mmHg (positive)</value>
+  </data>
+  <data name="Intro_Score2_Item4_Text" xml:space="preserve">
+    <value>4. Total cholesterol</value>
+  </data>
+  <data name="Intro_Score2_Item4_Detail" xml:space="preserve">
+    <value>- Should be greater than HDL</value>
+  </data>
+  <data name="Intro_Score2_Item5_Text" xml:space="preserve">
+    <value>5. HDL cholesterol</value>
+  </data>
+  <data name="Intro_Score2_Item5_Detail" xml:space="preserve">
+    <value>- Value in mg/dL</value>
+  </data>
+  <data name="Intro_Score2_Item6_Text" xml:space="preserve">
+    <value>6. Smoker</value>
+  </data>
+  <data name="Intro_Score2_Item6_Detail" xml:space="preserve">
+    <value>- Yes / No</value>
+  </data>
+  <data name="Intro_Score2_QuickInterpretation" xml:space="preserve">
+    <value>Quick interpretation</value>
   </data>
 </root>

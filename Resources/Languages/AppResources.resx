@@ -681,22 +681,34 @@
   <data name="TituloProjetos" xml:space="preserve">
     <value>Projetos</value>
   </data>
-  <data name="Intro_OQueAvaliaCalculadora" xml:space="preserve">
-    <value>O que avalia esta calculadora</value>
+  <data name="Intro_Paragrafo_1" xml:space="preserve">
+    <value>A pontuação de risco de Framingham (Framingham Risk Score) é um algoritmo específico para cada sexo, utilizado para estimar o risco cardiovascular de um indivíduo a 10 anos.</value>
+  </data>
+  <data name="Intro_Paragrafo_Score2_1" xml:space="preserve">
+    <value>SCORE2 é um algoritmo desenvolvido para estimar o risco combinado de eventos cardiovasculares fatais e não fatais a 10 anos. É recomendado pelas guidelines europeias (ESC 2021) e está calibrado para diferentes populações.</value>
+  </data>
+  <data name="Intro_Paragrafo_Score2_2" xml:space="preserve">
+    <value>Esta versão (SCORE2) inclui fatores como idade, colesterol não‑HDL, tensão arterial sistólica e tabagismo, e tem limites de idade específicos (40–69 anos) para esta aplicação.</value>
   </data>
   <data name="Intro_Paragrafo_2" xml:space="preserve">
-    <value>Esta ferramenta estima o risco de pré-diabetes com base em fatores demográficos, hábitos e exames simples. Os resultados são indicativos e não substituem uma avaliação clínica.</value>
+    <value>Esta pontuação foi inicialmente desenvolvida com base em dados obtidos no Framingham Heart Study, para estimar o risco a 10 anos de desenvolver doença coronária.</value>
   </data>
   <data name="Intro_Paragrafo_3" xml:space="preserve">
-    <value>Nota sobre precisão</value>
+    <value>Modelo usado nesta simulação</value>
   </data>
   <data name="Intro_Paragrafo_4" xml:space="preserve">
-    <value>Modelo usado</value>
+    <value>Hábito de fumar</value>
   </data>
   <data name="Intro_Paragrafo_5" xml:space="preserve">
-    <value>Esta aplicação estima o risco usando o score FINDRISC. Para maior precisão, preencha Peso (kg) e Altura (cm) na simulação. Se não fornecer, o IMC será estimado a partir do índice de cintura.</value>
+    <value>O risco de doença coronária (Coronary Heart Disease - CHD) aos 10 anos em percentagem pode ser calculado com a ajuda do Framingham Risk Score.</value>
   </data>
   <data name="Intro_Paragrafo_6" xml:space="preserve">
+    <value>Os indivíduos com risco baixo têm 10% ou menos de risco de CHD aos 10 anos, com risco intermédio 10-20% e com risco elevado 20% ou mais. No entanto, deve ter-se em conta que estas classificações são arbitrárias. </value>
+  </data>
+  <data name="Intro_Paragrafo_7" xml:space="preserve">
+    <value>É importante reconhecer que o preditor mais forte de risco cardiovascular em qualquer equação de risco é a idade.</value>
+  </data>
+  <data name="Intro_Paragrafo_9" xml:space="preserve">
     <value>Resultados são indicativos e não substituem avaliação médica.</value>
   </data>
   <data name="Intro_Botao_Simulacao" xml:space="preserve">
@@ -712,7 +724,7 @@
     <value>Histórico e Exames</value>
   </data>
   <data name="Simulacao_Fumador" xml:space="preserve">
-    <value>Fumador</value>
+    <value>Fumador?</value>
   </data>
   <data name="Simulacao_Hipertensao" xml:space="preserve">
     <value>Toma medicação para a Hipertensão?</value>
@@ -815,5 +827,128 @@
   </data>
   <data name="TituloSemNome" xml:space="preserve">
     <value>Sem nome</value>
+  </data>
+  <data name="TituloFramingham" xml:space="preserve">
+    <value>Pontuação de risco de Framingham</value>
+  </data>
+  <data name="Intro_Intervalo_Idades" xml:space="preserve">
+    <value>- entre 20 e 79 anos</value>
+  </data>
+  <data name="Intro_Medicacao_TA" xml:space="preserve">
+    <value>Medicação para a tensão arterial</value>
+  </data>
+  <data name="TituloColesterolTotal" xml:space="preserve">
+    <value>Colesterol Total (mg/dL</value>
+  </data>
+  <data name="TituloColesterolHDL" xml:space="preserve">
+    <value>Colesterol HDL (mg/dL)</value>
+  </data>
+  <data name="TituloPressaoArterial" xml:space="preserve">
+    <value>Pressão Arterial Sistólica</value>
+  </data>
+  <data name="Simulacao_Medicacao_TA" xml:space="preserve">
+    <value>Toma medicação para a T.A.?</value>
+  </data>
+  <data name="Risk_Low" xml:space="preserve">
+    <value>Baixo</value>
+  </data>
+  <data name="Risk_Medium" xml:space="preserve">
+    <value>Intermédio</value>
+  </data>
+  <data name="Risk_High" xml:space="preserve">
+    <value>Muito alto</value>
+  </data>
+  <data name="Validation_FillRequiredTitle" xml:space="preserve">
+    <value>Preencha dados requeridos, p.f</value>
+  </data>
+  <data name="Validation_PleaseFillAge" xml:space="preserve">
+    <value>Preencha idade</value>
+  </data>
+  <data name="Validation_PleaseFillTotalCholesterol" xml:space="preserve">
+    <value>Preencha Cloresterol Total</value>
+  </data>
+  <data name="Validation_PleaseFillHDL" xml:space="preserve">
+    <value>Preencha Cloresterol HDL</value>
+  </data>
+  <data name="Validation_PleaseFillSystolicBP" xml:space="preserve">
+    <value>Preencha T.A. Sistólica</value>
+  </data>
+  <data name="Validation_AgeNotNumeric" xml:space="preserve">
+    <value>Idade não é um valor numérico</value>
+  </data>
+  <data name="Validation_TotalCholesterolNotNumeric" xml:space="preserve">
+    <value>Colesterol total não é um valor numérico</value>
+  </data>
+  <data name="Validation_AgeRange" xml:space="preserve">
+    <value>idade entre 20 e 79 anos</value>
+  </data>
+  <data name="Validation_TotalCholesterolGTZero" xml:space="preserve">
+    <value>Cloresterol Total &gt; 0</value>
+  </data>
+  <data name="Validation_SCORE2_IntervaloIdades" xml:space="preserve">
+    <value>Escolha idade entre 40 e 69 anos</value>
+  </data>
+  <data name="Validation_SCORE2_Recomendacao_1" xml:space="preserve">
+    <value>Risco baixo: reforçar prevenção.</value>
+  </data>
+  <data name="Validation_SCORE2_Recomendacao_2" xml:space="preserve">
+    <value>Risco intermédio: considerar intervenção clínica ou farmacológica.</value>
+  </data>
+  <data name="Validation_SCORE2_Recomendacao_3" xml:space="preserve">
+    <value>Risco alto: recomenda ação intensiva — avaliar terapias.</value>
+  </data>
+  <data name="Validation_HDLCholesterolGTZero" xml:space="preserve">
+    <value>Cloresterol HDL &gt; 0</value>
+  </data>
+  <data name="Validation_SystolicBPGTZero" xml:space="preserve">
+    <value>T.A. Sistólica &gt; 0</value>
+  </data>
+  <data name="FemalePoints_Below9" xml:space="preserve">
+    <value>Abaixo de 9</value>
+  </data>
+  <data name="MoreThan30" xml:space="preserve">
+    <value>Mais de 30</value>
+  </data>
+  <data name="FillRequiredDataTitle" xml:space="preserve">
+    <value>Preencha dados requeridos, p.f.</value>
+  </data>
+  <data name="Intro_Score2_Item1_Text" xml:space="preserve">
+    <value>1. Idade</value>
+  </data>
+  <data name="Intro_Score2_Item1_Detail" xml:space="preserve">
+    <value>- Entre 40 e 69 anos</value>
+  </data>
+  <data name="Intro_Score2_Item2_Text" xml:space="preserve">
+    <value>2. Género</value>
+  </data>
+  <data name="Intro_Score2_Item2_Detail" xml:space="preserve">
+    <value>- Masculino / Feminino</value>
+  </data>
+  <data name="Intro_Score2_Item3_Text" xml:space="preserve">
+    <value>3. Tensão Arterial Sistólica</value>
+  </data>
+  <data name="Intro_Score2_Item3_Detail" xml:space="preserve">
+    <value>- Valor em mmHg (positivo)</value>
+  </data>
+  <data name="Intro_Score2_Item4_Text" xml:space="preserve">
+    <value>4. Colesterol Total</value>
+  </data>
+  <data name="Intro_Score2_Item4_Detail" xml:space="preserve">
+    <value>- Deve ser maior que HDL</value>
+  </data>
+  <data name="Intro_Score2_Item5_Text" xml:space="preserve">
+    <value>5. Colesterol HDL</value>
+  </data>
+  <data name="Intro_Score2_Item5_Detail" xml:space="preserve">
+    <value>- Valor em mg/dL</value>
+  </data>
+  <data name="Intro_Score2_Item6_Text" xml:space="preserve">
+    <value>6. Fumador</value>
+  </data>
+  <data name="Intro_Score2_Item6_Detail" xml:space="preserve">
+    <value>- Sim / Não</value>
+  </data>
+  <data name="Intro_Score2_QuickInterpretation" xml:space="preserve">
+    <value>Interpretação rápida</value>
   </data>
 </root>

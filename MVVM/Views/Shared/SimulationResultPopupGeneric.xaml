@@ -76,7 +76,7 @@
                        LineBreakMode="WordWrap"
                        MaxLines="3"
                        IsVisible="False"
-                       HorizontalOptions="StartAndExpand"
+                       HorizontalOptions="Start"
                        VerticalOptions="Center"/>
             </Grid>
         </Border>
@@ -101,7 +101,7 @@
                                 VerticalScrollBarVisibility="Always"
                                 SelectionMode="None"
                                 ItemSizingStrategy="MeasureFirstItem"
-                                VerticalOptions="FillAndExpand">
+                                VerticalOptions="Fill">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid ColumnDefinitions="Auto,*" Margin="0,6" VerticalOptions="Center">
@@ -112,7 +112,7 @@
                                        Grid.Column="0"
                                        HorizontalOptions="Start"/>
 
-                                <HorizontalStackLayout Grid.Column="1" HorizontalOptions="EndAndExpand" Spacing="8" VerticalOptions="Center">
+                                <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" Spacing="8" VerticalOptions="Center">
                                     <!-- Ellipse for color markers -->
                                     <Ellipse WidthRequest="20" HeightRequest="20"
                                              Fill="{Binding Value, Converter={StaticResource StringToColorConverter}}"

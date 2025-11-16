@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2IntroPage"
+			 xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
              Title="SCORE2 — Introdução">
 
     <ContentPage.Resources>
@@ -29,7 +30,7 @@
                     </LinearGradientBrush>
                 </Border.Stroke>
 
-                <Label Text="Introdução"
+                <Label Text="{resx:Localize Key=Tab_Introducao}"
                        TextColor="White"
                        FontSize="18"
                        FontAttributes="Bold" />
@@ -38,38 +39,83 @@
             <BoxView Color="#FF7A59" HeightRequest="3" HorizontalOptions="Fill" />
 
             <VerticalStackLayout Padding="0,6">
-                <Label FontAttributes="Italic" Text="(Resumo)"/>
-                <Label Text="SCORE2 é um algoritmo desenvolvido para estimar o risco combinado de eventos cardiovasculares fatais e não fatais a 10 anos. É recomendado pelas guidelines europeias (ESC 2021) e está calibrado para diferentes populações."/>
-                <Label Margin="0,6" Text="Esta versão (SCORE2) inclui fatores como idade, colesterol não‑HDL, tensão arterial sistólica e tabagismo, e tem limites de idade específicos (40–69 anos) para esta aplicação."/>
+                <Label Text="{resx:Localize Key=Intro_Paragrafo_Score2_1}"/>
+                <Label Margin="0,6" Text="{resx:Localize Key=Intro_Paragrafo_Score2_2}"/>
             </VerticalStackLayout>
 
             <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
 
             <TableView Intent="Menu">
                 <TableRoot>
-                    <TableSection Title="Dados usados nesta simulação">
-                        <TextCell Text="1. Idade" Detail="- Entre 40 e 69 anos" />
-                        <TextCell Text="2. Género" Detail="- Male / Female" />
-                        <TextCell Text="3. Tensão Arterial Sistólica" Detail="- Valor em mmHg (positivo)" />
-                        <TextCell Text="4. Colesterol Total" Detail="- Deve ser maior que HDL" />
-                        <TextCell Text="5. Colesterol HDL" Detail="- Valor em mg/dL" />
-                        <TextCell Text="6. Fumador" Detail="- Sim / Não" />
+                    <TableSection 
+                        Title="{resx:Localize Key=Intro_Paragrafo_3}">
+                        <TextCell Text="{resx:Localize Key=Intro_Score2_Item1_Text}"
+                                  Detail="{resx:Localize Key=Intro_Score2_Item1_Detail}" />
+                        <TextCell Text="{resx:Localize Key=Intro_Score2_Item2_Text}"
+                                  Detail="{resx:Localize Key=Intro_Score2_Item2_Detail}" />
+                        <TextCell Text="{resx:Localize Key=Intro_Score2_Item3_Text}"
+                                  Detail="{resx:Localize Key=Intro_Score2_Item3_Detail}" />
+                        <TextCell Text="{resx:Localize Key=Intro_Score2_Item4_Text}"
+                                  Detail="{resx:Localize Key=Intro_Score2_Item4_Detail}" />
+                        <TextCell Text="{resx:Localize Key=Intro_Score2_Item5_Text}"
+                                  Detail="{resx:Localize Key=Intro_Score2_Item5_Detail}" />
+                        <TextCell Text="{resx:Localize Key=Intro_Score2_Item6_Text}"
+                                  Detail="{resx:Localize Key=Intro_Score2_Item6_Detail}" />
                     </TableSection>
                 </TableRoot>
             </TableView>
 
-            <VerticalStackLayout>
-                <Label Text="Interpretação rápida:" FontAttributes="Bold" />
-                <Label Text="• Risco baixo: reforçar medidas preventivas."/>
-                <Label Text="• Risco intermédio: considerar intervenção clínica."/>
-                <Label Text="• Risco alto: avaliar terapêuticas e seguimento intensivo."/>
-            </VerticalStackLayout>
+            <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
+
+			<Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *" ColumnSpacing="12">
+              <!-- cabeçalho ocupa as duas colunas -->
+              <Label Margin="0, 5, 0, 10" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Text="{resx:Localize Key=Intro_Score2_QuickInterpretation}"
+                     FontAttributes="Bold"
+                     VerticalOptions="Center" />
+
+              <!-- Risco baixo -->
+              <Label Grid.Row="1" Grid.Column="0"
+                     Text="🟢"
+                     FontSize="18"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Start" />
+              <Label Grid.Row="1" Grid.Column="1"
+                     Text="{resx:Localize Key=Validation_SCORE2_Recomendacao_1}"
+                     LineBreakMode="WordWrap"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Center" />
+
+              <!-- Risco intermédio -->
+              <Label Grid.Row="2" Grid.Column="0"
+                     Text="🟠"
+                     FontSize="18"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Start" />
+              <Label Grid.Row="2" Grid.Column="1"
+                     Text="{resx:Localize Key=Validation_SCORE2_Recomendacao_2}"
+                     LineBreakMode="WordWrap"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Center" />
+
+              <!-- Risco alto -->
+              <Label Grid.Row="3" Grid.Column="0"
+                     Text="🔴"
+                     FontSize="18"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Start" />
+              <Label Grid.Row="3" Grid.Column="1"
+                     Text="{resx:Localize Key=Validation_SCORE2_Recomendacao_3}"
+                     LineBreakMode="WordWrap"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Center" />
+            </Grid>
 
             <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
 
             <FlexLayout JustifyContent="Center" Margin="0,6,0,12">
                 <Button x:Name="SimulationBtn"
-                        Text="Ir para Simulação"
+                        Text="{resx:Localize Key=Intro_Botao_Simulacao}"
                         Clicked="SimulationBtn_Clicked"
                         BackgroundColor="#D9480F"
                         TextColor="White"

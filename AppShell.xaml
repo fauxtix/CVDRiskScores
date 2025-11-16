@@ -3,7 +3,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CVDRiskScores.MVVM.Views.Framingham"
+        xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
     xmlns:Score2Pages="clr-namespace:CVDRiskScores.MVVM.Views.SCORE2"
+    xmlns:languagespages="clr-namespace:CVDRiskScores.MVVM.Views.Languages"
+
     Shell.FlyoutBehavior="Disabled"
     Shell.TabBarBackgroundColor="#FFFFFF"
     Shell.TabBarForegroundColor="#1F2937"
@@ -23,6 +26,12 @@
                 Title="SCORE2"
                 Route="Score2IntroPage"
                 ContentTemplate="{DataTemplate Score2Pages:Score2IntroPage}" />
+        </Tab>
+        <Tab Title="{Binding Source={x:Static resx:AppResources.TituloIdioma}, StringFormat='🌐 {0}'}">
+            <ShellContent
+                Title="{Binding Source={x:Static resx:AppResources.TituloIdioma}, StringFormat='🌐 {0}'}"
+                ContentTemplate="{DataTemplate languagespages:LanguageSettingsPage}"
+                Route="LanguageSettingsPage" />
         </Tab>
 
     </TabBar>

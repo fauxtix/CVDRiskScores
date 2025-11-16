@@ -277,6 +277,24 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abaixo de 9.
+        /// </summary>
+        public static string FemalePoints_Below9 {
+            get {
+                return ResourceManager.GetString("FemalePoints_Below9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preencha dados requeridos, p.f..
+        /// </summary>
+        public static string FillRequiredDataTitle {
+            get {
+                return ResourceManager.GetString("FillRequiredDataTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gravar.
         /// </summary>
         public static string Gravar {
@@ -295,16 +313,34 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O que avalia esta calculadora.
+        ///   Looks up a localized string similar to - entre 20 e 79 anos.
         /// </summary>
-        public static string Intro_OQueAvaliaCalculadora {
+        public static string Intro_Intervalo_Idades {
             get {
-                return ResourceManager.GetString("Intro_OQueAvaliaCalculadora", resourceCulture);
+                return ResourceManager.GetString("Intro_Intervalo_Idades", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esta ferramenta estima o risco de pré-diabetes com base em fatores demográficos, hábitos e exames simples. Os resultados são indicativos e não substituem uma avaliação clínica..
+        ///   Looks up a localized string similar to Medicação para a tensão arterial.
+        /// </summary>
+        public static string Intro_Medicacao_TA {
+            get {
+                return ResourceManager.GetString("Intro_Medicacao_TA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A pontuação de risco de Framingham (Framingham Risk Score) é um algoritmo específico para cada sexo, utilizado para estimar o risco cardiovascular de um indivíduo a 10 anos..
+        /// </summary>
+        public static string Intro_Paragrafo_1 {
+            get {
+                return ResourceManager.GetString("Intro_Paragrafo_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esta pontuação foi inicialmente desenvolvida com base em dados obtidos no Framingham Heart Study, para estimar o risco a 10 anos de desenvolver doença coronária..
         /// </summary>
         public static string Intro_Paragrafo_2 {
             get {
@@ -313,7 +349,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nota sobre precisão.
+        ///   Looks up a localized string similar to Modelo usado nesta simulação.
         /// </summary>
         public static string Intro_Paragrafo_3 {
             get {
@@ -322,7 +358,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelo usado.
+        ///   Looks up a localized string similar to Hábito de fumar.
         /// </summary>
         public static string Intro_Paragrafo_4 {
             get {
@@ -331,7 +367,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esta aplicação estima o risco usando o score FINDRISC. Para maior precisão, preencha Peso (kg) e Altura (cm) na simulação. Se não fornecer, o IMC será estimado a partir do índice de cintura..
+        ///   Looks up a localized string similar to O risco de doença coronária (Coronary Heart Disease - CHD) aos 10 anos em percentagem pode ser calculado com a ajuda do Framingham Risk Score..
         /// </summary>
         public static string Intro_Paragrafo_5 {
             get {
@@ -340,11 +376,173 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resultados são indicativos e não substituem avaliação médica..
+        ///   Looks up a localized string similar to Os indivíduos com risco baixo têm 10% ou menos de risco de CHD aos 10 anos, com risco intermédio 10-20% e com risco elevado 20% ou mais. No entanto, deve ter-se em conta que estas classificações são arbitrárias. .
         /// </summary>
         public static string Intro_Paragrafo_6 {
             get {
                 return ResourceManager.GetString("Intro_Paragrafo_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to É importante reconhecer que o preditor mais forte de risco cardiovascular em qualquer equação de risco é a idade..
+        /// </summary>
+        public static string Intro_Paragrafo_7 {
+            get {
+                return ResourceManager.GetString("Intro_Paragrafo_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resultados são indicativos e não substituem avaliação médica..
+        /// </summary>
+        public static string Intro_Paragrafo_9 {
+            get {
+                return ResourceManager.GetString("Intro_Paragrafo_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SCORE2 é um algoritmo desenvolvido para estimar o risco combinado de eventos cardiovasculares fatais e não fatais a 10 anos. É recomendado pelas guidelines europeias (ESC 2021) e está calibrado para diferentes populações..
+        /// </summary>
+        public static string Intro_Paragrafo_Score2_1 {
+            get {
+                return ResourceManager.GetString("Intro_Paragrafo_Score2_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esta versão (SCORE2) inclui fatores como idade, colesterol não‑HDL, tensão arterial sistólica e tabagismo, e tem limites de idade específicos (40–69 anos) para esta aplicação..
+        /// </summary>
+        public static string Intro_Paragrafo_Score2_2 {
+            get {
+                return ResourceManager.GetString("Intro_Paragrafo_Score2_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Entre 40 e 69 anos.
+        /// </summary>
+        public static string Intro_Score2_Item1_Detail {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item1_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1. Idade.
+        /// </summary>
+        public static string Intro_Score2_Item1_Text {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item1_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Masculino / Feminino.
+        /// </summary>
+        public static string Intro_Score2_Item2_Detail {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item2_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2. Género.
+        /// </summary>
+        public static string Intro_Score2_Item2_Text {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item2_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Valor em mmHg (positivo).
+        /// </summary>
+        public static string Intro_Score2_Item3_Detail {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item3_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3. Tensão Arterial Sistólica.
+        /// </summary>
+        public static string Intro_Score2_Item3_Text {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item3_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Deve ser maior que HDL.
+        /// </summary>
+        public static string Intro_Score2_Item4_Detail {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item4_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4. Colesterol Total.
+        /// </summary>
+        public static string Intro_Score2_Item4_Text {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item4_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Valor em mg/dL.
+        /// </summary>
+        public static string Intro_Score2_Item5_Detail {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item5_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5. Colesterol HDL.
+        /// </summary>
+        public static string Intro_Score2_Item5_Text {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item5_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Sim / Não.
+        /// </summary>
+        public static string Intro_Score2_Item6_Detail {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item6_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6. Fumador.
+        /// </summary>
+        public static string Intro_Score2_Item6_Text {
+            get {
+                return ResourceManager.GetString("Intro_Score2_Item6_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interpretação rápida.
+        /// </summary>
+        public static string Intro_Score2_QuickInterpretation {
+            get {
+                return ResourceManager.GetString("Intro_Score2_QuickInterpretation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mais de 30.
+        /// </summary>
+        public static string MoreThan30 {
+            get {
+                return ResourceManager.GetString("MoreThan30", resourceCulture);
             }
         }
         
@@ -664,6 +862,33 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Muito alto.
+        /// </summary>
+        public static string Risk_High {
+            get {
+                return ResourceManager.GetString("Risk_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baixo.
+        /// </summary>
+        public static string Risk_Low {
+            get {
+                return ResourceManager.GetString("Risk_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intermédio.
+        /// </summary>
+        public static string Risk_Medium {
+            get {
+                return ResourceManager.GetString("Risk_Medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sair.
         /// </summary>
         public static string Sair {
@@ -700,7 +925,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fumador.
+        ///   Looks up a localized string similar to Fumador?.
         /// </summary>
         public static string Simulacao_Fumador {
             get {
@@ -741,6 +966,15 @@ namespace CVDRiskScores.Resources.Languages {
         public static string Simulacao_HitoricoExames_Titulo {
             get {
                 return ResourceManager.GetString("Simulacao_HitoricoExames_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toma medicação para a T.A.?.
+        /// </summary>
+        public static string Simulacao_Medicacao_TA {
+            get {
+                return ResourceManager.GetString("Simulacao_Medicacao_TA", resourceCulture);
             }
         }
         
@@ -939,6 +1173,24 @@ namespace CVDRiskScores.Resources.Languages {
         public static string TituloCodigoChip {
             get {
                 return ResourceManager.GetString("TituloCodigoChip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol HDL (mg/dL).
+        /// </summary>
+        public static string TituloColesterolHDL {
+            get {
+                return ResourceManager.GetString("TituloColesterolHDL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol Total (mg/dL.
+        /// </summary>
+        public static string TituloColesterolTotal {
+            get {
+                return ResourceManager.GetString("TituloColesterolTotal", resourceCulture);
             }
         }
         
@@ -1483,6 +1735,15 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pontuação de risco de Framingham.
+        /// </summary>
+        public static string TituloFramingham {
+            get {
+                return ResourceManager.GetString("TituloFramingham", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Galeria de fotos.
         /// </summary>
         public static string TituloGaleriaFotos {
@@ -1803,6 +2064,15 @@ namespace CVDRiskScores.Resources.Languages {
         public static string TituloPrazoEmMeses {
             get {
                 return ResourceManager.GetString("TituloPrazoEmMeses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pressão Arterial Sistólica.
+        /// </summary>
+        public static string TituloPressaoArterial {
+            get {
+                return ResourceManager.GetString("TituloPressaoArterial", resourceCulture);
             }
         }
         
@@ -2154,6 +2424,141 @@ namespace CVDRiskScores.Resources.Languages {
         public static string TituloVoltar {
             get {
                 return ResourceManager.GetString("TituloVoltar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Idade não é um valor numérico.
+        /// </summary>
+        public static string Validation_AgeNotNumeric {
+            get {
+                return ResourceManager.GetString("Validation_AgeNotNumeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to idade entre 20 e 79 anos.
+        /// </summary>
+        public static string Validation_AgeRange {
+            get {
+                return ResourceManager.GetString("Validation_AgeRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preencha dados requeridos, p.f.
+        /// </summary>
+        public static string Validation_FillRequiredTitle {
+            get {
+                return ResourceManager.GetString("Validation_FillRequiredTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cloresterol HDL &gt; 0.
+        /// </summary>
+        public static string Validation_HDLCholesterolGTZero {
+            get {
+                return ResourceManager.GetString("Validation_HDLCholesterolGTZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preencha idade.
+        /// </summary>
+        public static string Validation_PleaseFillAge {
+            get {
+                return ResourceManager.GetString("Validation_PleaseFillAge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preencha Cloresterol HDL.
+        /// </summary>
+        public static string Validation_PleaseFillHDL {
+            get {
+                return ResourceManager.GetString("Validation_PleaseFillHDL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preencha T.A. Sistólica.
+        /// </summary>
+        public static string Validation_PleaseFillSystolicBP {
+            get {
+                return ResourceManager.GetString("Validation_PleaseFillSystolicBP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preencha Cloresterol Total.
+        /// </summary>
+        public static string Validation_PleaseFillTotalCholesterol {
+            get {
+                return ResourceManager.GetString("Validation_PleaseFillTotalCholesterol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Escolha idade entre 40 e 69 anos.
+        /// </summary>
+        public static string Validation_SCORE2_IntervaloIdades {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_IntervaloIdades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Risco baixo: reforçar prevenção..
+        /// </summary>
+        public static string Validation_SCORE2_Recomendacao_1 {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_Recomendacao_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Risco intermédio: considerar intervenção clínica ou farmacológica..
+        /// </summary>
+        public static string Validation_SCORE2_Recomendacao_2 {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_Recomendacao_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Risco alto: recomenda ação intensiva — avaliar terapias..
+        /// </summary>
+        public static string Validation_SCORE2_Recomendacao_3 {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_Recomendacao_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to T.A. Sistólica &gt; 0.
+        /// </summary>
+        public static string Validation_SystolicBPGTZero {
+            get {
+                return ResourceManager.GetString("Validation_SystolicBPGTZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cloresterol Total &gt; 0.
+        /// </summary>
+        public static string Validation_TotalCholesterolGTZero {
+            get {
+                return ResourceManager.GetString("Validation_TotalCholesterolGTZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol total não é um valor numérico.
+        /// </summary>
+        public static string Validation_TotalCholesterolNotNumeric {
+            get {
+                return ResourceManager.GetString("Validation_TotalCholesterolNotNumeric", resourceCulture);
             }
         }
     }

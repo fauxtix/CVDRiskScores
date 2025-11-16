@@ -1,4 +1,5 @@
 ﻿using CVDRiskScores.MVVM.Views.Framingham;
+using CVDRiskScores.MVVM.Views.Languages;
 using CVDRiskScores.MVVM.Views.SCORE2;
 
 namespace CVDRiskScores
@@ -22,6 +23,8 @@ namespace CVDRiskScores
             Routes.Add(nameof(Score2IntroPage), typeof(Score2IntroPage));
             Routes.Add(nameof(Score2RiskScorePage), typeof(Score2RiskScorePage));
             Routes.Add(nameof(Score2ResultsPage), typeof(Score2ResultsPage));
+
+            Routing.RegisterRoute(nameof(LanguageSettingsPage), typeof(LanguageSettingsPage));
 
             foreach (var item in Routes)
             {

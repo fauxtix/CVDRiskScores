@@ -49,30 +49,22 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 return;
             }
 
-            // try find nested model (Score2 / Framingham etc)
             var nested = FindNestedModel(obj, new[] { "FraminghamModel", "Score2Model", "Model", "ResultModel", "Score2", "ModelResult" });
 
-            // header pieces (prefer nested)
             var rawScore = TryGetPropAsString(nested, "RiskScore") ?? TryGetPropAsString(obj, "RiskScore");
             var category = TryGetPropAsString(nested, "RiskCategory") ?? TryGetPropAsString(obj, "RiskCategory");
             var colorVal = GetPropValue(nested, "RiskColor") ?? GetPropValue(obj, "RiskColor");
 
-            // clinical advice
             var advice = TryGetPropAsString(nested, "ClinicalAdvice") ?? TryGetPropAsString(obj, "ClinicalAdvice");
             SetAdvice(advice);
 
-            // resolve color and emoji for header
             var resolvedColor = ResolveColor(colorVal);
             SetHeaderValues(rawScore, category, resolvedColor);
-
-            // set emoji in header (moves Cor de risco to header)
             SetRiskEmoji(resolvedColor);
 
-            // Use specific builders but DO NOT add RiskScore or RiskCategory to details.
             if (nested != null && nested.GetType().Name.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 BuildScore2Details(nested, obj);
-                // don't add RiskColor to details anymore
                 return;
             }
             if (nested != null && nested.GetType().Name.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -93,7 +85,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 return;
             }
 
-            // generic: include ValidationError only
             AddIfPresentFromParent(obj, new[] { "ValidationError" });
             BuildRowsFrom(obj);
         }
@@ -106,14 +97,10 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue("Non‑HDL / Total Colesterol", FormatDisplayValue(nonHdl?.GetType() ?? typeof(object), nonHdl));
             AddLabelValue("TA sistólica (mmHg)", GetFormattedProp(model, "SystolicBloodPressure"));
             AddLabelValue("Fumador", GetFormattedProp(model, "IsSmoker", boolAsYesNo: true));
-
             AddLabelValue("Pontos — Idade", GetFormattedProp(model, "AgePoints"));
             AddLabelValue("Pontos — Non‑HDL", GetFormattedProp(model, "NonHDLPoints"));
             AddLabelValue("Pontos — TA", GetFormattedProp(model, "SBPPoints"));
             AddLabelValue("Pontos — Tabaco", GetFormattedProp(model, "SmokingPoints"));
-
-            // Do NOT add "Pontuação de risco" here — it's shown in header badge only.
-            // ValidationError still shown in details if present.
             AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
         }
 
@@ -125,18 +112,14 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue("Colesterol HDL", GetFormattedProp(model, "HDLCholesterol"));
             AddLabelValue("TA sistólica (mmHg)", GetFormattedProp(model, "SystolicBloodPressure"));
             AddLabelValue("Fumador", GetFormattedProp(model, "Smoker", boolAsYesNo: true));
-
             AddLabelValue("Pontos — Idade", GetFormattedProp(model, "AgePoints"));
             AddLabelValue("Pontos — Fumador", GetFormattedProp(model, "SmokerPoints"));
             AddLabelValue("Pontos — Colesterol", GetFormattedProp(model, "TotalCholesterolPoints"));
             AddLabelValue("Pontos — HDL", GetFormattedProp(model, "HDLCholesterolPoints"));
             AddLabelValue("Pontos — TA", GetFormattedProp(model, "SystolicBloodPressurePoints"));
-
-            // Do NOT add "Pontuação de risco" here — it's shown in header badge only.
             AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
         }
 
-        // avoid duplicates and suppress empty validation/advice
         void AddLabelValue(string label, object value)
         {
             if (_rows.Any(r => string.Equals(r.Key, label, StringComparison.OrdinalIgnoreCase)))
@@ -155,22 +138,16 @@ namespace CVDRiskScores.MVVM.Views.Shared
             };
 
             var labelLower = (label ?? string.Empty).ToLowerInvariant();
-            // suppress empty validation/advice rows
             if ((labelLower.Contains("validation") || labelLower.Contains("erro de validação") || labelLower.Contains("erro")) &&
                 string.IsNullOrWhiteSpace(formatted.Replace("-", "").Trim()))
-            {
                 return;
-            }
             if ((labelLower.Contains("conselho") || labelLower.Contains("clinicaladvice") || labelLower.Contains("clinical advice")) &&
                 string.IsNullOrWhiteSpace(formatted.Replace("-", "").Trim()))
-            {
                 return;
-            }
 
             _rows.Add(new KeyValuePair<string, string>(label, formatted));
         }
 
-        // === Added back the GetFormattedProp helper the code expects ===
         string GetFormattedProp(object obj, string propName, bool boolAsYesNo = false)
         {
             var v = GetPropValue(obj, propName);
@@ -183,7 +160,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             return v.ToString() ?? "-";
         }
 
-        // set advice in header area (visible only when non-empty)
         void SetAdvice(string advice)
         {
             if (string.IsNullOrWhiteSpace(advice) || advice == "-")
@@ -197,32 +173,27 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AdviceLabel.IsVisible = true;
         }
 
-        // set badge (risk score) and category in header; apply category color when available
         void SetHeaderValues(string rawScore, string category, Color? color)
         {
             BadgeLabel.Text = FormatRiskScore(rawScore);
 
-            if (!string.IsNullOrWhiteSpace(category) && category != "-")
-            {
-                SubtitleLabel.Text = category;
-            }
-            else
-            {
-                SubtitleLabel.Text = string.Empty;
-            }
-
             var headerColor = color ?? GetResourceColor("Primary", Color.FromArgb("#512BD4"));
             HeaderBorder.BackgroundColor = headerColor;
+            ActionsBorder.BackgroundColor = headerColor;
 
-            var textContrast = GetContrastTextColor(headerColor);
-            TitleLabel.TextColor = textContrast;
-            SubtitleLabel.TextColor = textContrast;
-            AdviceLabel.TextColor = textContrast;
+            TitleLabel.TextColor = GetContrastTextColor(headerColor);
+            SubtitleLabel.TextColor = GetContrastTextColor(headerColor);
+            AdviceLabel.TextColor = GetContrastTextColor(headerColor);
 
-            CloseAndBackButton.BackgroundColor = headerColor;
             CloseAndBackButton.TextColor = GetContrastTextColor(headerColor);
-        }
+            ShareButton.TextColor = GetContrastTextColor(headerColor);
+            CopyButton.TextColor = GetContrastTextColor(headerColor);
 
+            // Mudando a cor dos borders internos também, se quiser (opcional, já está no XAML)
+            // ((Border)CloseAndBackButton.Parent).BackgroundColor = headerColor;
+            // ((Border)ShareButton.Parent).BackgroundColor = headerColor;
+            // ((Border)CopyButton.Parent).BackgroundColor = headerColor;
+        }
         void SetRiskEmoji(Color? color)
         {
             var emoji = GetRiskEmoji(color);
@@ -240,7 +211,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             RiskEmojiLabel.TextColor = GetContrastTextColor(headerColor);
         }
 
-        // helper: get resource color or fallback
         Color GetResourceColor(string key, Color fallback)
         {
             if (Application.Current?.Resources?.TryGetValue(key, out var val) == true)
@@ -251,12 +221,9 @@ namespace CVDRiskScores.MVVM.Views.Shared
             return fallback;
         }
 
-        // compute readable contrast color (white or black) from background color
         Color GetContrastTextColor(Color bg)
         {
-            // relative luminance
             double r = bg.Red, g = bg.Green, b = bg.Blue;
-            // use standard luminance formula
             double lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
             return lum > 0.65 ? Colors.Black : Colors.White;
         }
@@ -303,7 +270,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             return raw;
         }
 
-        // map color (or absent) to traffic-light emoji
         string GetRiskEmoji(Color? c)
         {
             if (c != null && c != Colors.Transparent)
@@ -318,7 +284,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
                     if (r > 0.5 && g > 0.25 && b < 0.35) return "🟠";
                     if (r > g && r > b) return "🔴";
                 }
-                catch { /* fallback */ }
+                catch { }
             }
 
             var cat = SubtitleLabel?.Text?.ToLowerInvariant() ?? string.Empty;
@@ -541,7 +507,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
                         if (_rows.Count > 0)
                             details.ScrollTo(_rows.First(), position: ScrollToPosition.Start, animate: false);
                     }
-                    catch { /* ignore */ }
+                    catch { }
                 }
                 else
                 {
@@ -550,87 +516,11 @@ namespace CVDRiskScores.MVVM.Views.Shared
             });
         }
 
-        // Close handler: agora usa CloseAsync()
-        async void OnCloseAndBackClicked(object sender, EventArgs e)
+        // --- Button handlers (Clicked event directly from Button XAML) ---
+        void OnCloseAndBackClicked(object sender, EventArgs e)
         {
-            try
-            {
-                await this.CloseAsync();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"OnCloseAndBackClicked: CloseAsync() failed: {ex.Message}");
-            }
-
-            // Pequeno delay para garantir limpeza interna do toolkit
-            await Task.Delay(80);
-
-            // Reabilitar a UI (opcional)
-            try
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    var mp = Application.Current?.Windows[0]?.Page;
-                    if (mp != null)
-                    {
-                        mp.InputTransparent = false;
-                        mp.IsEnabled = true;
-                    }
-
-                    var cp = Shell.Current?.CurrentPage;
-                    if (cp != null)
-                    {
-                        cp.InputTransparent = false;
-                        cp.IsEnabled = true;
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"OnCloseAndBackClicked: re-enable UI failed: {ex.Message}");
-            }
-
-            await NavigateBackToSimulationAsync();
+            CloseAndBackAsync();
         }
-
-        async Task NavigateBackToSimulationAsync()
-        {
-            var route = DetermineSimulationRoute(_data);
-            Debug.WriteLine($"[Popup] NavigateBackToSimulationAsync route = '{route}'");
-            if (string.IsNullOrEmpty(route)) return;
-
-            try
-            {
-                if (route == "..")
-                    await Shell.Current.GoToAsync(route);
-                else
-                    await Shell.Current.GoToAsync(route, true);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Navigation failed: {ex.Message}");
-            }
-        }
-
-        string DetermineSimulationRoute(object obj)
-        {
-            if (obj == null) return "..";
-
-            var nested = FindNestedModel(obj, new[] { "Score2Model", "FraminghamModel", "Model", "ResultModel" });
-            if (nested != null)
-            {
-                var nname = nested.GetType().Name;
-                if (nname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "Score2RiskScorePage";
-                if (nname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "FraminghamRiskScorePage";
-            }
-
-            var tname = obj.GetType().Name;
-            if (tname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "Score2RiskScorePage";
-            if (tname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "FraminghamRiskScorePage";
-
-            return "..";
-        }
-
         async void OnShareClicked(object sender, EventArgs e)
         {
             try
@@ -650,7 +540,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 await Shell.Current.DisplayAlert("Partilha", "A partilha falhou.", "OK");
             }
         }
-
         async void OnCopyClicked(object sender, EventArgs e)
         {
             try
@@ -663,6 +552,58 @@ namespace CVDRiskScores.MVVM.Views.Shared
             {
                 Debug.WriteLine($"Copy failed: {ex.Message}");
                 await Shell.Current.DisplayAlert("Erro", "Não foi possível copiar.", "OK");
+            }
+        }
+        async void CloseAndBackAsync()
+        {
+            try
+            {
+                await this.CloseAsync();
+            }
+            catch { }
+            await Task.Delay(80);
+            await NavigateBackToSimulationAsync();
+        }
+
+        async Task NavigateBackToSimulationAsync()
+        {
+            var route = DetermineSimulationRoute(_data);
+            Debug.WriteLine($"[Popup] NavigateBackToSimulationAsync route = '{route}'");
+            if (string.IsNullOrEmpty(route)) return;
+
+            try
+            {
+                await Shell.Current.GoToAsync(route);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Navigation failed: {ex.Message}");
+            }
+        }
+
+        string DetermineSimulationRoute(object obj)
+        {
+            try
+            {
+                if (obj == null) return "..";
+
+                var nested = FindNestedModel(obj, new[] { "Score2Model", "FraminghamModel", "Model", "ResultModel" });
+                if (nested != null)
+                {
+                    var nname = nested.GetType().Name;
+                    if (nname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "//Score2IntroPage";
+                    if (nname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "//FraminghamIntroPage";
+                }
+
+                var tname = obj.GetType().Name;
+                if (tname.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0) return "//Score2IntroPage";
+                if (tname.IndexOf("Framingham", StringComparison.OrdinalIgnoreCase) >= 0) return "//FraminghamIntroPage";
+
+                return "..";
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

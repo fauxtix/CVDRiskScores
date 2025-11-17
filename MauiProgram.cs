@@ -69,7 +69,7 @@ namespace CVDRiskScores
 
             builder.Services.AddTransient<IUIPopupService, UIPopupService>();
 
-            builder.Services.AddSingleton<LanguageSettingsViewModel>();
+            builder.Services.AddTransient<LanguageSettingsViewModel>();
             builder.Services.AddTransient<LanguageSettingsPage>();
 
             return builder.Build();

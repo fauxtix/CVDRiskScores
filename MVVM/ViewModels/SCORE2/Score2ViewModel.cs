@@ -100,7 +100,7 @@ namespace CVDRiskScores.MVVM.ViewModels.SCORE2
             if (GenderIndex != idx) GenderIndex = idx;
 
             // synchronize validation message (so UI label binds to VM property)
-            ValidationError = value.ValidationError;
+            ValidationError = value.ValidationError ?? string.Empty;
         }
         [RelayCommand]
         public async Task Calculate()
@@ -124,7 +124,7 @@ namespace CVDRiskScores.MVVM.ViewModels.SCORE2
             IsSmoker = Score2.IsSmoker;
             GenderIndex = (int)Score2.Gender;
 
-            ValidationError = Score2.ValidationError;
+            ValidationError = Score2.ValidationError ?? string.Empty;
 
             if (!string.IsNullOrEmpty(Score2.ValidationError))
             {

@@ -684,9 +684,6 @@
   <data name="Intro_Paragrafo_1" xml:space="preserve">
     <value>A pontuação de risco de Framingham (Framingham Risk Score) é um algoritmo específico para cada sexo, utilizado para estimar o risco cardiovascular de um indivíduo a 10 anos.</value>
   </data>
-  <data name="Intro_Paragrafo_Score2_1" xml:space="preserve">
-    <value>SCORE2 é um algoritmo desenvolvido para estimar o risco combinado de eventos cardiovasculares fatais e não fatais a 10 anos. É recomendado pelas guidelines europeias (ESC 2021) e está calibrado para diferentes populações.</value>
-  </data>
   <data name="Intro_Paragrafo_Score2_2" xml:space="preserve">
     <value>Esta versão (SCORE2) inclui fatores como idade, colesterol não‑HDL, tensão arterial sistólica e tabagismo, e tem limites de idade específicos (40–69 anos) para esta aplicação.</value>
   </data>
@@ -829,7 +826,7 @@
     <value>Sem nome</value>
   </data>
   <data name="TituloFramingham" xml:space="preserve">
-    <value>Pontuação de risco de Framingham</value>
+    <value>Pontuação de risco Framingham</value>
   </data>
   <data name="Intro_Intervalo_Idades" xml:space="preserve">
     <value>- entre 20 e 79 anos</value>
@@ -856,7 +853,7 @@
     <value>Intermédio</value>
   </data>
   <data name="Risk_High" xml:space="preserve">
-    <value>Muito alto</value>
+    <value>Alto</value>
   </data>
   <data name="Validation_FillRequiredTitle" xml:space="preserve">
     <value>Preencha dados requeridos, p.f</value>
@@ -950,5 +947,29 @@
   </data>
   <data name="Intro_Score2_QuickInterpretation" xml:space="preserve">
     <value>Interpretação rápida</value>
+  </data>
+  <data name="TituloScore2" xml:space="preserve">
+    <value>SCORE2 - Cálculo</value>
+  </data>
+  <data name="Intro_Paragrafo_Score2_1" xml:space="preserve">
+    <value>SCORE2 é um algoritmo desenvolvido para estimar o risco combinado de eventos cardiovasculares fatais e não fatais a 10 anos. É recomendado pelas guidelines europeias (ESC 2021) e está calibrado para diferentes populações.</value>
+  </data>
+  <data name="Titulo_Score2_TA_Sistolica" xml:space="preserve">
+    <value>Tensão Alterial Sistólica (mmHG))</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolTotal" xml:space="preserve">
+    <value>Colesterol Total (mg/dL) =&gt; (deve ser &gt; HDL)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolHDL" xml:space="preserve">
+    <value>Colesterol HDL</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolHDL1" xml:space="preserve">
+    <value>Colesterol HDL (ex.: 90)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolTotal1" xml:space="preserve">
+    <value>Colesterol Total (ex. 110)</value>
+  </data>
+  <data name="Titulo_Score2_TA_Sistolica1" xml:space="preserve">
+    <value>TA Sistólica (ex. 120)</value>
   </data>
 </root>

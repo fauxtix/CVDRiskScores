@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CVDRiskScores.Enums;
-using CVDRiskScores.Formatters;
 using CVDRiskScores.Models.Framingham;
 using CVDRiskScores.MVVM.Views.Framingham;
 using CVDRiskScores.Resources.Languages;
@@ -18,17 +17,17 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
         FraminghamModel _model;
 
         [ObservableProperty]
-        private int age = 0;
+        private int? age;
         [ObservableProperty]
         bool isSmoker = false;
         [ObservableProperty]
         bool isTreated = false;
         [ObservableProperty]
-        int totalCholesterol = 0;
+        int? totalCholesterol;
         [ObservableProperty]
-        int hDLCholesterol = 0;
+        int? hDLCholesterol;
         [ObservableProperty]
-        int systolicBloodPressure = 0;
+        int? systolicBloodPressure;
         [ObservableProperty]
         Genero gender;
 
@@ -55,6 +54,11 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
         [ObservableProperty]
         private Color riskColor;
 
+        // New: pure MVVM picker support
+        public ObservableCollection<string> GenderOptions { get; } = new();
+        [ObservableProperty]
+        private int selectedIndex = 0;
+
         public ObservableCollection<Score> MaleScores { get; set; } = new();
         public ObservableCollection<Score> FemaleScores { get; set; } = new();
 
@@ -72,6 +76,38 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
             MaleScores = new ObservableCollection<Score>(ListOfMaleScores());
             FemaleScores = new ObservableCollection<Score>(ListOfFemaleScores());
+
+            // populate localized picker items (ensure order matches enum Genero)
+            PopulateGenderOptions();
+
+            // ensure selectedIndex reflects current Gender value
+            SelectedIndex = (int)Gender;
+        }
+
+        void PopulateGenderOptions()
+        {
+            GenderOptions.Clear();
+            // Ensure picker order matches enum Genero (Male=0, Female=1)
+            GenderOptions.Add(AppResources.TituloMasculino ?? "Masculino");
+            GenderOptions.Add(AppResources.TituloFeminino ?? "Feminino");
+        }
+
+        // keep SelectedIndex and Gender synchronized
+        partial void OnSelectedIndexChanged(int value)
+        {
+            if (Enum.IsDefined(typeof(Genero), value))
+            {
+                var newGender = (Genero)value;
+                if (Gender != newGender)
+                    Gender = newGender;
+            }
+        }
+
+        partial void OnGenderChanged(Genero value)
+        {
+            var idx = Enum.IsDefined(typeof(Genero), value) ? (int)value : 0;
+            if (SelectedIndex != idx)
+                SelectedIndex = idx;
         }
 
         public List<Score> ListOfFemaleScores()
@@ -150,6 +186,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                 return;
             }
 
+            // safe to .Value because ValidateEntries ensured presence
             RiskScore = CalculateCVDRiskScores();
             RiskCategory = GetRiskCategory(RiskScore);
 
@@ -160,13 +197,13 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
             FraminghamModel resultModel = new()
             {
-                Age = Age,
+                Age = Age!.Value,
                 Gender = Gender,
-                TotalCholeterol = TotalCholesterol,
-                HDLCholesterol = HDLCholesterol,
+                TotalCholeterol = TotalCholesterol!.Value,
+                HDLCholesterol = HDLCholesterol!.Value,
                 BloodPressureTreated = IsTreated,
                 Smoker = IsSmoker,
-                SystolicBloodPressure = SystolicBloodPressure,
+                SystolicBloodPressure = SystolicBloodPressure!.Value,
                 AgePoints = AgePoints,
                 SmokerPoints = SmokerPoints,
                 TotalCholesterolPoints = TotalCholesterolPoints,
@@ -187,11 +224,12 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
         private int CalculateCVDRiskScores()
         {
-            AgePoints = _service.GetAgePoints(Age, Gender);
-            TotalCholesterolPoints = _service.GetTotalCholesterolPoints(Age, Gender, TotalCholesterol);
-            HDLCholesterolPoints = _service.GetHDLCholesterolPoints(Gender, HDLCholesterol);
-            SystolicBloodPressurePoints = _service.GetSystolicBloodPressurePoints(SystolicBloodPressure, IsTreated, Gender);
-            SmokerPoints = _service.GetSmokingPoints(Gender, IsSmoker, Age);
+            // ValidateEntries guaranteed non-null, so use .Value
+            AgePoints = _service.GetAgePoints(Age!.Value, Gender);
+            TotalCholesterolPoints = _service.GetTotalCholesterolPoints(Age!.Value, Gender, TotalCholesterol!.Value);
+            HDLCholesterolPoints = _service.GetHDLCholesterolPoints(Gender, HDLCholesterol!.Value);
+            SystolicBloodPressurePoints = _service.GetSystolicBloodPressurePoints(SystolicBloodPressure!.Value, IsTreated, Gender);
+            SmokerPoints = _service.GetSmokingPoints(Gender, IsSmoker, Age!.Value);
 
             return AgePoints + TotalCholesterolPoints + HDLCholesterolPoints +
                               SystolicBloodPressurePoints + SmokerPoints;
@@ -201,64 +239,49 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
         {
             if (riskScore <= 10) return AppResources.Risk_Low ?? "Baixo";
             else if (riskScore <= 20) return AppResources.Risk_Medium ?? "Intermédio";
-            else return AppResources.Risk_High ?? "Muito alto";
+            else return AppResources.Risk_High ?? "Alto";
         }
 
         private List<string> ValidateEntries()
         {
-            bool entryOk = true;
             var errorMessages = new List<string>();
-            var genderSelected = Gender;
-            if (!DataFormat.IsNumeric(Age))
+
+            if (!Age.HasValue)
             {
                 errorMessages.Add(AppResources.Validation_PleaseFillAge ?? "Preencha idade");
-                entryOk = false;
             }
-            else if (!DataFormat.IsNumeric(TotalCholesterol))
+            if (!TotalCholesterol.HasValue)
             {
                 errorMessages.Add(AppResources.Validation_PleaseFillTotalCholesterol ?? "Preencha Cloresterol Total");
-                entryOk = false;
             }
-            else if (!DataFormat.IsNumeric(HDLCholesterol))
+            if (!HDLCholesterol.HasValue)
             {
                 errorMessages.Add(AppResources.Validation_PleaseFillHDL ?? "Preencha Cloresterol HDL");
-                entryOk = false;
             }
-            else if (!DataFormat.IsNumeric(SystolicBloodPressure))
+            if (!SystolicBloodPressure.HasValue)
             {
                 errorMessages.Add(AppResources.Validation_PleaseFillSystolicBP ?? "Preencha T.A. Sistólica");
-                entryOk = false;
             }
 
-            if (!DataFormat.IsNumeric(Age))
-            {
-                errorMessages.Add(AppResources.Validation_AgeNotNumeric ?? "Idade não é um valor numérico");
-                entryOk = false;
-            }
-            if (!DataFormat.IsNumeric(TotalCholesterol))
-            {
-                errorMessages.Add(AppResources.Validation_TotalCholesterolNotNumeric ?? "Colesterol total não é um valor numérico");
-                entryOk = false;
-            }
+            if (errorMessages.Count > 0)
+                return errorMessages;
 
-            if (entryOk)
+            // range validations
+            if (Age!.Value < 20 || Age.Value > 79)
             {
-                if (Age < 20 || Age > 79)
-                {
-                    errorMessages.Add(AppResources.Validation_AgeRange ?? "idade entre 20 e 79 anos");
-                }
-                if (TotalCholesterol < 1)
-                {
-                    errorMessages.Add(AppResources.Validation_TotalCholesterolGTZero ?? "Cloresterol Total > 0");
-                }
-                if (HDLCholesterol < 1)
-                {
-                    errorMessages.Add(AppResources.Validation_HDLCholesterolGTZero ?? "Cloresterol HDL > 0");
-                }
-                if (SystolicBloodPressure < 1)
-                {
-                    errorMessages.Add(AppResources.Validation_SystolicBPGTZero ?? "T.A. Sistólica > 0");
-                }
+                errorMessages.Add(AppResources.Validation_AgeRange ?? "idade entre 20 e 79 anos");
+            }
+            if (TotalCholesterol!.Value < 1)
+            {
+                errorMessages.Add(AppResources.Validation_TotalCholesterolGTZero ?? "Cloresterol Total > 0");
+            }
+            if (HDLCholesterol!.Value < 1)
+            {
+                errorMessages.Add(AppResources.Validation_HDLCholesterolGTZero ?? "Cloresterol HDL > 0");
+            }
+            if (SystolicBloodPressure!.Value < 1)
+            {
+                errorMessages.Add(AppResources.Validation_SystolicBPGTZero ?? "T.A. Sistólica > 0");
             }
 
             return errorMessages;

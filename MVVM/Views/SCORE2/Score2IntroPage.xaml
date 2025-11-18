@@ -31,6 +31,7 @@
                 </Border.Stroke>
 
                 <Label Text="{resx:Localize Key=Tab_Introducao}"
+                        FontFamily="Poppins"
                        TextColor="White"
                        FontSize="18"
                        FontAttributes="Bold" />
@@ -39,8 +40,8 @@
             <BoxView Color="#FF7A59" HeightRequest="3" HorizontalOptions="Fill" />
 
             <VerticalStackLayout Padding="0,6">
-                <Label Text="{resx:Localize Key=Intro_Paragrafo_Score2_1}"/>
-                <Label Margin="0,6" Text="{resx:Localize Key=Intro_Paragrafo_Score2_2}"/>
+                <Label Text="{resx:Localize Key=Intro_Paragrafo_Score2_1}" FontFamily="Poppins"/>
+                <Label Margin="0,6" Text="{resx:Localize Key=Intro_Paragrafo_Score2_2}" FontFamily="Poppins"/>
             </VerticalStackLayout>
 
             <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
@@ -72,6 +73,7 @@
               <Label Margin="0, 5, 0, 10" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                      Text="{resx:Localize Key=Intro_Score2_QuickInterpretation}"
                      FontAttributes="Bold"
+                      FontFamily="Poppins"
                      VerticalOptions="Center" />
 
               <!-- Risco baixo -->
@@ -79,11 +81,13 @@
                      Text="🟢"
                      FontSize="18"
                      VerticalOptions="Center"
+                      FontFamily="Poppins"
                      HorizontalOptions="Start" />
               <Label Grid.Row="1" Grid.Column="1"
                      Text="{resx:Localize Key=Validation_SCORE2_Recomendacao_1}"
                      LineBreakMode="WordWrap"
                      HorizontalOptions="Start"
+                      FontFamily="Poppins"
                      VerticalOptions="Center" />
 
               <!-- Risco intermédio -->
@@ -91,11 +95,13 @@
                      Text="🟠"
                      FontSize="18"
                      VerticalOptions="Center"
+                      FontFamily="Poppins"
                      HorizontalOptions="Start" />
               <Label Grid.Row="2" Grid.Column="1"
                      Text="{resx:Localize Key=Validation_SCORE2_Recomendacao_2}"
                      LineBreakMode="WordWrap"
                      HorizontalOptions="Start"
+                      FontFamily="Poppins"
                      VerticalOptions="Center" />
 
               <!-- Risco alto -->
@@ -108,6 +114,7 @@
                      Text="{resx:Localize Key=Validation_SCORE2_Recomendacao_3}"
                      LineBreakMode="WordWrap"
                      HorizontalOptions="Start"
+                      FontFamily="Poppins"
                      VerticalOptions="Center" />
             </Grid>
 
@@ -120,6 +127,7 @@
                         BackgroundColor="#D9480F"
                         TextColor="White"
                         CornerRadius="8"
+                         FontFamily="PoppinsSemiBold"
                         Padding="12,8"
                         FontSize="16" />
             </FlexLayout>

@@ -39,6 +39,7 @@
                                TextColor="White"/>
                         <Label Text="{Binding Score2Model.ClinicalAdvice}"
                                FontSize="12"
+                               LineBreakMode="WordWrap"
                                TextColor="White"
                                Opacity="0.95"/>
                     </StackLayout>

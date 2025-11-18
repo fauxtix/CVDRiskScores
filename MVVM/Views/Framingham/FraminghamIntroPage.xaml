@@ -45,8 +45,8 @@
             <VerticalStackLayout>
                 <Grid Margin="20,5" RowDefinitions="Auto, Auto, Auto">
                     <Label Grid.Row="0" Margin = "0, 5" FontAttributes="Italic" Text="(Wikipedia)"/>
-                    <Label Grid.Row="1" Text="{resx:Localize Key=Intro_Paragrafo_1}"/>
-                    <Label  Margin = "0, 5" Grid.Row="2" Text="{resx:Localize Key=Intro_Paragrafo_2}"/>
+                    <Label Grid.Row="1" Text="{resx:Localize Key=Intro_Paragrafo_1}" FontFamily="Poppins"/>
+                    <Label  Margin = "0, 5" Grid.Row="2" Text="{resx:Localize Key=Intro_Paragrafo_2}" FontFamily="Poppins"/>
                 </Grid>
             </VerticalStackLayout>
             <BoxView Grid.Row="0" Color="SteelBlue"
@@ -84,9 +84,9 @@
 
             <VerticalStackLayout>
                 <Grid Margin="20,5" RowDefinitions="Auto, Auto, Auto">
-                    <Label  Grid.Row="0" Text="{resx:Localize Key=Intro_Paragrafo_5}"/>
-                    <Label Margin="0, 10" Grid.Row="1" Text="{resx:Localize Key=Intro_Paragrafo_6}"/>
-                    <Label Margin="0, 10" Grid.Row="2" Text="{resx:Localize Key=Intro_Paragrafo_7}"/>
+                    <Label  Grid.Row="0" Text="{resx:Localize Key=Intro_Paragrafo_5}"  FontFamily="Poppins"/>
+                    <Label Margin="0, 10" Grid.Row="1" Text="{resx:Localize Key=Intro_Paragrafo_6}" FontFamily="Poppins"/>
+                    <Label Margin="0, 10" Grid.Row="2" Text="{resx:Localize Key=Intro_Paragrafo_7}" FontFamily="Poppins"/>
                 </Grid>
             </VerticalStackLayout>
             <BoxView Color="SteelBlue"
@@ -97,8 +97,11 @@
                  HorizontalOptions="Fill" />
 
             <FlexLayout JustifyContent="Center" Margin="0, 0, 0, 10">
-                <Button x:Name="SimulationBtn" Text="{resx:Localize Key=Intro_Botao_Simulacao}" Clicked="SimulationBtn_Clicked" FontSize="18"></Button>
-                </FlexLayout>
+                <Button x:Name="SimulationBtn" 
+                        Text="{resx:Localize Key=Intro_Botao_Simulacao}" 
+                         FontFamily="PoppinsSemiBold"
+                        Clicked="SimulationBtn_Clicked" FontSize="18"></Button>
+            </FlexLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

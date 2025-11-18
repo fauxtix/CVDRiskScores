@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
+using CVDRiskScores.Enums;
+using CVDRiskScores.Resources.Languages;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -44,23 +46,33 @@ namespace CVDRiskScores.MVVM.Views.Shared
             if (obj == null)
             {
                 SetAdvice(string.Empty);
-                SetHeaderValues("", "", null);
+                SetHeaderValues("-", "-", null); // Use "-" as default for nulls
                 SetRiskEmoji(null);
                 return;
             }
 
             var nested = FindNestedModel(obj, new[] { "FraminghamModel", "Score2Model", "Model", "ResultModel", "Score2", "ModelResult" });
 
-            var rawScore = TryGetPropAsString(nested, "RiskScore") ?? TryGetPropAsString(obj, "RiskScore");
-            var category = TryGetPropAsString(nested, "RiskCategory") ?? TryGetPropAsString(obj, "RiskCategory");
+            var rawScore = TryGetPropAsString(nested, "RiskScore") ?? TryGetPropAsString(obj, "RiskScore") ?? "-";
+            var category = TryGetPropAsString(nested, "RiskCategory") ?? TryGetPropAsString(obj, "RiskCategory") ?? "-";
             var colorVal = GetPropValue(nested, "RiskColor") ?? GetPropValue(obj, "RiskColor");
 
-            var advice = TryGetPropAsString(nested, "ClinicalAdvice") ?? TryGetPropAsString(obj, "ClinicalAdvice");
-            SetAdvice(advice);
+            var advice = TryGetPropAsString(nested, "ClinicalAdvice") ?? TryGetPropAsString(obj, "ClinicalAdvice") ?? string.Empty;
+
+            // avoid duplicate display if subtitle/category equals advice text (dedupe)
+            bool adviceDuplicatesCategory = false;
+            if (!string.IsNullOrWhiteSpace(advice) && !string.IsNullOrWhiteSpace(category))
+            {
+                if (advice.IndexOf(category, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    category.IndexOf(advice, StringComparison.OrdinalIgnoreCase) >= 0)
+                    adviceDuplicatesCategory = true;
+            }
 
             var resolvedColor = ResolveColor(colorVal);
             SetHeaderValues(rawScore, category, resolvedColor);
             SetRiskEmoji(resolvedColor);
+
+            SetAdvice(adviceDuplicatesCategory ? string.Empty : advice);
 
             if (nested != null && nested.GetType().Name.IndexOf("Score2", StringComparison.OrdinalIgnoreCase) >= 0)
             {
@@ -91,33 +103,59 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
         void BuildScore2Details(object model, object parentVm)
         {
-            AddLabelValue("Idade", GetFormattedProp(model, "Age"));
-            AddLabelValue("Género", GetFormattedProp(model, "Gender"));
+            var lblAge = AppResources.TituloIdade ?? "Idade";
+            var lblGender = AppResources.TituloSexo ?? "Género";
+            var lblNonHdl = AppResources.Titulo_Score2_ColesterolTotal ?? "Non‑HDL / Total Colesterol";
+            var lblTotalChol = AppResources.TituloColesterolTotal ?? "Colesterol total";
+            var lblSbp = AppResources.Titulo_Score2_TA_Sistolica ?? "TA sistólica (mmHg)";
+            var lblSmoker = AppResources.Simulacao_Fumador ?? "Fumador";
+            var lblPoints = AppResources.TituloPontos ?? "Pontos";
+            var lblValidation = AppResources.TituloErroValidacao ?? "Erro de validação";
+
+            AddLabelValue(lblAge, GetFormattedProp(model, "Age"));
+            AddLabelValue(lblGender, GetFormattedProp(model, "Gender"));
+
+            // show explicit Total cholesterol value
+            AddLabelValue(lblTotalChol, GetFormattedProp(model, "TotalCholesterol"));
+
+            // show Non‑HDL (computed) — fallback to Total if not present
             var nonHdl = GetPropValue(model, "NonHDLCholesterol") ?? GetPropValue(model, "TotalCholesterol");
-            AddLabelValue("Non‑HDL / Total Colesterol", FormatDisplayValue(nonHdl?.GetType() ?? typeof(object), nonHdl));
-            AddLabelValue("TA sistólica (mmHg)", GetFormattedProp(model, "SystolicBloodPressure"));
-            AddLabelValue("Fumador", GetFormattedProp(model, "IsSmoker", boolAsYesNo: true));
-            AddLabelValue("Pontos — Idade", GetFormattedProp(model, "AgePoints"));
-            AddLabelValue("Pontos — Non‑HDL", GetFormattedProp(model, "NonHDLPoints"));
-            AddLabelValue("Pontos — TA", GetFormattedProp(model, "SBPPoints"));
-            AddLabelValue("Pontos — Tabaco", GetFormattedProp(model, "SmokingPoints"));
-            AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
+            AddLabelValue(lblNonHdl, FormatDisplayValue(nonHdl?.GetType() ?? typeof(object), nonHdl));
+
+            AddLabelValue(lblSbp, GetFormattedProp(model, "SystolicBloodPressure"));
+            AddLabelValue(lblSmoker, GetFormattedProp(model, "IsSmoker", boolAsYesNo: true));
+            AddLabelValue($"{lblPoints} — {lblAge}", GetFormattedProp(model, "AgePoints"));
+            AddLabelValue($"{lblPoints} — Non‑HDL", GetFormattedProp(model, "NonHDLPoints"));
+            AddLabelValue($"{lblPoints} — TA", GetFormattedProp(model, "SBPPoints"));
+            AddLabelValue($"{lblPoints} — Tabaco", GetFormattedProp(model, "SmokingPoints"));
+            AddLabelValue(lblValidation, TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
         }
 
-        void BuildFraminghamDetails(object model, object parentVm)
+        void BuildFraminghamDetails(object model, object? parentVm)
         {
-            AddLabelValue("Idade", GetFormattedProp(model, "Age"));
-            AddLabelValue("Género", GetFormattedProp(model, "Gender"));
-            AddLabelValue("Colesterol total", GetFormattedProp(model, "TotalCholeterol"));
-            AddLabelValue("Colesterol HDL", GetFormattedProp(model, "HDLCholesterol"));
-            AddLabelValue("TA sistólica (mmHg)", GetFormattedProp(model, "SystolicBloodPressure"));
-            AddLabelValue("Fumador", GetFormattedProp(model, "Smoker", boolAsYesNo: true));
-            AddLabelValue("Pontos — Idade", GetFormattedProp(model, "AgePoints"));
-            AddLabelValue("Pontos — Fumador", GetFormattedProp(model, "SmokerPoints"));
-            AddLabelValue("Pontos — Colesterol", GetFormattedProp(model, "TotalCholesterolPoints"));
-            AddLabelValue("Pontos — HDL", GetFormattedProp(model, "HDLCholesterolPoints"));
-            AddLabelValue("Pontos — TA", GetFormattedProp(model, "SystolicBloodPressurePoints"));
-            AddLabelValue("Erro de validação", TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
+            var lblAge = AppResources.TituloIdade ?? "Idade";
+            var lblGender = AppResources.TituloSexo ?? "Género";
+            var lblTotalChol = AppResources.TituloColesterolTotal ?? "Colesterol total";
+            var lblHdl = AppResources.TituloColesterolHDL ?? "Colesterol HDL";
+            var lblSbp = AppResources.TituloPressaoArterial ?? "TA sistólica (mmHg)";
+            var lblSmoker = AppResources.Simulacao_Fumador ?? "Fumador";
+            var lblTreated = AppResources.Simulacao_Medicacao_TA ?? "Medicação para a tensão arterial";
+            var lblPoints = AppResources.TituloPontos ?? "Pontos";
+            var lblValidation = AppResources.TituloErroValidacao ?? "Erro de validação";
+
+            AddLabelValue(lblAge, GetFormattedProp(model, "Age"));
+            AddLabelValue(lblGender, GetFormattedProp(model, "Gender"));
+            AddLabelValue(lblTotalChol, GetFormattedProp(model, "TotalCholeterol"));
+            AddLabelValue(lblHdl, GetFormattedProp(model, "HDLCholesterol"));
+            AddLabelValue(lblSbp, GetFormattedProp(model, "SystolicBloodPressure"));
+            AddLabelValue(lblTreated, GetFormattedProp(model, "BloodPressureTreated", boolAsYesNo: true)); // <-- added
+            AddLabelValue(lblSmoker, GetFormattedProp(model, "Smoker", boolAsYesNo: true));
+            AddLabelValue($"{lblPoints} — {lblAge}", GetFormattedProp(model, "AgePoints"));
+            AddLabelValue($"{lblPoints} — {lblSmoker}", GetFormattedProp(model, "SmokerPoints"));
+            AddLabelValue($"{lblPoints} — {lblTotalChol}", GetFormattedProp(model, "TotalCholesterolPoints"));
+            AddLabelValue($"{lblPoints} — {lblHdl}", GetFormattedProp(model, "HDLCholesterolPoints"));
+            AddLabelValue($"{lblPoints} — {lblSbp}", GetFormattedProp(model, "SystolicBloodPressurePoints"));
+            AddLabelValue(lblValidation, TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
         }
 
         void AddLabelValue(string label, object value)
@@ -129,7 +167,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
             {
                 null => "-",
                 string s => s,
-                bool b => b ? "Sim" : "Não",
+                bool b => LocalizeBool(b),
                 double d => d.ToString("F2", CultureInfo.CurrentCulture),
                 float f => f.ToString("F2", CultureInfo.CurrentCulture),
                 decimal m => m.ToString("F2", CultureInfo.CurrentCulture),
@@ -148,16 +186,51 @@ namespace CVDRiskScores.MVVM.Views.Shared
             _rows.Add(new KeyValuePair<string, string>(label, formatted));
         }
 
-        string GetFormattedProp(object obj, string propName, bool boolAsYesNo = false)
+        string LocalizeBool(bool b) =>
+            b ? (AppResources.Sim ?? "Sim") : (AppResources.Nao ?? "Não");
+
+        string GetFormattedProp(object obj, int propIndex, bool boolAsYesNo = false)
         {
-            var v = GetPropValue(obj, propName);
+            // Get the property using the indexer
+            var prop = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.GetIndexParameters().Length == 0)
+                .ElementAt(propIndex);
+
+            var v = GetPropValue(obj, prop.Name);
             if (v == null) return "-";
-            if (v is bool b) return boolAsYesNo ? (b ? "Sim" : "Não") : b.ToString();
+            if (v is bool bb) return boolAsYesNo ? LocalizeBool(bb) : bb.ToString();
+            if (v is Enum e) return LocalizeEnum(e);
             if (v is double d) return d.ToString("F2", CultureInfo.CurrentCulture);
             if (v is float f) return f.ToString("F2", CultureInfo.CurrentCulture);
             if (v is decimal m) return m.ToString("F2", CultureInfo.CurrentCulture);
             if (v is int i) return i.ToString(CultureInfo.CurrentCulture);
             return v.ToString() ?? "-";
+        }
+
+        string GetFormattedProp(object obj, string propName, bool boolAsYesNo = false)
+        {
+            var v = GetPropValue(obj, propName);
+            if (v == null) return "-";
+            if (v is bool b) return boolAsYesNo ? LocalizeBool(b) : b.ToString();
+            if (v is Enum e) return LocalizeEnum(e);
+            if (v is double d) return d.ToString("F2", CultureInfo.CurrentCulture);
+            if (v is float f) return f.ToString("F2", CultureInfo.CurrentCulture);
+            if (v is decimal m) return m.ToString("F2", CultureInfo.CurrentCulture);
+            if (v is int i) return i.ToString(CultureInfo.CurrentCulture);
+            return v.ToString() ?? "-";
+        }
+
+        string LocalizeEnum(Enum e)
+        {
+            // Current app only uses Genero; extend here for other enums if necessary.
+            if (e is Genero g)
+            {
+                return g == Genero.Male ? (AppResources.TituloMasculino ?? "Homem")
+                                       : (AppResources.TituloFeminino ?? "Mulher");
+            }
+
+            // fallback to enum ToString()
+            return e.ToString();
         }
 
         void SetAdvice(string advice)
@@ -188,11 +261,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             CloseAndBackButton.TextColor = GetContrastTextColor(headerColor);
             ShareButton.TextColor = GetContrastTextColor(headerColor);
             CopyButton.TextColor = GetContrastTextColor(headerColor);
-
-            // Mudando a cor dos borders internos também, se quiser (opcional, já está no XAML)
-            // ((Border)CloseAndBackButton.Parent).BackgroundColor = headerColor;
-            // ((Border)ShareButton.Parent).BackgroundColor = headerColor;
-            // ((Border)CopyButton.Parent).BackgroundColor = headerColor;
         }
         void SetRiskEmoji(Color? color)
         {
@@ -216,7 +284,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
             if (Application.Current?.Resources?.TryGetValue(key, out var val) == true)
             {
                 if (val is Color c) return c;
-                if (val is Microsoft.Maui.Graphics.Color mgc) return (Color)mgc;
+                if (val is Color mgc) return (Color)mgc;
             }
             return fallback;
         }
@@ -246,7 +314,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
         {
             if (val == null) return null;
             if (val is Color c) return c;
-            if (val is Microsoft.Maui.Graphics.Color mgc) return (Color)mgc;
+            if (val is Color mgc) return (Color)mgc;
             var s = val.ToString()?.Trim();
             if (string.IsNullOrEmpty(s)) return null;
             try
@@ -348,7 +416,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
             if (obj == null) return;
             var p = obj.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
             if (p == null) return;
-            object val = null;
+            object? val = null;
             try { val = p.GetValue(obj); } catch { val = null; }
 
             if (string.Equals(propName, "RiskColor", StringComparison.OrdinalIgnoreCase))
@@ -363,7 +431,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
             {
                 Color c;
                 if (val is Color col) c = col;
-                else if (val is Microsoft.Maui.Graphics.Color mgc) c = (Color)mgc;
+                else if (val is Color mgc) c = (Color)mgc;
                 else c = Colors.Transparent;
 
                 var hex = c.ToHex();
@@ -497,7 +565,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                Debug.WriteLine($"[Popup] RenderRows: _rows.Count = {_rows.Count}");
                 var details = this.FindByName<CollectionView>("DetailsCollection");
                 if (details != null)
                 {
@@ -536,7 +603,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Share failed: {ex.Message}");
                 await Shell.Current.DisplayAlert("Partilha", "A partilha falhou.", "OK");
             }
         }
@@ -550,7 +616,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Copy failed: {ex.Message}");
                 await Shell.Current.DisplayAlert("Erro", "Não foi possível copiar.", "OK");
             }
         }
@@ -568,7 +633,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
         async Task NavigateBackToSimulationAsync()
         {
             var route = DetermineSimulationRoute(_data);
-            Debug.WriteLine($"[Popup] NavigateBackToSimulationAsync route = '{route}'");
             if (string.IsNullOrEmpty(route)) return;
 
             try

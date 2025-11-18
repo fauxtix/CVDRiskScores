@@ -862,7 +862,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Muito alto.
+        ///   Looks up a localized string similar to Alto.
         /// </summary>
         public static string Risk_High {
             get {
@@ -1101,6 +1101,60 @@ namespace CVDRiskScores.Resources.Languages {
         public static string Titulo_NoPets {
             get {
                 return ResourceManager.GetString("Titulo_NoPets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol HDL.
+        /// </summary>
+        public static string Titulo_Score2_ColesterolHDL {
+            get {
+                return ResourceManager.GetString("Titulo_Score2_ColesterolHDL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol HDL (ex.: 90).
+        /// </summary>
+        public static string Titulo_Score2_ColesterolHDL1 {
+            get {
+                return ResourceManager.GetString("Titulo_Score2_ColesterolHDL1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol Total (mg/dL) =&gt; (deve ser &gt; HDL).
+        /// </summary>
+        public static string Titulo_Score2_ColesterolTotal {
+            get {
+                return ResourceManager.GetString("Titulo_Score2_ColesterolTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol Total (ex. 110).
+        /// </summary>
+        public static string Titulo_Score2_ColesterolTotal1 {
+            get {
+                return ResourceManager.GetString("Titulo_Score2_ColesterolTotal1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tensão Alterial Sistólica (mmHG)).
+        /// </summary>
+        public static string Titulo_Score2_TA_Sistolica {
+            get {
+                return ResourceManager.GetString("Titulo_Score2_TA_Sistolica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TA Sistólica (ex. 120).
+        /// </summary>
+        public static string Titulo_Score2_TA_Sistolica1 {
+            get {
+                return ResourceManager.GetString("Titulo_Score2_TA_Sistolica1", resourceCulture);
             }
         }
         
@@ -1735,7 +1789,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pontuação de risco de Framingham.
+        ///   Looks up a localized string similar to Pontuação de risco Framingham.
         /// </summary>
         public static string TituloFramingham {
             get {
@@ -2154,6 +2208,15 @@ namespace CVDRiskScores.Resources.Languages {
         public static string TituloRisco {
             get {
                 return ResourceManager.GetString("TituloRisco", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SCORE2 - Cálculo.
+        /// </summary>
+        public static string TituloScore2 {
+            get {
+                return ResourceManager.GetString("TituloScore2", resourceCulture);
             }
         }
         

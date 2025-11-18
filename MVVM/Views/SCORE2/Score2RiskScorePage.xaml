@@ -2,15 +2,36 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2RiskScorePage"
+    xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2;assembly=CVDRiskScores"
     xmlns:conv="clr-namespace:CVDRiskScores.Converters;assembly=CVDRiskScores"
     x:DataType="vm:Score2ViewModel"
-    Title="SCORE2 — Cálculo">
+    Title="{resx:Localize Key=TituloScore2}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringToIntConverter x:Key="StringToIntConverter" />
+
+            <Color x:Key="Primary">#2B0B98</Color>
+            <Color x:Key="MutedText">#6B6B6B</Color>
+            <Color x:Key="CardBackground">#FFFFFF</Color>
+            <Color x:Key="PageBackgroundColor">#F4F5FA</Color>
+            <Color x:Key="BorderLight">#E6E7F0</Color>
+
+            <Style x:Key="SectionCard" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource CardBackground}" />
+                <Setter Property="Stroke" Value="{StaticResource BorderLight}" />
+                <Setter Property="StrokeThickness" Value="1" />
+                <Setter Property="StrokeShape">
+                    <Setter.Value>
+                        <RoundRectangle CornerRadius="12" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="Margin" Value="10,2" />
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -20,44 +41,48 @@
                FontAttributes="Bold"
                FontSize="16" />-->
 
-        <Label Text="Idade (40–69)" FontSize="16" TextColor="#666" />
-        <Entry Placeholder="Idade 40-69 (ex.: 49)"
-       Text="{Binding Age, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
-       Keyboard="Numeric"/>
-        
-        <Label Text="Género" FontSize="16" TextColor="#666" />
-        <Picker Title="Género" SelectedIndex="{Binding GenderIndex, Mode=TwoWay}">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Masculino</x:String>
-                    <x:String>Feminino</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
-        
-        <Label Text="Tensão Arterial Sistólica (mmHg)" FontSize="16" TextColor="#666" />
-        <Entry Placeholder="TA Sistólica (ex.: 120)"
+        <Label Text="{resx:Localize Key=TituloIdade}" FontSize="16" TextColor="#666"
+                FontFamily="Poppins"/>
+        <Entry Placeholder="{resx:Localize Key=Validation_SCORE2_IntervaloIdades}"
+               Text="{Binding Age, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+               Keyboard="Numeric"/>
+
+        <Label Text="{resx:Localize Key=TituloSexo}" FontSize="16" TextColor="#666"
+                FontFamily="Poppins"/>
+        <Picker Title="{resx:Localize Key=TituloSexo}"
+                ItemsSource="{Binding GenderOptions}"
+                SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" />
+        <Label Text="{resx:Localize Key=Titulo_Score2_TA_Sistolica}" FontSize="16" 
+               TextColor="#666"  FontFamily="Poppins" />
+        <Entry Placeholder="{resx:Localize Key=Titulo_Score2_TA_Sistolica1}"
        Text="{Binding SystolicBloodPressure, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
        Keyboard="Numeric"/>
-        
-        <Label Text="Colesterol Total (deve ser > HDL)" FontSize="16" TextColor="#666" />
-        <Entry Placeholder="Colesterol Total (ex.: 160)"
+
+        <Label Text="{resx:Localize Key=Titulo_Score2_ColesterolTotal}" FontSize="16" 
+                FontFamily="Poppins" TextColor="#666" />
+        <Entry Placeholder="{resx:Localize Key=Titulo_Score2_ColesterolTotal1}"
        Text="{Binding TotalCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
        Keyboard="Numeric"/>
-        
-        <Label Text="Colesterol HDL" FontSize="16" TextColor="#666" />
-        <Entry Placeholder="HDL Colesterol (ex.: 50)"
+
+        <Label Text="{resx:Localize Key=Titulo_Score2_ColesterolHDL}" FontSize="16" 
+                FontFamily="Poppins" TextColor="#666" />
+        <Entry Placeholder="{resx:Localize Key=Titulo_Score2_ColesterolHDL1}"
        Text="{Binding HdlCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
        Keyboard="Numeric"/>
         
-        <StackLayout Orientation="Horizontal" Spacing="8" VerticalOptions="Center">
-            <Label Text="Fumador?" VerticalOptions="Center" FontSize="16" />
+        <StackLayout Orientation="Horizontal" Spacing="8" VerticalOptions="Center" >
+            <Label Text="{resx:Localize Key=Simulacao_Fumador}" VerticalOptions="Center"
+                    FontFamily="Poppins" FontSize="16" />
             <Switch IsToggled="{Binding IsSmoker}"/>
         </StackLayout>
 
-        <Button Text="Calcular" Command="{Binding CalculateCommand}" Margin="12"/>
-        <Button Text="Voltar" Command="{Binding GoBackCommand}" Margin="12"/>
+        <Button Text="{resx:Localize Key=Btn_Calcular}" Command="{Binding CalculateCommand}" 
+                FontSize="16"
+                 FontFamily="PoppinsSemiBold" Margin="12"/>
+        <Button Text="{resx:Localize Key=TituloVoltar}" Command="{Binding GoBackCommand}" Margin="12" FontSize="16"
+                FontFamily="PoppinsSemiBold" />
         <Label IsVisible="{Binding ValidationError, Converter={StaticResource StringNotEmptyConverter}}"
-               Text="{Binding ValidationError}" TextColor="Red" FontSize="14"/>
+               Text="{Binding ValidationError}" TextColor="Red" FontSize="14"
+                FontFamily="Poppins"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -684,9 +684,6 @@
   <data name="Intro_Paragrafo_1" xml:space="preserve">
     <value>The Framingham Risk Score is a gender-specific algorithm used to estimate an individual's 10-year cardiovascular risk.</value>
   </data>
-  <data name="Intro_Paragrafo_Score2_1" xml:space="preserve">
-    <value>SCORE2 is an algorithm developed to estimate the combined risk of fatal and non-fatal cardiovascular events over 10 years. It is recommended by European guidelines (ESC 2021) and is calibrated for different populations.</value>
-  </data>
   <data name="Intro_Paragrafo_Score2_2" xml:space="preserve">
     <value>This version (SCORE2) includes factors such as age, non-HDL cholesterol, systolic blood pressure, and smoking, and has specific age limits (40–69 years) for this application.</value>
   </data>
@@ -772,7 +769,7 @@
     <value>High</value>
   </data>
   <data name="Bmi_VeryHigh" xml:space="preserve">
-    <value>Very High</value>
+    <value>High</value>
   </data>
   <data name="Btn_Calcular" xml:space="preserve">
     <value>Calculate</value>
@@ -950,5 +947,29 @@
   </data>
   <data name="Intro_Score2_QuickInterpretation" xml:space="preserve">
     <value>Quick interpretation</value>
+  </data>
+  <data name="TituloScore2" xml:space="preserve">
+    <value>SCORE2 - Calculation</value>
+  </data>
+  <data name="Intro_Paragrafo_Score2_1" xml:space="preserve">
+    <value>SCORE2 is an algorithm developed to estimate the combined risk of fatal and non-fatal cardiovascular events over 10 years. It is recommended by European guidelines (ESC 2021) and is calibrated for different populations.</value>
+  </data>
+  <data name="Titulo_Score2_TA_Sistolica" xml:space="preserve">
+    <value>Systolic Blood Pressure (mmHg)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolTotal" xml:space="preserve">
+    <value>Total cholesterol (mg/dL) =&gt; (should be &gt; HDL)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolHDL" xml:space="preserve">
+    <value>HDL cholesterol</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolHDL1" xml:space="preserve">
+    <value>HDL cholesterol (e.g., 90)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolTotal1" xml:space="preserve">
+    <value>Total Cholesterol (e.g., 110)</value>
+  </data>
+  <data name="Titulo_Score2_TA_Sistolica1" xml:space="preserve">
+    <value>Systolic BP (e.g., 120)</value>
   </data>
 </root>

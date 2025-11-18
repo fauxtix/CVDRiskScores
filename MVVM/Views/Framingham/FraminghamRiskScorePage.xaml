@@ -30,15 +30,7 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <!-- Reduzido o espaçamento vertical para 6 -->
         <VerticalStackLayout Padding="24" Spacing="2">
-
-            <!-- Título --><!--
-            <Label Text="Calculadora de risco cardiovascular (Framingham)"
-                   FontAttributes="Bold"
-                   FontSize="15"
-                   Margin="0,0,0,8"
-                   TextColor="#2B0B98" />-->
 
             <!-- Idade -->
             <Label FontSize="16"
@@ -47,8 +39,10 @@
                    Margin="0,12,0,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{resx:Localize Key=TituloIdade}" />
-                        <Span Text=" (20–79)" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                        <Span Text="{resx:Localize Key=TituloIdade}"  FontFamily="Poppins" />
+                        <Span Text=" (20–79)" FontSize="12" FontAttributes="Italic" 
+                               FontFamily="Poppins"
+                              TextColor="#888"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -72,12 +66,13 @@
             <Label FontSize="16"
                    FontAttributes="Bold"
                    TextColor="#111"
+                    FontFamily="Poppins"
                    Margin="0,8,0,0"
                    Text="{resx:Localize Key=TituloSexo}"/>
-            <Picker x:Name="GenderPicker"
-                    Title="{resx:Localize Key=TituloSexo}"
+            <Picker Title="{resx:Localize Key=TituloSexo}"
                     Margin="0,2,0,2"
-                    SelectedIndexChanged="Gender_SelectedIndexChanged" />
+                    ItemsSource="{Binding GenderOptions}"
+                    SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" />
 
             <!-- Fumador -->
             <Grid Margin="0,6,0,0" ColumnDefinitions="*,Auto">
@@ -85,14 +80,13 @@
                        FontAttributes="Bold"
                        TextColor="#111"
                        VerticalOptions="Center"
+                        FontFamily="Poppins"
                        Grid.Column="0"
                        Text="{resx:Localize Key=Simulacao_Fumador}"/>
-                <Switch x:Name="SmokerSwitch"
-                        IsToggled="False"
-                        Toggled="SmokerSwitch_Toggled"
-                        Grid.Column="1"
+                <Switch Grid.Column="1"
                         HorizontalOptions="End"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center"
+                        IsToggled="{Binding IsSmoker, Mode=TwoWay}"/>
             </Grid>
 
             <!-- Medicação TA -->
@@ -101,31 +95,30 @@
                        FontAttributes="Bold"
                        TextColor="#111"
                        VerticalOptions="Center"
+                        FontFamily="Poppins"
                        Grid.Column="0"
                        Text="{resx:Localize Key=Simulacao_Medicacao_TA}"/>
-                <Switch x:Name="BloodPressureTreated"
-                        IsToggled="False"
-                        Toggled="BllodPressureTreated_Toggled"
-                        Grid.Column="1"
+                <Switch Grid.Column="1"
                         HorizontalOptions="End"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center"
+                        IsToggled="{Binding IsTreated, Mode=TwoWay}"/>
             </Grid>
 
             <!-- Colesterol Total -->
             <Label FontSize="16"
                    FontAttributes="Bold"
                    TextColor="#111"
+                    FontFamily="Poppins"
                    Margin="0,8,0,0">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="{resx:Localize Key=TituloColesterolTotal}" />
-                        <Span Text=" Ex. 180" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
             <Entry x:Name="TotalCholesterolEntry"
                    Keyboard="Numeric"
-                   Placeholder="Exemplo: 180"
+                   Placeholder="Ex. 110"
                    Margin="0,2,0,2"
                    Text="{Binding TotalCholesterol}">
                 <Entry.Behaviors>
@@ -143,17 +136,17 @@
             <Label FontSize="16"
                    FontAttributes="Bold"
                    TextColor="#111"
+                    FontFamily="Poppins"
                    Margin="0,8,0,0">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="{resx:Localize Key=TituloColesterolHDL}" />
-                        <Span Text=" Ex. 55" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
             <Entry x:Name="HDLCholesterolEntry"
                    Keyboard="Numeric"
-                   Placeholder="Exemplo: 55"
+                   Placeholder="Ex. 90"
                    Margin="0,2,0,2"
                    Text="{Binding HDLCholesterol}">
                 <Entry.Behaviors>
@@ -171,17 +164,17 @@
             <Label FontSize="16"
                    FontAttributes="Bold"
                    TextColor="#111"
+                    FontFamily="Poppins"
                    Margin="0,8,0,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{resx:Localize Key=TituloPressaoArterial}" />
-                        <Span Text=" Ex. 120" FontSize="12" FontAttributes="Italic" TextColor="#888"/>
+                        <Span Text="{resx:Localize Key=TituloPressaoArterial}"  FontFamily="Poppins"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
             <Entry x:Name="SystolicBloodPressureEntry"
                    Keyboard="Numeric"
-                   Placeholder="Exemplo: 120"
+                   Placeholder="Ex. 120"
                    Margin="0,2,0,2"
                    Text="{Binding SystolicBloodPressure}">
                 <Entry.Behaviors>
@@ -202,6 +195,7 @@
                         BackgroundColor="#219150"
                         TextColor="White"
                         FontAttributes="Bold"
+                         FontFamily="Poppins"
                         FontSize="16"
                         CornerRadius="8"
                         HeightRequest="44"
@@ -213,6 +207,7 @@
                         FontAttributes="Bold"
                         FontSize="16"
                         CornerRadius="8"
+                         FontFamily="Poppins"
                         HeightRequest="44"
                         WidthRequest="120"/>
             </HorizontalStackLayout>

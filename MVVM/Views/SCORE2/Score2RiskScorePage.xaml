@@ -6,18 +6,42 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2;assembly=CVDRiskScores"
     xmlns:conv="clr-namespace:CVDRiskScores.Converters;assembly=CVDRiskScores"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:DataType="vm:Score2ViewModel"
     Title="{resx:Localize Key=TituloScore2}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringToIntConverter x:Key="StringToIntConverter" />
+            <conv:StringToDoubleConverter x:Key="StringToDoubleConverter" />
 
             <Color x:Key="Primary">#2B0B98</Color>
             <Color x:Key="MutedText">#6B6B6B</Color>
             <Color x:Key="CardBackground">#FFFFFF</Color>
             <Color x:Key="PageBackgroundColor">#F4F5FA</Color>
             <Color x:Key="BorderLight">#E6E7F0</Color>
+
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+                <!-- highlight invalid with light red background -->
+                <Setter Property="BackgroundColor" Value="#FFF5F5" />
+            </Style>
+            <Style x:Key="ValidEntryStyle" TargetType="Entry">
+                <!-- highlight valid with light green background -->
+                <Setter Property="BackgroundColor" Value="#F1FFF1" />
+            </Style>
+
+            <!-- HDL entry style: reacts to VM.ShowHdlValid / ShowHdlInvalid so it stays neutral until user types -->
+            <Style x:Key="HdlEntryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Style.Triggers>
+                    <DataTrigger TargetType="Entry" Binding="{Binding ShowHdlValid}" Value="True">
+                        <Setter Property="BackgroundColor" Value="#F1FFF1" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Entry" Binding="{Binding ShowHdlInvalid}" Value="True">
+                        <Setter Property="BackgroundColor" Value="#FFF5F5" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
 
             <Style x:Key="SectionCard" TargetType="Border">
                 <Setter Property="Background" Value="{StaticResource CardBackground}" />
@@ -36,39 +60,105 @@
     </ContentPage.Resources>
 
     <VerticalStackLayout Padding="24" Spacing="8">
-        <!-- Label de orientação -->
-        <!--<Label Text="Introduza os valores (intervalos válidos entre parênteses)"
-               FontAttributes="Bold"
-               FontSize="16" />-->
-
         <Label Text="{resx:Localize Key=TituloIdade}" FontSize="16" TextColor="#666"
                 FontFamily="Poppins"/>
         <Entry Placeholder="{resx:Localize Key=Validation_SCORE2_IntervaloIdades}"
                Text="{Binding Age, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
-               Keyboard="Numeric"/>
+               Keyboard="Numeric">
+            <Entry.Behaviors>
+                <mct:NumericValidationBehavior
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    ValidStyle="{StaticResource ValidEntryStyle}"
+                    Flags="ValidateOnValueChanged"
+                    MinimumValue="40"
+                    MaximumValue="69"
+                    MaximumDecimalPlaces="0" />
+            </Entry.Behaviors>
+        </Entry>
 
         <Label Text="{resx:Localize Key=TituloSexo}" FontSize="16" TextColor="#666"
                 FontFamily="Poppins"/>
         <Picker Title="{resx:Localize Key=TituloSexo}"
                 ItemsSource="{Binding GenderOptions}"
                 SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" />
+
         <Label Text="{resx:Localize Key=Titulo_Score2_TA_Sistolica}" FontSize="16" 
                TextColor="#666"  FontFamily="Poppins" />
         <Entry Placeholder="{resx:Localize Key=Titulo_Score2_TA_Sistolica1}"
-       Text="{Binding SystolicBloodPressure, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
-       Keyboard="Numeric"/>
+               Text="{Binding SystolicBloodPressure, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+               Keyboard="Numeric">
+            <Entry.Behaviors>
+                <mct:NumericValidationBehavior
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    ValidStyle="{StaticResource ValidEntryStyle}"
+                    Flags="ValidateOnValueChanged"
+                    MinimumValue="70"
+                    MaximumValue="250"
+                    MaximumDecimalPlaces="0" />
+            </Entry.Behaviors>
+        </Entry>
 
         <Label Text="{resx:Localize Key=Titulo_Score2_ColesterolTotal}" FontSize="16" 
                 FontFamily="Poppins" TextColor="#666" />
-        <Entry Placeholder="{resx:Localize Key=Titulo_Score2_ColesterolTotal1}"
-       Text="{Binding TotalCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
-       Keyboard="Numeric"/>
+        <Border Stroke="{StaticResource BorderLight}" StrokeThickness="1" StrokeShape="{StaticResource SectionCardStrokeShape}">
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding ShowTotalValid}" Value="True">
+                    <Setter Property="Stroke" Value="#2ecc71" />
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding ShowTotalInvalid}" Value="True">
+                    <Setter Property="Stroke" Value="#ff6b6b" />
+                </DataTrigger>
+            </Border.Triggers>
+            <Entry Placeholder="{resx:Localize Key=Placeholder_TotalCholesterol}"
+                   Text="{Binding TotalCholesterol, Mode=TwoWay, Converter={StaticResource StringToDoubleConverter}}"
+                   Keyboard="Numeric">
+                <Entry.Behaviors>
+                    <!-- mmol/L ranges; decimals allowed -->
+                    <mct:NumericValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        ValidStyle="{StaticResource ValidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="0.5"
+                        MaximumValue="15.0"
+                        MaximumDecimalPlaces="2" />
+                </Entry.Behaviors>
+            </Entry>
+        </Border>
 
         <Label Text="{resx:Localize Key=Titulo_Score2_ColesterolHDL}" FontSize="16" 
                 FontFamily="Poppins" TextColor="#666" />
-        <Entry Placeholder="{resx:Localize Key=Titulo_Score2_ColesterolHDL1}"
-       Text="{Binding HdlCholesterol, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
-       Keyboard="Numeric"/>
+        <Border Stroke="{StaticResource BorderLight}" StrokeThickness="1" StrokeShape="{StaticResource SectionCardStrokeShape}">
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding ShowHdlValid}" Value="True">
+                    <Setter Property="Stroke" Value="#2ecc71" />
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding ShowHdlInvalid}" Value="True">
+                    <Setter Property="Stroke" Value="#ff6b6b" />
+                </DataTrigger>
+            </Border.Triggers>
+            <Entry Style="{StaticResource HdlEntryStyle}"
+                   Placeholder="{resx:Localize Key=Placeholder_HDLCholesterol}"
+                   Text="{Binding HdlCholesterol, Mode=TwoWay, Converter={StaticResource StringToDoubleConverter}}"
+                   Keyboard="Numeric">
+                <Entry.Behaviors>
+                    <!-- Allow broad mmol/L range here; sex-specific minima validated in service/VM -->
+                    <mct:NumericValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        ValidStyle="{StaticResource ValidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="0.2"
+                        MaximumValue="5.0"
+                        MaximumDecimalPlaces="2" />
+                </Entry.Behaviors>
+            </Entry>
+        </Border>
+
+        <!-- Calibration Picker for clinicians -->
+        <Label Text="{resx:Localize Key=Titulo_Score2_Calibration}" FontSize="14" TextColor="#666" FontFamily="Poppins" />
+        <Picker
+            ItemsSource="{Binding CalibrationOptions}" 
+            SelectedIndex="{Binding SelectedCalibrationIndex, Mode=TwoWay}" 
+            Title="{resx:Localize Key=Titulo_Score2_Calibration}" />
         
         <StackLayout Orientation="Horizontal" Spacing="8" VerticalOptions="Center" >
             <Label Text="{resx:Localize Key=Simulacao_Fumador}" VerticalOptions="Center"

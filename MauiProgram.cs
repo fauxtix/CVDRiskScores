@@ -4,6 +4,7 @@ using CVDRiskScores.MVVM.ViewModels.SCORE2;
 using CVDRiskScores.MVVM.Views.Framingham;
 using CVDRiskScores.MVVM.Views.Languages;
 using CVDRiskScores.MVVM.Views.SCORE2;
+using CVDRiskScores.MVVM.Services.SCORE2;
 using CVDRiskScores.Services.Framingham;
 using CVDRiskScores.Services.Navigation;
 using CVDRiskScores.Services.Popup;
@@ -69,6 +70,13 @@ namespace CVDRiskScores
             builder.Services.AddTransient<Score2RiskScorePage>();
             builder.Services.AddTransient<Score2ResultsPage>();
             builder.Services.AddTransient<Score2IntroPage>();
+
+            // Register CalibrationExamplesViewModel for DI
+            builder.Services.AddTransient<CalibrationExamplesViewModel>();
+            // Register LearnMore viewmodel and popup for DI
+            builder.Services.AddTransient<Score2LearnMoreViewModel>();
+            builder.Services.AddTransient<Score2LearnMorePopup>();
+            builder.Services.AddTransient<Score2LearnMoreFactory>();
 
             builder.Services.AddTransient<IUIPopupService, UIPopupService>();
 

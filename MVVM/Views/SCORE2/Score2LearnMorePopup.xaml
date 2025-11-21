@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2LearnMorePopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
+	Padding="2"
+    BackgroundColor="#AA000000">
+
+	<Frame
+        x:Name="RootBorder"
+        CornerRadius="20"
+        BackgroundColor="{AppThemeBinding Light={StaticResource WhiteBrush}, Dark={StaticResource Gray950Brush}}"
+        HasShadow="True"
+        Padding="20"
+        WidthRequest="270"
+		HeightRequest="320"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+
+		<!-- Grid ensures the ScrollView area is constrained so the OK button is always visible -->
+		<Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*" 
+			  HorizontalOptions="Fill" 
+			  VerticalOptions="Fill">
+			<Label Grid.Row="0" Grid.Column="0"
+                   Text="{Binding Title}"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   TextColor="#D9534F"
+                   HorizontalOptions="FillAndExpand"
+                   Margin="0,0,0,8"/>
+
+			<ScrollView Grid.Row="1" Grid.Column="0"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        Padding="0">
+				<!-- Keep the label Start-aligned so small text measures naturally -->
+				<Label Text="{Binding BodyText}"
+                       LineBreakMode="WordWrap"
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start"/>
+			</ScrollView>
+
+			<HorizontalStackLayout Grid.Row="2" Grid.Column="0" HorizontalOptions="End" Margin="0,8,0,0">
+				<Button Text="{resx:Localize Key=Btn_Ok}" Clicked="Close_Clicked" />
+			</HorizontalStackLayout>
+		</Grid>
+	</Frame>
+</toolkit:Popup>

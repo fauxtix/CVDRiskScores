@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="CVDRiskScores.MVVM.Views.SCORE2.CalibrationExamplesPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
+    xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2"
+    BackgroundColor="#AA000000"
+	Padding="2"
+    x:DataType="vm:CalibrationExamplesViewModel">
+
+	<!-- Card centralizado -->
+	<Frame
+        x:Name="RootFrame"
+        CornerRadius="20"
+        BackgroundColor="{AppThemeBinding Light={StaticResource WhiteBrush}, Dark={StaticResource Gray950Brush}}"
+        HasShadow="True"
+        Padding="20"
+        WidthRequest="300"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+
+        <!-- Use Grid so the CollectionView can scroll and the button remains visible -->
+		<Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+
+			<!-- Título -->
+			<Label Grid.Row="0"
+                Text="{Binding Title}"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                HorizontalTextAlignment="Center"/>
+
+			<!-- CollectionView com scroll (row 1) -->
+			<CollectionView Grid.Row="1"
+                ItemsSource="{Binding Examples}"
+                SelectionMode="None"
+                ItemSizingStrategy="MeasureAllItems"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+
+				<CollectionView.ItemsLayout>
+					<LinearItemsLayout Orientation="Vertical" ItemSpacing="8"/>
+				</CollectionView.ItemsLayout>
+
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="vm:CalibrationExampleVm">
+						<Frame
+                            CornerRadius="12"
+                            BorderColor="#E6E6E6"
+                            Padding="12"
+                            Margin="0,4">
+							<VerticalStackLayout Spacing="4">
+
+								<HorizontalStackLayout>
+									<Label Text="{Binding Title}"
+                                           FontAttributes="Bold"
+                                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                           HorizontalOptions="Start"/>
+									<Label Text="{Binding Risk}"
+                                           FontAttributes="Bold"
+                                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                           HorizontalOptions="End"/>
+								</HorizontalStackLayout>
+
+								<Label Text="{Binding InputsSummary}"
+                                       LineBreakMode="WordWrap"
+                                       TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+								<Label Text="{Binding ContributionsSummary}"
+                                       LineBreakMode="WordWrap"
+                                       FontSize="12"
+                                       Opacity="0.9"
+                                       TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+							</VerticalStackLayout>
+						</Frame>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+
+			<!-- Botão Fechar (row 2) -->
+			<HorizontalStackLayout Grid.Row="2" HorizontalOptions="End">
+				<Button Margin="0,8,0,0"
+                    Text="{resx:Localize Key=Btn_Close}"
+                    BackgroundColor="#1976D2"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="44"
+                    Clicked="Close_Clicked"/>
+			</HorizontalStackLayout>
+		</Grid>
+	</Frame>
+</toolkit:Popup>

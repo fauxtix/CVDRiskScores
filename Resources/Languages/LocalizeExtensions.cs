@@ -1,10 +1,12 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using System.Resources;
+using Microsoft.Maui.Controls;
 
 namespace CVDRiskScores.Resources.Languages
 {
     [ContentProperty(nameof(Key))]
+    [AcceptEmptyServiceProvider]
     public class LocalizeExtension : IMarkupExtension
     {
         public string Key { get; set; } = string.Empty;

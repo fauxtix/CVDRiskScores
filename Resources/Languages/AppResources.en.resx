@@ -835,10 +835,16 @@
     <value>Blood pressure medication</value>
   </data>
   <data name="TituloColesterolTotal" xml:space="preserve">
-    <value>Total Cholesterol (mg/dL)</value>
+    <value>Total cholesterol (mg/dL)</value>
   </data>
   <data name="TituloColesterolHDL" xml:space="preserve">
     <value>HDL cholesterol (mg/dL)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolTotal" xml:space="preserve">
+    <value>Total cholesterol (mmol/L)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolHDL" xml:space="preserve">
+    <value>HDL cholesterol (mmol/L)</value>
   </data>
   <data name="TituloPressaoArterial" xml:space="preserve">
     <value>Systolic Blood Pressure</value>
@@ -937,7 +943,7 @@
     <value>5. HDL cholesterol</value>
   </data>
   <data name="Intro_Score2_Item5_Detail" xml:space="preserve">
-    <value>- Value in mg/dL</value>
+    <value>- Value in mmol/L</value>
   </data>
   <data name="Intro_Score2_Item6_Text" xml:space="preserve">
     <value>6. Smoker</value>
@@ -957,19 +963,106 @@
   <data name="Titulo_Score2_TA_Sistolica" xml:space="preserve">
     <value>Systolic Blood Pressure (mmHg)</value>
   </data>
-  <data name="Titulo_Score2_ColesterolTotal" xml:space="preserve">
-    <value>Total cholesterol (mg/dL) =&gt; (should be &gt; HDL)</value>
-  </data>
-  <data name="Titulo_Score2_ColesterolHDL" xml:space="preserve">
-    <value>HDL cholesterol</value>
+  <data name="Titulo_Score2_ColesterolTotal1" xml:space="preserve">
+    <value>Total Cholesterol (e.g., 110)</value>
   </data>
   <data name="Titulo_Score2_ColesterolHDL1" xml:space="preserve">
     <value>HDL cholesterol (e.g., 90)</value>
   </data>
-  <data name="Titulo_Score2_ColesterolTotal1" xml:space="preserve">
-    <value>Total Cholesterol (e.g., 110)</value>
-  </data>
   <data name="Titulo_Score2_TA_Sistolica1" xml:space="preserve">
     <value>Systolic BP (e.g., 120)</value>
+  </data>
+  <data name="Titulo_Score2_Calibration" xml:space="preserve">
+    <value>Calibration</value>
+  </data>
+  <data name="Calibration_Intro_Title" xml:space="preserve">
+    <value>Calibration interpretation</value>
+  </data>
+  <data name="Calibration_Intro_Explanation" xml:space="preserve">
+    <value>The calibration picker adjusts the SCORE2 model for different populations. The choice affects the display and magnitude of estimated risk — select the calibration that best represents your target population.</value>
+  </data>
+  <data name="Calibration_Intro_Low" xml:space="preserve">
+    <value>Low — suitable for populations with typically lower cardiovascular risk. This option tends to lower estimated risks.</value>
+  </data>
+  <data name="Calibration_Intro_Moderate" xml:space="preserve">
+    <value>Moderate — default calibration for most populations. Use if unsure about population representativeness.</value>
+  </data>
+  <data name="Calibration_Intro_High" xml:space="preserve">
+    <value>High — suitable for higher-risk populations; produces higher estimated risks and may change the clinical advice shown.</value>
+  </data>
+  <data name="Calibration_Examples_Title" xml:space="preserve">
+    <value>Calibration examples</value>
+  </data>
+  <data name="Calibration_Examples_RiskLabel" xml:space="preserve">
+    <value>Risk</value>
+  </data>
+  <data name="Calibration_Examples_InputsLabel" xml:space="preserve">
+    <value>Inputs used</value>
+  </data>
+  <data name="Calibration_Examples_AgeLabel" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="Calibration_Examples_SBPLabel" xml:space="preserve">
+    <value>Systolic BP</value>
+  </data>
+  <data name="Calibration_Examples_TotalCholLabel" xml:space="preserve">
+    <value>Total cholesterol (mmol/L)</value>
+  </data>
+  <data name="Calibration_Examples_HDLLabel" xml:space="preserve">
+    <value>HDL cholesterol (mmol/L)</value>
+  </data>
+  <data name="Calibration_Examples_ShowButton" xml:space="preserve">
+    <value>Show examples</value>
+  </data>
+  <data name="Calibration_Examples_ContribHeader" xml:space="preserve">
+    <value>Component contributions (log‑odds)</value>
+  </data>
+  <data name="Calibration_Examples_Legend" xml:space="preserve">
+    <value>Legend: each value is the contribution in log‑odds to the overall risk. Positive values increase risk; negative decrease it.</value>
+  </data>
+  <data name="Calibration_Examples_NonHDLLabel" xml:space="preserve">
+    <value>Non‑HDL</value>
+  </data>
+  <data name="Calibration_Examples_SmokingLabel" xml:space="preserve">
+    <value>Smoking</value>
+  </data>
+  <data name="Calibration_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Calibration_Moderate" xml:space="preserve">
+    <value>Moderate</value>
+  </data>
+  <data name="Calibration_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Validation_SCORE2_Disclaimer_Title" xml:space="preserve">
+    <value>Data &amp; calibration notice</value>
+  </data>
+  <data name="Validation_SCORE2_LearnMore" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="Validation_SCORE2_Acknowledge" xml:space="preserve">
+    <value>I have read and understand that results are indicative and depend on chosen calibration.</value>
+  </data>
+  <data name="Validation_SCORE2_Disclaimer_Explanation" xml:space="preserve">
+    <value>This algorithm provides an estimate based on population parameters and may not reflect individual risk exactly. Calibration (Low/Moderate/High) alters estimates — choose the calibration that best represents your target population. Results do not replace clinical assessment.</value>
+  </data>
+  <data name="Calibration_Examples_Failed" xml:space="preserve">
+    <value>Failed to compute calibration examples.</value>
+  </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Btn_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Popup_Legend_Title" xml:space="preserve">
+    <value>Legend</value>
+  </data>
+  <data name="LanguageSettings_Legend_Title" xml:space="preserve">
+    <value>Legend</value>
+  </data>
+  <data name="LanguageSettings_Legend_Message" xml:space="preserve">
+    <value>The legend explains the terms and options on this page related to language selection.</value>
   </data>
 </root>

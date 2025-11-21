@@ -5,13 +5,14 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
+using CVDRiskScores.MVVM.Models.Shared;
 
 namespace CVDRiskScores.MVVM.Views.Shared
 {
     public partial class SimulationResultPopupGeneric : Popup
     {
         readonly object _data;
-        readonly ObservableCollection<KeyValuePair<string, string>> _rows = new();
+        readonly ObservableCollection<KeyValueRow> _rows = new();
 
         public SimulationResultPopupGeneric(object data, string title = "Resultado", string subtitle = "", string badge = "")
         {
@@ -129,6 +130,9 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue($"{lblPoints} — TA", GetFormattedProp(model, "SBPPoints"));
             AddLabelValue($"{lblPoints} — Tabaco", GetFormattedProp(model, "SmokingPoints"));
             AddLabelValue(lblValidation, TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
+
+            // populate diagnostics area if details are available
+            TryPopulateDiagnostics(model, parentVm);
         }
 
         void BuildFraminghamDetails(object model, object? parentVm)
@@ -156,6 +160,88 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue($"{lblPoints} — {lblHdl}", GetFormattedProp(model, "HDLCholesterolPoints"));
             AddLabelValue($"{lblPoints} — {lblSbp}", GetFormattedProp(model, "SystolicBloodPressurePoints"));
             AddLabelValue(lblValidation, TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
+
+            // populate diagnostics area if possible
+            TryPopulateDiagnostics(model, parentVm);
+        }
+
+        bool TryPopulateDiagnostics(object? model, object? parentVm)
+        {
+            try
+            {
+                var candidates = new List<object?> { model, parentVm };
+                var det1 = GetPropValue(model, "Details") ?? GetPropValue(model, "Detail") ?? GetPropValue(model, "ScoreDetails");
+                var det2 = GetPropValue(parentVm, "Details") ?? GetPropValue(parentVm, "Detail") ?? GetPropValue(parentVm, "ScoreDetails");
+                if (det1 != null) candidates.Insert(0, det1);
+                if (det2 != null) candidates.Insert(0, det2);
+
+                string? lp = null, meanlp = null, s0 = null, risk = null;
+                string? ageC = null, nonHdlC = null, sbpC = null, smokeC = null;
+
+                foreach (var cand in candidates.Where(c => c != null))
+                {
+                    if (lp == null) lp = FindFirstMatchingPropAsString(cand!, new[] { "LP", "Lp", "LinearPredictor", "Logit" });
+                    if (meanlp == null) meanlp = FindFirstMatchingPropAsString(cand!, new[] { "MeanLP", "MeanLp", "Mean" });
+                    if (s0 == null) s0 = FindFirstMatchingPropAsString(cand!, new[] { "S0", "S_0", "S0Value" });
+                    if (risk == null) risk = FindFirstMatchingPropAsString(cand!, new[] { "Risk", "RiskScore", "RiskValue" });
+
+                    if (ageC == null) ageC = FindFirstMatchingPropAsString(cand!, new[] { "AgeContribution", "Age_C", "AgeContributionValue" });
+                    if (nonHdlC == null) nonHdlC = FindFirstMatchingPropAsString(cand!, new[] { "NonHDLContribution", "NonHDL_C", "NonHDLContributionValue" });
+                    if (sbpC == null) sbpC = FindFirstMatchingPropAsString(cand!, new[] { "SBPContribution", "SBP_C", "SBPContributionValue" });
+                    if (smokeC == null) smokeC = FindFirstMatchingPropAsString(cand!, new[] { "SmokingContribution", "Smoking_C", "SmokingContributionValue", "Smoke_C" });
+
+                    if (lp != null || meanlp != null || s0 != null || ageC != null || nonHdlC != null || sbpC != null || smokeC != null)
+                        break;
+                }
+
+                var any = false;
+                DiagnosticsLPLabel.Text = !string.IsNullOrWhiteSpace(lp) ? (AppResources.ResourceManager.GetString("Popup_Diagnostics_LP", AppResources.Culture) ?? "LP:") + " " + lp : string.Empty;
+                DiagnosticsMeanLPLabel.Text = !string.IsNullOrWhiteSpace(meanlp) ? (AppResources.ResourceManager.GetString("Popup_Diagnostics_MeanLP", AppResources.Culture) ?? "Mean LP:") + " " + meanlp : string.Empty;
+                DiagnosticsS0Label.Text = !string.IsNullOrWhiteSpace(s0) ? (AppResources.ResourceManager.GetString("Popup_Diagnostics_S0", AppResources.Culture) ?? "S0:") + " " + s0 : string.Empty;
+
+                var contribs = new List<string>();
+                if (!string.IsNullOrWhiteSpace(ageC)) contribs.Add((AppResources.ResourceManager.GetString("Popup_Diagnostics_Age", AppResources.Culture) ?? "Age") + ": " + ageC);
+                if (!string.IsNullOrWhiteSpace(nonHdlC)) contribs.Add((AppResources.ResourceManager.GetString("Popup_Diagnostics_NonHDL", AppResources.Culture) ?? "Non‑HDL") + ": " + nonHdlC);
+                if (!string.IsNullOrWhiteSpace(sbpC)) contribs.Add((AppResources.ResourceManager.GetString("Popup_Diagnostics_SBP", AppResources.Culture) ?? "SBP") + ": " + sbpC);
+                if (!string.IsNullOrWhiteSpace(smokeC)) contribs.Add((AppResources.ResourceManager.GetString("Popup_Diagnostics_Smoke", AppResources.Culture) ?? "Smoke") + ": " + smokeC);
+
+                DiagnosticsContribLabel.Text = contribs.Count > 0 ? string.Join("; ", contribs) : string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(risk))
+                    DiagnosticsTitleLabel.Text = (AppResources.ResourceManager.GetString("Popup_Diagnostics_Title", AppResources.Culture) ?? "Diagnostics") + $" — {risk}";
+                else
+                    DiagnosticsTitleLabel.Text = AppResources.ResourceManager.GetString("Popup_Diagnostics_Title", AppResources.Culture) ?? "Diagnostics";
+
+                any = !string.IsNullOrWhiteSpace(DiagnosticsLPLabel.Text) || !string.IsNullOrWhiteSpace(DiagnosticsMeanLPLabel.Text) || !string.IsNullOrWhiteSpace(DiagnosticsS0Label.Text) || !string.IsNullOrWhiteSpace(DiagnosticsContribLabel.Text);
+                DiagnosticsPanel.IsVisible = any;
+                return any;
+            }
+            catch { DiagnosticsPanel.IsVisible = false; return false; }
+        }
+
+        string? FindFirstMatchingPropAsString(object obj, string[] names)
+        {
+            if (obj == null) return null;
+            foreach (var n in names)
+            {
+                var v = GetPropValue(obj, n);
+                if (v != null) return v.ToString();
+            }
+
+            var props = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.GetIndexParameters().Length == 0);
+            foreach (var p in props)
+            {
+                try
+                {
+                    if (names.Any(k => p.Name.IndexOf(k, StringComparison.OrdinalIgnoreCase) >= 0))
+                    {
+                        var vv = p.GetValue(obj);
+                        if (vv != null) return vv.ToString();
+                    }
+                }
+                catch { }
+            }
+            return null;
         }
 
         void AddLabelValue(string label, object value)
@@ -183,7 +269,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 string.IsNullOrWhiteSpace(formatted.Replace("-", "").Trim()))
                 return;
 
-            _rows.Add(new KeyValuePair<string, string>(label, formatted));
+            _rows.Add(new KeyValueRow { Key = label, Value = formatted });
         }
 
         string LocalizeBool(bool b) =>
@@ -452,7 +538,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 {
                     var key = kv.Key;
                     if (_rows.Any(r => r.Key == key)) continue;
-                    _rows.Add(new KeyValuePair<string, string>(key, FormatValue(kv.Value)));
+                    _rows.Add(new KeyValueRow { Key = key, Value = FormatValue(kv.Value) });
                 }
                 return;
             }
@@ -462,14 +548,14 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 {
                     var key = kv.Key;
                     if (_rows.Any(r => r.Key == key)) continue;
-                    _rows.Add(new KeyValuePair<string, string>(key, kv.Value));
+                    _rows.Add(new KeyValueRow { Key = key, Value = kv.Value });
                 }
                 return;
             }
             if (obj is string s)
             {
                 if (!_rows.Any(r => r.Key == "Mensagem"))
-                    _rows.Add(new KeyValuePair<string, string>("Mensagem", s));
+                    _rows.Add(new KeyValueRow { Key = "Mensagem", Value = s });
                 return;
             }
 
@@ -492,11 +578,11 @@ namespace CVDRiskScores.MVVM.Views.Shared
                     else c = Colors.Transparent;
 
                     var hex = c.ToHex();
-                    _rows.Add(new KeyValuePair<string, string>(label, $"[COLOR:{hex}]"));
+                    _rows.Add(new KeyValueRow { Key = label, Value = $"[COLOR:{hex}]" });
                 }
                 else
                 {
-                    _rows.Add(new KeyValuePair<string, string>(label, FormatDisplayValue(p.PropertyType, val)));
+                    _rows.Add(new KeyValueRow { Key = label, Value = FormatDisplayValue(p.PropertyType, val) });
                 }
             }
         }

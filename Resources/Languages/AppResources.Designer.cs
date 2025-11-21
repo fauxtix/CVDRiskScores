@@ -178,6 +178,213 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fechar.
+        /// </summary>
+        public static string Btn_Close {
+            get {
+                return ResourceManager.GetString("Btn_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Btn_Ok {
+            get {
+                return ResourceManager.GetString("Btn_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Idade.
+        /// </summary>
+        public static string Calibration_Examples_AgeLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_AgeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contributos (log‑odds).
+        /// </summary>
+        public static string Calibration_Examples_ContribHeader {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_ContribHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi possível calcular os exemplos de calibração..
+        /// </summary>
+        public static string Calibration_Examples_Failed {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol HDL (mmol/L).
+        /// </summary>
+        public static string Calibration_Examples_HDLLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_HDLLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entradas usadas.
+        /// </summary>
+        public static string Calibration_Examples_InputsLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_InputsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legenda: cada valor representa a contribuição em unidades de log‑odds para o risco. Valores positivos aumentam o risco, negativos diminuem..
+        /// </summary>
+        public static string Calibration_Examples_Legend {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non‑HDL.
+        /// </summary>
+        public static string Calibration_Examples_NonHDLLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_NonHDLLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Risco.
+        /// </summary>
+        public static string Calibration_Examples_RiskLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_RiskLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TA sistólica.
+        /// </summary>
+        public static string Calibration_Examples_SBPLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_SBPLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ver exemplos.
+        /// </summary>
+        public static string Calibration_Examples_ShowButton {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_ShowButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fumo.
+        /// </summary>
+        public static string Calibration_Examples_SmokingLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_SmokingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exemplos de calibração.
+        /// </summary>
+        public static string Calibration_Examples_Title {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol total (mmol/L).
+        /// </summary>
+        public static string Calibration_Examples_TotalCholLabel {
+            get {
+                return ResourceManager.GetString("Calibration_Examples_TotalCholLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alto.
+        /// </summary>
+        public static string Calibration_High {
+            get {
+                return ResourceManager.GetString("Calibration_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O seletor de calibração permite ajustar o modelo SCORE2 para diferentes populações. A escolha altera a apresentação e a magnitude do risco estimado — utilize a calibração que melhor representa a população alvo..
+        /// </summary>
+        public static string Calibration_Intro_Explanation {
+            get {
+                return ResourceManager.GetString("Calibration_Intro_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alta — indicado para populações com risco mais elevado; produz estimativas de maior gravidade e pode alterar aconselhamento clínico apresentado..
+        /// </summary>
+        public static string Calibration_Intro_High {
+            get {
+                return ResourceManager.GetString("Calibration_Intro_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baixa — indicado para populações com risco cardiovascular tipicamente mais reduzido. Esta opção tende a diminuir as estimativas de risco..
+        /// </summary>
+        public static string Calibration_Intro_Low {
+            get {
+                return ResourceManager.GetString("Calibration_Intro_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moderada — calibração predefinida para a maioria das populações. Use se não tiver dúvidas sobre a representatividade da população..
+        /// </summary>
+        public static string Calibration_Intro_Moderate {
+            get {
+                return ResourceManager.GetString("Calibration_Intro_Moderate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interpretação da Calibração.
+        /// </summary>
+        public static string Calibration_Intro_Title {
+            get {
+                return ResourceManager.GetString("Calibration_Intro_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baixo.
+        /// </summary>
+        public static string Calibration_Low {
+            get {
+                return ResourceManager.GetString("Calibration_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moderado.
+        /// </summary>
+        public static string Calibration_Moderate {
+            get {
+                return ResourceManager.GetString("Calibration_Moderate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancelar.
         /// </summary>
         public static string Cancelar {
@@ -493,7 +700,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Valor em mg/dL.
+        ///   Looks up a localized string similar to - Valor em mmol/L.
         /// </summary>
         public static string Intro_Score2_Item5_Detail {
             get {
@@ -534,6 +741,24 @@ namespace CVDRiskScores.Resources.Languages {
         public static string Intro_Score2_QuickInterpretation {
             get {
                 return ResourceManager.GetString("Intro_Score2_QuickInterpretation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A legenda explica os termos e opções desta página relacionados com a seleção de idioma..
+        /// </summary>
+        public static string LanguageSettings_Legend_Message {
+            get {
+                return ResourceManager.GetString("LanguageSettings_Legend_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legenda.
+        /// </summary>
+        public static string LanguageSettings_Legend_Title {
+            get {
+                return ResourceManager.GetString("LanguageSettings_Legend_Title", resourceCulture);
             }
         }
         
@@ -759,6 +984,15 @@ namespace CVDRiskScores.Resources.Languages {
         public static string Pet_Vaccines {
             get {
                 return ResourceManager.GetString("Pet_Vaccines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legenda.
+        /// </summary>
+        public static string Popup_Legend_Title {
+            get {
+                return ResourceManager.GetString("Popup_Legend_Title", resourceCulture);
             }
         }
         
@@ -1105,7 +1339,16 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Colesterol HDL.
+        ///   Looks up a localized string similar to Calibração.
+        /// </summary>
+        public static string Titulo_Score2_Calibration {
+            get {
+                return ResourceManager.GetString("Titulo_Score2_Calibration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colesterol HDL (mmol/L).
         /// </summary>
         public static string Titulo_Score2_ColesterolHDL {
             get {
@@ -1123,7 +1366,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Colesterol Total (mg/dL) =&gt; (deve ser &gt; HDL).
+        ///   Looks up a localized string similar to Colesterol Total (mmol/L).
         /// </summary>
         public static string Titulo_Score2_ColesterolTotal {
             get {
@@ -1240,7 +1483,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Colesterol Total (mg/dL.
+        ///   Looks up a localized string similar to Colesterol Total (mg/dL).
         /// </summary>
         public static string TituloColesterolTotal {
             get {
@@ -1753,7 +1996,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ficheiro temporário inexistenete. Por favor selecione novamente.
+        ///   Looks up a localized string similar to Ficheiro temporário inexistente. Por favor selecione novamente.
         /// </summary>
         public static string TituloFicheiroInexistente {
             get {
@@ -2563,11 +2806,47 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Li e compreendo que os resultados são indicativos e dependem da calibração escolhida..
+        /// </summary>
+        public static string Validation_SCORE2_Acknowledge {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_Acknowledge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este algoritmo fornece uma estimativa de risco baseada em parâmetros populacionais e pode não refletir o risco individual exato. Os dados usados para calibrar o modelo provêm de estudos populacionais e a escolha da calibração (Baixa/Moderada/Alta) altera as estimativas: selecione a calibração que melhor representa a população alvo. Os resultados não substituem avaliação clínica..
+        /// </summary>
+        public static string Validation_SCORE2_Disclaimer_Explanation {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_Disclaimer_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aviso sobre dados e calibração.
+        /// </summary>
+        public static string Validation_SCORE2_Disclaimer_Title {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_Disclaimer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Escolha idade entre 40 e 69 anos.
         /// </summary>
         public static string Validation_SCORE2_IntervaloIdades {
             get {
                 return ResourceManager.GetString("Validation_SCORE2_IntervaloIdades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saiba mais.
+        /// </summary>
+        public static string Validation_SCORE2_LearnMore {
+            get {
+                return ResourceManager.GetString("Validation_SCORE2_LearnMore", resourceCulture);
             }
         }
         

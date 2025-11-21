@@ -1,11 +1,13 @@
 ﻿using System.Globalization;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Controls;
 
 namespace CVDRiskScores.Converters
 {
     // Detect boolean-like strings ("Sim"/"Não", "True"/"False", etc.)
     public class IsBooleanStringConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var s = value?.ToString()?.Trim().ToLowerInvariant();
             if (string.IsNullOrEmpty(s)) return false;
@@ -13,7 +15,7 @@ namespace CVDRiskScores.Converters
                 || s == "não" || s == "nao" || s == "n" || s == "false" || s == "no";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 
@@ -23,7 +25,7 @@ namespace CVDRiskScores.Converters
         const string TrueGlyph = "✔";
         const string FalseGlyph = "✖";
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var s = value?.ToString()?.Trim().ToLowerInvariant();
             if (string.IsNullOrEmpty(s)) return string.Empty;
@@ -32,14 +34,14 @@ namespace CVDRiskScores.Converters
             return string.Empty;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 
     // Color for boolean glyph (returns Color)
     public class BooleanGlyphColorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var s = value?.ToString()?.Trim().ToLowerInvariant();
             if (string.IsNullOrEmpty(s)) return Colors.Transparent;
@@ -59,14 +61,14 @@ namespace CVDRiskScores.Converters
             return Colors.Transparent;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 
     // Highlight color for keys related to risk/pontuação
     public class KeyHighlightConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var key = value?.ToString() ?? string.Empty;
             if (string.IsNullOrEmpty(key)) return Colors.Black;
@@ -82,14 +84,14 @@ namespace CVDRiskScores.Converters
             return Colors.Black;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 
     // Converts "[COLOR:#rrggbb]" or "#rrggbb" to SolidColorBrush for Ellipse.Fill
     public class StringToColorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var s = value?.ToString()?.Trim();
             if (string.IsNullOrEmpty(s)) return new SolidColorBrush(Colors.Transparent);
@@ -113,14 +115,14 @@ namespace CVDRiskScores.Converters
             }
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 
     // Detects color marker strings so UI shows swatch instead of hex text
     public class IsColorMarkerConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var s = value?.ToString()?.Trim();
             if (string.IsNullOrEmpty(s)) return false;
@@ -129,7 +131,7 @@ namespace CVDRiskScores.Converters
             return false;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 }

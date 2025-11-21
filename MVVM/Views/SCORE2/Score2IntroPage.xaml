@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CVDRiskScores.MVVM.Views.SCORE2.Score2IntroPage"
 			 xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
-             Title="SCORE2 — Introdução">
+             Title="{resx:Localize Key=TituloScore2}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -40,8 +40,52 @@
             <BoxView Color="#FF7A59" HeightRequest="3" HorizontalOptions="Fill" />
 
             <VerticalStackLayout Padding="0,6">
-                <Label Text="{resx:Localize Key=Intro_Paragrafo_Score2_1}" FontFamily="Poppins"/>
+                <Label Text="{resx:Localize Key=TituloFechar}" FontFamily="Poppins"/>
                 <Label Margin="0,6" Text="{resx:Localize Key=Intro_Paragrafo_Score2_2}" FontFamily="Poppins"/>
+
+                <!-- New explicit disclaimer + provenance (explanation moved to popup) -->
+                <Border x:Name="DisclaimerFrame" Padding="8" Margin="0,8" BackgroundColor="#FFF5F5" Stroke="#D9534F" StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout>
+                        <Label Text="{resx:Localize Key=Validation_SCORE2_Disclaimer_Title}" FontAttributes="Bold" TextColor="#D9534F" />
+                        <Label x:Name="DataVersionLabel" Text="" FontSize="12" TextColor="#666" />
+
+                        <!-- Replaced HorizontalStackLayout with Grid so the acknowledgement text can wrap -->
+                        <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto" ColumnSpacing="12" VerticalOptions="Center" Margin="0,6,0,0">
+                            <CheckBox x:Name="AcknowledgeCheckbox" IsChecked="False" CheckedChanged="AcknowledgeCheckedChanged" Grid.Column="0" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="{resx:Localize Key=Validation_SCORE2_Acknowledge}" LineBreakMode="WordWrap" VerticalOptions="Center" HorizontalOptions="Start" />
+                            <Button Grid.Column="2" Text="{resx:Localize Key=Validation_SCORE2_LearnMore}" Clicked="LearnMoreBtn_Clicked" HorizontalOptions="End" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Calibration explanation section -->
+                <Border Padding="10" Margin="0,8" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource Gray950Brush}}" Stroke="{StaticResource BorderColor2}" StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="{resx:Localize Key=Calibration_Intro_Title}" FontAttributes="Bold" FontSize="16" />
+                        <Label Text="{resx:Localize Key=Calibration_Intro_Explanation}" LineBreakMode="WordWrap" FontSize="13" />
+
+                        <VerticalStackLayout Margin="0,6,0,0" Spacing="6">
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8" VerticalOptions="Center">
+                                <Label Text="•" FontSize="18" VerticalOptions="Center" Grid.Column="0" />
+                                <Label Text="{resx:Localize Key=Calibration_Intro_Low}" LineBreakMode="WordWrap" Grid.Column="1" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8" VerticalOptions="Center">
+                                <Label Text="•" FontSize="18" VerticalOptions="Center" Grid.Column="0" />
+                                <Label Text="{resx:Localize Key=Calibration_Intro_Moderate}" LineBreakMode="WordWrap" Grid.Column="1" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8" VerticalOptions="Center">
+                                <Label Text="•" FontSize="18" VerticalOptions="Center" Grid.Column="0" />
+                                <Label Text="{resx:Localize Key=Calibration_Intro_High}" LineBreakMode="WordWrap" Grid.Column="1" />
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Examples button -->
+                        <Button Text="{resx:Localize Key=Calibration_Examples_ShowButton}" Clicked="ShowCalibrationExamples_Clicked" HorizontalOptions="End" Margin="0,8,0,0" />
+                    </VerticalStackLayout>
+                </Border>
+
             </VerticalStackLayout>
 
             <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
@@ -68,7 +112,7 @@
 
             <BoxView Color="#FF7A59" HeightRequest="1" HorizontalOptions="Fill" />
 
-			<Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *" ColumnSpacing="12">
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *" ColumnSpacing="12">
               <!-- cabeçalho ocupa as duas colunas -->
               <Label Margin="0, 5, 0, 10" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                      Text="{resx:Localize Key=Intro_Score2_QuickInterpretation}"
@@ -122,6 +166,7 @@
 
             <FlexLayout JustifyContent="Center" Margin="0,6,0,12">
                 <Button x:Name="SimulationBtn"
+                        IsEnabled="False"
                         Text="{resx:Localize Key=Intro_Botao_Simulacao}"
                         Clicked="SimulationBtn_Clicked"
                         BackgroundColor="#D9480F"

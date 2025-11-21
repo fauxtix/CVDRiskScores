@@ -631,7 +631,7 @@
     <value>Indique um título para o documento</value>
   </data>
   <data name="TituloFicheiroInexistente" xml:space="preserve">
-    <value>Ficheiro temporário inexistenete. Por favor selecione novamente</value>
+    <value>Ficheiro temporário inexistente. Por favor selecione novamente</value>
   </data>
   <data name="TituloErroUpdate" xml:space="preserve">
     <value>Erro na atualização</value>
@@ -835,10 +835,16 @@
     <value>Medicação para a tensão arterial</value>
   </data>
   <data name="TituloColesterolTotal" xml:space="preserve">
-    <value>Colesterol Total (mg/dL</value>
+    <value>Colesterol Total (mg/dL)</value>
   </data>
   <data name="TituloColesterolHDL" xml:space="preserve">
     <value>Colesterol HDL (mg/dL)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolTotal" xml:space="preserve">
+    <value>Colesterol Total (mmol/L)</value>
+  </data>
+  <data name="Titulo_Score2_ColesterolHDL" xml:space="preserve">
+    <value>Colesterol HDL (mmol/L)</value>
   </data>
   <data name="TituloPressaoArterial" xml:space="preserve">
     <value>Pressão Arterial Sistólica</value>
@@ -937,7 +943,7 @@
     <value>5. Colesterol HDL</value>
   </data>
   <data name="Intro_Score2_Item5_Detail" xml:space="preserve">
-    <value>- Valor em mg/dL</value>
+    <value>- Valor em mmol/L</value>
   </data>
   <data name="Intro_Score2_Item6_Text" xml:space="preserve">
     <value>6. Fumador</value>
@@ -957,19 +963,106 @@
   <data name="Titulo_Score2_TA_Sistolica" xml:space="preserve">
     <value>Tensão Alterial Sistólica (mmHG))</value>
   </data>
-  <data name="Titulo_Score2_ColesterolTotal" xml:space="preserve">
-    <value>Colesterol Total (mg/dL) =&gt; (deve ser &gt; HDL)</value>
-  </data>
-  <data name="Titulo_Score2_ColesterolHDL" xml:space="preserve">
-    <value>Colesterol HDL</value>
+  <data name="Titulo_Score2_ColesterolTotal1" xml:space="preserve">
+    <value>Colesterol Total (ex. 110)</value>
   </data>
   <data name="Titulo_Score2_ColesterolHDL1" xml:space="preserve">
     <value>Colesterol HDL (ex.: 90)</value>
   </data>
-  <data name="Titulo_Score2_ColesterolTotal1" xml:space="preserve">
-    <value>Colesterol Total (ex. 110)</value>
-  </data>
   <data name="Titulo_Score2_TA_Sistolica1" xml:space="preserve">
     <value>TA Sistólica (ex. 120)</value>
+  </data>
+  <data name="Titulo_Score2_Calibration" xml:space="preserve">
+    <value>Calibração</value>
+  </data>
+  <data name="Calibration_Intro_Title" xml:space="preserve">
+    <value>Interpretação da Calibração</value>
+  </data>
+  <data name="Calibration_Intro_Explanation" xml:space="preserve">
+    <value>O seletor de calibração permite ajustar o modelo SCORE2 para diferentes populações. A escolha altera a apresentação e a magnitude do risco estimado — utilize a calibração que melhor representa a população alvo.</value>
+  </data>
+  <data name="Calibration_Intro_Low" xml:space="preserve">
+    <value>Baixa — indicado para populações com risco cardiovascular tipicamente mais reduzido. Esta opção tende a diminuir as estimativas de risco.</value>
+  </data>
+  <data name="Calibration_Intro_Moderate" xml:space="preserve">
+    <value>Moderada — calibração predefinida para a maioria das populações. Use se não tiver dúvidas sobre a representatividade da população.</value>
+  </data>
+  <data name="Calibration_Intro_High" xml:space="preserve">
+    <value>Alta — indicado para populações com risco mais elevado; produz estimativas de maior gravidade e pode alterar aconselhamento clínico apresentado.</value>
+  </data>
+  <data name="Calibration_Examples_Title" xml:space="preserve">
+    <value>Exemplos de calibração</value>
+  </data>
+  <data name="Calibration_Examples_RiskLabel" xml:space="preserve">
+    <value>Risco</value>
+  </data>
+  <data name="Calibration_Examples_InputsLabel" xml:space="preserve">
+    <value>Entradas usadas</value>
+  </data>
+  <data name="Calibration_Examples_AgeLabel" xml:space="preserve">
+    <value>Idade</value>
+  </data>
+  <data name="Calibration_Examples_SBPLabel" xml:space="preserve">
+    <value>TA sistólica</value>
+  </data>
+  <data name="Calibration_Examples_TotalCholLabel" xml:space="preserve">
+    <value>Colesterol total (mmol/L)</value>
+  </data>
+  <data name="Calibration_Examples_HDLLabel" xml:space="preserve">
+    <value>Colesterol HDL (mmol/L)</value>
+  </data>
+  <data name="Calibration_Examples_ShowButton" xml:space="preserve">
+    <value>Ver exemplos</value>
+  </data>
+  <data name="Calibration_Examples_ContribHeader" xml:space="preserve">
+    <value>Contributos (log‑odds)</value>
+  </data>
+  <data name="Calibration_Examples_Legend" xml:space="preserve">
+    <value>Legenda: cada valor representa a contribuição em unidades de log‑odds para o risco. Valores positivos aumentam o risco, negativos diminuem.</value>
+  </data>
+  <data name="Calibration_Examples_NonHDLLabel" xml:space="preserve">
+    <value>Non‑HDL</value>
+  </data>
+  <data name="Calibration_Examples_SmokingLabel" xml:space="preserve">
+    <value>Fumo</value>
+  </data>
+  <data name="Calibration_Low" xml:space="preserve">
+    <value>Baixo</value>
+  </data>
+  <data name="Calibration_Moderate" xml:space="preserve">
+    <value>Moderado</value>
+  </data>
+  <data name="Calibration_High" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="Validation_SCORE2_Disclaimer_Title" xml:space="preserve">
+    <value>Aviso sobre dados e calibração</value>
+  </data>
+  <data name="Validation_SCORE2_LearnMore" xml:space="preserve">
+    <value>Saiba mais</value>
+  </data>
+  <data name="Validation_SCORE2_Acknowledge" xml:space="preserve">
+    <value>Li e compreendo que os resultados são indicativos e dependem da calibração escolhida.</value>
+  </data>
+  <data name="Validation_SCORE2_Disclaimer_Explanation" xml:space="preserve">
+    <value>Este algoritmo fornece uma estimativa de risco baseada em parâmetros populacionais e pode não refletir o risco individual exato. Os dados usados para calibrar o modelo provêm de estudos populacionais e a escolha da calibração (Baixa/Moderada/Alta) altera as estimativas: selecione a calibração que melhor representa a população alvo. Os resultados não substituem avaliação clínica.</value>
+  </data>
+  <data name="Calibration_Examples_Failed" xml:space="preserve">
+    <value>Não foi possível calcular os exemplos de calibração.</value>
+  </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="Btn_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Popup_Legend_Title" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="LanguageSettings_Legend_Title" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="LanguageSettings_Legend_Message" xml:space="preserve">
+    <value>A legenda explica os termos e opções desta página relacionados com a seleção de idioma.</value>
   </data>
 </root>

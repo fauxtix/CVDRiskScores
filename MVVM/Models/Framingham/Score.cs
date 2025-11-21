@@ -2,7 +2,7 @@
 {
     public class Score
     {
-        public string Points { get; set; }
-        public string Percentage { get; set; }
+        public string Points { get; set; } = string.Empty;
+        public string Percentage { get; set; } = string.Empty;
     }
 }

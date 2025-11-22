@@ -24,7 +24,7 @@ Desenvolvida em .NET 9 MAUI, CVDRiskScores proporciona uma experiência interati
   - 📋 Resumo copiável para relatórios ou registos clínicos.
 - 🌍 **Localização:**  
   - 🗣️ Suporte multilingue (Português, Inglês; extensível via ficheiros RESX).
-- 📱🖥️ **UI Responsiva e Moderna:**  
+- 📱🖥️ **UI Responsiva.**  
   Popups, navegação avançada, visualização clara dos resultados.
 - 💻 **Multiplataforma:**  
   Compatível com Android, iOS, Windows, Mac Catalyst e Tizen.

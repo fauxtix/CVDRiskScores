@@ -8,7 +8,7 @@
 
 _CVDRiskScores é uma aplicação multiplataforma para simular e calcular scores de risco cardiovascular, desenhada para profissionais de saúde, investigadores e pessoas interessadas em saúde. Permite estimar o risco individual de eventos cardiovasculares a 10 anos, utilizando algoritmos validados como o SCORE2 e Framingham, com dados clínicos essenciais (idade, género, pressão arterial, colesterol, tabagismo, etc.)._
 
-Desenvolvida em .NET 9 MAUI, CVDRiskScores proporciona uma experiência moderna e interativa em dispositivos móveis e desktop, com suporte a resultados detalhados e localização.
+Desenvolvida em .NET 9 MAUI, CVDRiskScores proporciona uma experiência interativa em dispositivos móveis e desktop, com suporte a resultados detalhados e localização.
 
 ---
 

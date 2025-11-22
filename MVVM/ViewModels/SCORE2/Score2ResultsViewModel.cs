@@ -11,7 +11,6 @@ namespace CVDRiskScores.MVVM.ViewModels.SCORE2
 
         public Score2ResultsViewModel(IScore2NavigationStore store)
         {
-            // read the last result stored by the calculator VM
             Score2Model = store.LastResult ?? new Score2Model();
         }
 

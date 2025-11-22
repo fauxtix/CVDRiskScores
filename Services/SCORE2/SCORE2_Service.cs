@@ -20,7 +20,6 @@ namespace CVDRiskScores.Services.SCORE2
                 if (_loaded) return;
                 try
                 {
-                    // 1) Try to load embedded JSON resource first; search manifest names robustly
                     var asm = Assembly.GetExecutingAssembly();
                     var manifestNames = asm.GetManifestResourceNames();
                     var resourceName = manifestNames.FirstOrDefault(n => n.IndexOf("score2_data.json", StringComparison.OrdinalIgnoreCase) >= 0);
@@ -40,7 +39,6 @@ namespace CVDRiskScores.Services.SCORE2
                         }
                     }
 
-                    // 2) Try to load from output directory root (CopyToOutputDirectory usually places it there)
                     var baseRoot = AppContext.BaseDirectory ?? Directory.GetCurrentDirectory();
                     var candidates = new[] {
                         Path.Combine(baseRoot, "score2_data.json"),
@@ -72,7 +70,6 @@ namespace CVDRiskScores.Services.SCORE2
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"[SCORE2] EnsureLoadData error: {ex.Message}");
-                    // ignore parse errors and keep seeded values
                 }
                 _loaded = true;
             }

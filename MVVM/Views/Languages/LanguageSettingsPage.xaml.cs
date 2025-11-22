@@ -1,5 +1,5 @@
-using CVDRiskScores.ViewModels.Languages;
 using CVDRiskScores.Resources.Languages;
+using CVDRiskScores.ViewModels.Languages;
 
 namespace CVDRiskScores.MVVM.Views.Languages;
 
@@ -19,6 +19,4 @@ public partial class LanguageSettingsPage : ContentPage
         var msg = AppResources.ResourceManager.GetString("Calibration_Examples_Legend", AppResources.Culture) ?? string.Empty;
         _ = Shell.Current.DisplayAlert(title, msg, AppResources.ResourceManager.GetString("Btn_Ok", AppResources.Culture) ?? "OK");
     }
-
-    // switch removed — legend is always visible in UI
 }

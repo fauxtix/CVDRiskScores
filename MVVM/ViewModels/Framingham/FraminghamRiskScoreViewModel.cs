@@ -54,7 +54,6 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
         [ObservableProperty]
         private Color riskColor;
 
-        // New: pure MVVM picker support
         public ObservableCollection<string> GenderOptions { get; } = new();
         [ObservableProperty]
         private int selectedIndex = 0;
@@ -77,22 +76,18 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             MaleScores = new ObservableCollection<Score>(ListOfMaleScores());
             FemaleScores = new ObservableCollection<Score>(ListOfFemaleScores());
 
-            // populate localized picker items (ensure order matches enum Genero)
             PopulateGenderOptions();
 
-            // ensure selectedIndex reflects current Gender value
             SelectedIndex = (int)Gender;
         }
 
         void PopulateGenderOptions()
         {
             GenderOptions.Clear();
-            // Ensure picker order matches enum Genero (Male=0, Female=1)
             GenderOptions.Add(AppResources.TituloMasculino);
             GenderOptions.Add(AppResources.TituloFeminino);
         }
 
-        // keep SelectedIndex and Gender synchronized
         partial void OnSelectedIndexChanged(int value)
         {
             if (Enum.IsDefined(typeof(Genero), value))
@@ -114,7 +109,6 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
         {
             List<Score> womanScores = new()
             {
-                // localized examples (you can add specific keys for each label)
                 new Score{ Points = AppResources.FemalePoints_Below9, Percentage = "< 1"},
                 new Score{ Points = "9 - 12", Percentage = "1"},
                 new Score{ Points = "13 - 14", Percentage = "2"},
@@ -181,16 +175,13 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                     sb.AppendLine(entry);
                 }
 
-                // localized alert title and OK button (fallback to "Ok")
                 await Shell.Current.DisplayAlert(AppResources.FillRequiredDataTitle, sb.ToString(), "Ok");
                 return;
             }
 
-            // safe to .Value because ValidateEntries ensured presence
             RiskScore = CalculateCVDRiskScores();
             RiskCategory = GetRiskCategory(RiskScore);
 
-            // localize risk color logic remains same, riskCategory is localized
             RiskColor = RiskCategory == AppResources.Risk_Low ? Colors.DarkGreen
                         : RiskCategory == AppResources.Risk_Medium ? Colors.DarkOrange
                         : Colors.DarkRed;
@@ -224,7 +215,6 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
         private int CalculateCVDRiskScores()
         {
-            // ValidateEntries guaranteed non-null, so use .Value
             AgePoints = _service.GetAgePoints(Age!.Value, Gender);
             TotalCholesterolPoints = _service.GetTotalCholesterolPoints(Age!.Value, Gender, TotalCholesterol!.Value);
             HDLCholesterolPoints = _service.GetHDLCholesterolPoints(Gender, HDLCholesterol!.Value);
@@ -266,7 +256,6 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             if (errorMessages.Count > 0)
                 return errorMessages;
 
-            // range validations
             if (Age!.Value < 20 || Age.Value > 79)
             {
                 errorMessages.Add(AppResources.Validation_AgeRange);

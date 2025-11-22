@@ -123,7 +123,6 @@ namespace CVDRiskScores.Services.SCORE2
             public bool IsFallback { get; set; } // Diagnóstico: true se foi fallback heurístico
         }
 
-        // Returns detailed breakdown and computed risk (0..100)
         public static CalculationDetails CalculateDetails(Score2Model model, string calibrationKey)
         {
             if (string.IsNullOrEmpty(calibrationKey)) calibrationKey = "Moderate";

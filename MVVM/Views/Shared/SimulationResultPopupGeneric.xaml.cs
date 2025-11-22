@@ -27,7 +27,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             RenderRows();
         }
 
-        // allow setting data later
         public void SetData(object data, string title = "", string subtitle = "", string badge = "")
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -47,7 +46,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
             if (obj == null)
             {
                 SetAdvice(string.Empty);
-                SetHeaderValues("-", "-", null); // Use "-" as default for nulls
+                SetHeaderValues("-", "-", null);
                 SetRiskEmoji(null);
                 return;
             }
@@ -60,7 +59,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
             var advice = TryGetPropAsString(nested, "ClinicalAdvice") ?? TryGetPropAsString(obj, "ClinicalAdvice") ?? string.Empty;
 
-            // avoid duplicate display if subtitle/category equals advice text (dedupe)
             bool adviceDuplicatesCategory = false;
             if (!string.IsNullOrWhiteSpace(advice) && !string.IsNullOrWhiteSpace(category))
             {
@@ -116,10 +114,8 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue(lblAge, GetFormattedProp(model, "Age"));
             AddLabelValue(lblGender, GetFormattedProp(model, "Gender"));
 
-            // show explicit Total cholesterol value
             AddLabelValue(lblTotalChol, GetFormattedProp(model, "TotalCholesterol"));
 
-            // show Non‑HDL (computed) — fallback to Total if not present
             var nonHdl = GetPropValue(model, "NonHDLCholesterol") ?? GetPropValue(model, "TotalCholesterol");
             AddLabelValue(lblNonHdl, FormatDisplayValue(nonHdl?.GetType() ?? typeof(object), nonHdl));
 
@@ -131,7 +127,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue($"{lblPoints} — Tabaco", GetFormattedProp(model, "SmokingPoints"));
             AddLabelValue(lblValidation, TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
 
-            // populate diagnostics area if details are available
             TryPopulateDiagnostics(model, parentVm);
         }
 
@@ -161,7 +156,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue($"{lblPoints} — {lblSbp}", GetFormattedProp(model, "SystolicBloodPressurePoints"));
             AddLabelValue(lblValidation, TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
 
-            // populate diagnostics area if possible
             TryPopulateDiagnostics(model, parentVm);
         }
 
@@ -308,14 +302,12 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
         string LocalizeEnum(Enum e)
         {
-            // Current app only uses Genero; extend here for other enums if necessary.
             if (e is Genero g)
             {
                 return g == Genero.Male ? AppResources.TituloMasculino
                                        : AppResources.TituloFeminino;
             }
 
-            // fallback to enum ToString()
             return e.ToString();
         }
 
@@ -669,7 +661,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
             });
         }
 
-        // --- Button handlers (Clicked event directly from Button XAML) ---
         void OnCloseAndBackClicked(object sender, EventArgs e)
         {
             CloseAndBackAsync();

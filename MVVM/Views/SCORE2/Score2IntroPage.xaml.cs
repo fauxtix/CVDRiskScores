@@ -20,7 +20,6 @@ public partial class Score2IntroPage : ContentPage
         InitializeComponent();
         LoadDataVersion();
 
-        // Always show disclaimer and require the checkbox to enable the simulation button.
         DisclaimerFrame.IsVisible = true;
         SimulationBtn.IsEnabled = false;
     }
@@ -35,7 +34,6 @@ public partial class Score2IntroPage : ContentPage
         var explanation = AppResources.ResourceManager.GetString("Validation_SCORE2_Disclaimer_Explanation", AppResources.Culture) ?? string.Empty;
         var dataVersionText = DataVersionLabel?.Text ?? string.Empty;
 
-        // Try to use DI factory to create popup + initialized VM
         var services = Application.Current?.Handler?.MauiContext?.Services;
         if (services != null)
         {
@@ -49,7 +47,6 @@ public partial class Score2IntroPage : ContentPage
                     return;
                 }
 
-                // fallback: resolve VM and popup types individually
                 var vm = services.GetService<Score2LearnMoreViewModel>() ?? new Score2LearnMoreViewModel();
                 vm.Initialize(explanation, dataVersionText);
                 var resolvedPopup = services.GetService<Score2LearnMorePopup>() ?? new Score2LearnMorePopup(vm);
@@ -62,7 +59,6 @@ public partial class Score2IntroPage : ContentPage
             }
         }
 
-        // Manual fallback if DI is not available
         var manualVm = new Score2LearnMoreViewModel();
         manualVm.Initialize(explanation, dataVersionText);
         var manualPopup = new Score2LearnMorePopup(manualVm);
@@ -71,7 +67,6 @@ public partial class Score2IntroPage : ContentPage
 
     private void AcknowledgeCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        // Enable or disable the simulation button based on the checkbox state.
         SimulationBtn.IsEnabled = e.Value;
     }
 
@@ -99,7 +94,6 @@ public partial class Score2IntroPage : ContentPage
                         }
                         else
                         {
-                            // fallback: list top-level keys
                             var sb = new System.Text.StringBuilder();
                             foreach (var prop in doc.RootElement.EnumerateObject())
                             {
@@ -133,7 +127,6 @@ public partial class Score2IntroPage : ContentPage
         var services = Application.Current?.Handler?.MauiContext?.Services;
         var score2Svc = services?.GetService<ISCORE2_Service>() ?? new SCORE2_Service();
 
-        // Three concrete, valid example models (inputs in mmol/L and SBP mmHg)
         var low = new Score2Model
         {
             Age = 55,
@@ -169,12 +162,10 @@ public partial class Score2IntroPage : ContentPage
 
         try
         {
-            // Run through the service pipeline (EnsureLoadData + validation + RiskScore)
             var mLow = score2Svc.ValidateAndCalculate(low);
             var mMod = score2Svc.ValidateAndCalculate(moderate);
             var mHigh = score2Svc.ValidateAndCalculate(high);
 
-            // Helper: if validation failed show message, else numeric risk
             object ToRiskValue(Score2Model m) =>
                 string.IsNullOrEmpty(m.ValidationError) ? (object)m.RiskScore : (object)m.ValidationError;
 

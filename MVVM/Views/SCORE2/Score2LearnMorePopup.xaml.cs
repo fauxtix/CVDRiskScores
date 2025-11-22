@@ -12,7 +12,6 @@ public partial class Score2LearnMorePopup : Popup
 
         TryLimitToScreen();
 
-        // entry animation (optional)
         this.Opacity = 0;
         this.Scale = 0.8;
         _ = AnimatePopup();

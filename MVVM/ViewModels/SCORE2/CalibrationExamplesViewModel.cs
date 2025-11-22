@@ -29,13 +29,15 @@ public partial class CalibrationExampleVm : ObservableObject
             var hdlLbl = AppResources.ResourceManager.GetString("Calibration_Examples_HDLLabel", AppResources.Culture) ?? "HDL";
             var smokeLbl = AppResources.ResourceManager.GetString("Calibration_Examples_SmokingLabel", AppResources.Culture) ?? "Smoking";
 
-            var parts = new List<string>();
-            parts.Add($"{genderLbl}: {(!string.IsNullOrWhiteSpace(Gender) ? Gender : "-")}");
-            parts.Add($"{ageLbl}: {Age?.ToString(CultureInfo.CurrentCulture) ?? "-"}");
-            parts.Add($"{sbpLbl}: {SBP?.ToString(CultureInfo.CurrentCulture) ?? "-"}");
-            parts.Add($"{totLbl}: {TotalChol?.ToString("F2", CultureInfo.CurrentCulture) ?? "-"}");
-            parts.Add($"{hdlLbl}: {Hdl?.ToString("F2", CultureInfo.CurrentCulture) ?? "-"}");
-            parts.Add($"{smokeLbl}: {(IsSmoker.HasValue ? (IsSmoker.Value ? (AppResources.Sim ?? "Sim") : (AppResources.Nao ?? "Não")) : "-")}");
+            var parts = new List<string>
+            {
+                $"{genderLbl}: {(!string.IsNullOrWhiteSpace(Gender) ? Gender : "-")}",
+                $"{ageLbl}: {Age?.ToString(CultureInfo.CurrentCulture) ?? "-"}",
+                $"{sbpLbl}: {SBP?.ToString(CultureInfo.CurrentCulture) ?? "-"}",
+                $"{totLbl}: {TotalChol?.ToString("F2", CultureInfo.CurrentCulture) ?? "-"}",
+                $"{hdlLbl}: {Hdl?.ToString("F2", CultureInfo.CurrentCulture) ?? "-"}",
+                $"{smokeLbl}: {(IsSmoker.HasValue ? (IsSmoker.Value ? (AppResources.Sim ?? "Sim") : (AppResources.Nao ?? "Não")) : "-")}"
+            };
 
             return string.Join("\n", parts);
         }
@@ -61,18 +63,15 @@ public partial class CalibrationExamplesViewModel : ObservableObject
             var vm = new CalibrationExampleVm();
             vm.Title = TryGetPropAsString(ex, "Title") ?? "-";
 
-            // quick log to check source details (type and raw value)
             var detObj = GetPropValue(ex, "Details");
 
             var model = GetPropValue(ex, "Model") as Score2Model;
-            // If no details provided but a Score2Model exists, compute details so examples match live calculation
             if (detObj == null && model != null)
             {
                 try
                 {
                     var calib = model.CalibrationKey ?? "Moderate";
                     var details = Score2Calculator.CalculateDetails(model, calib);
-                    // attach to model for consistency
                     model.ScoreDetails = details;
                     detObj = details;
                 }
@@ -173,13 +172,11 @@ public partial class CalibrationExamplesViewModel : ObservableObject
                 vm.Risk = FormatRisk(rawRisk) ?? "-";
             }
 
-            // after computing vm.Risk and before Examples.Add(vm)
             var contrib = BuildContribSummary(detObj) ?? "-";
             var detObjForLog = detObj;
             var rawRiskObjForLog = GetPropValue(detObjForLog, "Risk");
             string rawRiskText = rawRiskObjForLog?.ToString() ?? "null";
 
-            // also show model.RiskScore if a Score2Model was passed
             var mdl = GetPropValue(ex, "Model") as Score2Model;
             var modelRiskText = mdl != null ? (double.IsNaN(mdl.RiskScore) ? "NaN" : mdl.RiskScore.ToString("F1", CultureInfo.InvariantCulture)) : "n/a";
 
@@ -217,7 +214,6 @@ public partial class CalibrationExamplesViewModel : ObservableObject
     {
         if (riskObj == null) return null;
 
-        // Handle numeric types directly to avoid culture/boxing issues
         if (riskObj is double d)
         {
             if (double.IsNaN(d)) return null;
@@ -232,7 +228,6 @@ public partial class CalibrationExamplesViewModel : ObservableObject
         if (riskObj is long l) return FormatRisk((double)l);
         if (riskObj is short s) return FormatRisk((double)s);
 
-        // If it's a string (or other), try parsing invariant then current culture
         var sVal = riskObj.ToString();
         if (string.IsNullOrWhiteSpace(sVal)) return null;
 
@@ -242,7 +237,6 @@ public partial class CalibrationExamplesViewModel : ObservableObject
             return FormatRisk(dv);
         }
 
-        // fallback: return raw string
         return sVal;
     }
 

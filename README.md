@@ -28,7 +28,39 @@ Built on .NET 9 MAUI, CVDRiskScores delivers a cross-platform UX on mobile and d
   Runs on Android, iOS, Windows, Mac Catalyst, and Tizen.
 
 ---
+## ℹ️ Clinical Information and Algorithms
 
+**CVDRiskScores** is based on two validated international algorithms for cardiovascular risk assessment: **SCORE2** and **Framingham Risk Score**.
+
+### SCORE2
+SCORE2 (European Society of Cardiology) estimates 10-year fatal and non-fatal cardiovascular risk for adults aged 40-69.
+**Variables:** age, sex/gender, current smoking, total cholesterol, systolic blood pressure, region/calibration.
+**Risk Categories:** Low, Moderate, High (thresholds depend on region/country).
+
+### Framingham Risk Score
+Calculates 10-year cardiovascular risk from age, gender, total cholesterol, HDL cholesterol, systolic blood pressure, antihypertensive treatment, and smoking status.
+
+#### Example Framingham Score Table:
+| Age  | Men | Women |
+|------|-----|-------|
+|20-34 | -9  | -7    |
+|...   |     |       |
+
+Final score gives risk percentage and category: low (<10%), moderate (10–20%), high (>20%).
+
+**App popups present:**
+- Detailed scores, percentages, and risk categories
+- Clinical advice and validation notes
+- Advanced diagnostics (LP, S0, factor contributions)
+
+### Disclaimer
+These algorithms support clinical decision-making but do not replace medical judgment.
+
+### Useful Links:
+- SCORE2: [ESC Guidelines](https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice-guidelines)
+- Framingham: [CDC](https://www.cdc.gov/heartdisease/framingham.htm) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/18212285/)
+
+---
 ## 🧑‍💻 Technology Stack
 
 - [.NET 9 MAUI](https://github.com/dotnet/maui)

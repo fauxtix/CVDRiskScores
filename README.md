@@ -8,7 +8,7 @@
 
 _CVDRiskScores is a multi-platform application for simulating and calculating cardiovascular risk scores, designed for clinicians, researchers, and health-minded individuals. The app enables users to estimate individual 10-year risk of cardiovascular events using validated algorithms such as SCORE2 and Framingham, based on key patient data (age, gender, blood pressure, cholesterol, smoking status, etc)_
 
-Built on .NET 9 MAUI, CVDRiskScores delivers a modern, cross-platform UX on mobile and desktop, with interactive results and localization support.
+Built on .NET 9 MAUI, CVDRiskScores delivers a cross-platform UX on mobile and desktop, with interactive results and localization support.
 
 ---
 
@@ -24,8 +24,6 @@ Built on .NET 9 MAUI, CVDRiskScores delivers a modern, cross-platform UX on mobi
   - 📋 Copy-to-clipboard summaries for reporting and records.
 - 🌍 **Localization:**  
   - 🗣️ Multi-language support (currently Portuguese, English; extensible via resource files).
-- 📱🖥️ **Responsive UI:**  
-  Modern design and navigation with clear risk visualization.
 - 💻 **Cross-Platform:**  
   Runs on Android, iOS, Windows, Mac Catalyst, and Tizen.
 
@@ -72,7 +70,7 @@ dotnet build -t:Run -f net9.0-windows10.0.19041.0
 **Step-by-step Workflow:**
 
 1. 🏁 **Select Calculator:**  
-   Choose SCORE2 or Framingham from the dashboard.
+   Choose SCORE2 or Framingham from the bottom tabbar.
 2. ✏️ **Enter Data:**  
    Input age, gender, BP, cholesterol, and smoking status.
 3. 🔍 **View Results:**  

@@ -9,6 +9,10 @@
 
 > 🇵🇹 [Versão em Português](Portuguese.md)
 
+<p align="center">
+  <img width="1024" height="400" alt="CVDRiskScores" src="https://github.com/user-attachments/assets/e5bf61c2-c2c7-4402-b229-7709711bdf0e" />
+</p> 
+
 <img width="1024" height="400" alt="CVDRiskScores" src="https://github.com/user-attachments/assets/e5bf61c2-c2c7-4402-b229-7709711bdf0e" />
 
 

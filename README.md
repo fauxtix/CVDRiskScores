@@ -9,7 +9,7 @@
 
 > 🇵🇹 [Versão em Português](Portuguese.md)
 
-<img width="800" height="800" alt="CVDRiskScores" src="https://github.com/user-attachments/assets/e5bf61c2-c2c7-4402-b229-7709711bdf0e" />
+<img width="600" height="400" alt="CVDRiskScores" src="https://github.com/user-attachments/assets/e5bf61c2-c2c7-4402-b229-7709711bdf0e" />
 
 
 _CVDRiskScores is a multi-platform application for simulating and calculating cardiovascular risk scores, designed for clinicians, researchers, and health-minded individuals. The app enables users to estimate individual 10-year risk of cardiovascular events using validated algorithms such as SCORE2 and Framingham, based on key patient data (age, gender, blood pressure, cholesterol, smoking status, etc)_

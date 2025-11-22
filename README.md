@@ -3,7 +3,7 @@
 [![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-Cross%20Platform-blueviolet)](https://github.com/dotnet/maui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 [![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Windows%20%7C%20Mac%20%7C%20Tizen-brightgreen)]()
-[![GitHub CI](https://img.shields.io/github/workflow/status/fauxtix/CVDRiskScores/.NET)](https://github.com/fauxtix/CVDRiskScores/actions) <!-- If you add CI -->
+[![GitHub CI](https://img.shields.io/github/actions/workflow/status/fauxtix/CVDRiskScores/.NET.yml?branch=main)](https://github.com/fauxtix/CVDRiskScores/actions)
 
 _CVDRiskScores is a multi-platform application for simulating and calculating cardiovascular risk scores, designed for clinicians, researchers, and health-minded individuals. The app enables users to estimate individual 10-year risk of cardiovascular events using validated algorithms such as SCORE2 and Framingham, based on key patient data (age, gender, blood pressure, cholesterol, smoking status, etc)._
 
@@ -11,26 +11,26 @@ Built on .NET MAUI, CVDRiskScores offers a modern, cross-platform user experienc
 
 ---
 
-## Features
+## 🚀 Features
 
-- **Cardiovascular Risk Calculators:**  
-  - **SCORE2** (primary): 10-year fatal and nonfatal risk estimation, age range calibration.
-  - **Framingham** (secondary): Classic risk assessment with sex-specific tables.
-- **Personalized Inputs:**  
-  Age, sex/gender, systolic blood pressure, total cholesterol, HDL cholesterol, smoking status, calibration region.
-- **Interactive Results:**  
-  - Popup dialogs with easy-to-understand risk breakdowns and calibration examples (low, moderate, high risk).
-  - Copy-to-clipboard summaries for reporting and records.
-- **Localization:**  
-  - Multi-language support (currently Portuguese, English; extensible via RESX resource files).
-- **Modern UI:**  
-  - Responsive design with popup dialogs, navigation, and clear risk visualization.
-- **Cross-Platform:**  
+- 🩺 **Cardiovascular Risk Calculators:**  
+  - ⚡ **SCORE2** — 10-year fatal and nonfatal CVD risk estimation, age-range calibration.
+  - 🕰️ **Framingham** — Classic risk assessment with sex-specific tables.
+- 👨‍⚕️👩‍⚕️ **Personalized Inputs:**  
+  Age, gender, systolic blood pressure, total cholesterol, HDL cholesterol, smoking status, calibration region.
+- ✨ **Interactive Results:**  
+  - 🪟 Popup dialogs with easy-to-understand risk breakdowns and calibration examples (low, moderate, high).
+  - 📋 Copy-to-clipboard summaries for reporting and records.
+- 🌍 **Localization:**  
+  - 🗣️ Multi-language support (currently Portuguese, English; extensible via RESX resource files).
+- 📱🖥️ **Modern, Responsive UI:**  
+  - Popups, navigation, and clear visualization of risk results.
+- 💻 **Cross-Platform:**  
   - Runs on Android, iOS, Windows, Mac Catalyst, and Tizen.
 
 ---
 
-## Technology Stack
+## 🧑‍💻 Technology Stack
 
 - [.NET MAUI](https://github.com/dotnet/maui) (Multi-platform App UI)
 - [CommunityToolkit.Maui](https://github.com/CommunityToolkit/Maui)
@@ -39,15 +39,15 @@ Built on .NET MAUI, CVDRiskScores offers a modern, cross-platform user experienc
 
 ---
 
-## Getting Started
+## 📦 Getting Started
 
-### Prerequisites
+### 👁️ Prerequisites
 
 - [.NET SDK 7.0+](https://dotnet.microsoft.com/download)
-- Compatible platform: Android, iOS, Windows, Mac, Tizen
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (recommended for building/debugging)
+- Compatible device: Android, iOS, Windows, Mac, Tizen
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (recommended)
 
-### Installation
+### 🛠️ Installation
 
 ```bash
 git clone https://github.com/fauxtix/CVDRiskScores.git
@@ -58,38 +58,38 @@ dotnet build
 
 To run on your target platform:
 ```bash
-# Windows:
+# 🖥️ Windows:
 dotnet build -t:Run -f net7.0-windows10.0.19041.0
 
-# Android/iOS/MacCatalyst/Tizen: see MAUI docs for device targets
+# 📱 Android/iOS/MacCatalyst/Tizen: see MAUI docs for device targets
 ```
 
 ---
 
-## Usage
+## 📝 Usage
 
-1. **Select Calculator:**  
-   Choose SCORE2 or Framingham from the app dashboard.
-2. **Enter Patient Data:**  
-   Fill age, gender, risk factors (BP, cholesterol, smoking).
-3. **View Results:**  
-   Risk percentage and category (low/medium/high) are computed with clinical detail.
-4. **Explore Calibration:**  
-   Access popups for sample risk profiles, region-specific adjustments, etc.
-5. **Copy or Share:**  
-   Use copy-to-clipboard or reporting features to record/export results.
-
----
-
-## Localization
-
-- Change app language in settings.
-- All UI text and labels are managed via resource files for easy extensibility.
-- Contributions for new languages welcome!
+1. **🏁 Select Calculator:**  
+   Choose SCORE2 or Framingham from the dashboard.
+2. **✏️ Enter Data:**  
+   Fill in age, gender, blood pressure, cholesterol, smoking status, etc.
+3. **🔎 View Results:**  
+   See risk percentage and category (low/medium/high) — complete with colored feedback and details.
+4. **📊 Explore Calibration:**  
+   Use popups for sample risk profiles & region-specific adjustments.
+5. **📋 Copy or Share:**  
+   Copy results or export reports for patient records or further use.
 
 ---
 
-## Screenshots
+## 🌐 Localization
+
+- Change app language via settings (currently English and Portuguese).
+- All UI text managed via resource files — easy to extend for new languages.
+- Contributions for additional languages are welcome!
+
+---
+
+## 🖼️ Screenshots
 
 <!-- Add your screenshots here! -->
 <!-- ![App Main Screen](screenshots/main.png) -->
@@ -97,28 +97,28 @@ dotnet build -t:Run -f net7.0-windows10.0.19041.0
 
 ---
 
-## License
+## 📄 License
 
 MIT License  
 See [LICENSE.txt](LICENSE.txt) for details.
 
 ---
 
-## Credits & References
+## 🍎 Credits & References
 
-- SCORE2 algorithm: [European Society of Cardiology](https://escardio.org)
-- Framingham Risk Score: [Framingham Heart Study](https://framinghamheartstudy.org)
+- 🩺 SCORE2 algorithm: [European Society of Cardiology](https://escardio.org)
+- 🕰️ Framingham Risk Score: [Framingham Heart Study](https://framinghamheartstudy.org)
 - Built with .NET MAUI and CommunityToolkit
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-Pull requests, issues and feature requests are welcome!  
+Pull requests, issues, and feature requests are welcome!  
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
-## Contact
+## 📬 Contact
 
 For questions or feedback, open an issue or contact [fauxtix](https://github.com/fauxtix).

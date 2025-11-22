@@ -58,7 +58,7 @@ These algorithms support clinical decision-making but do not replace medical jud
 
 ### Useful Links:
 - SCORE2: [ESC Guidelines](https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice-guidelines)
-- Framingham: [CDC](https://www.cdc.gov/heartdisease/framingham.htm) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/18212285/)
+- Framingham: [CDC](https://www.cdc.gov/heartdisease) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/18212285/)
 
 ---
 ## 🧑‍💻 Technology Stack

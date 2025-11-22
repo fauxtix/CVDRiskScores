@@ -60,7 +60,7 @@ Os scores são auxiliares; não substituem avaliação médica individual.
 
 ### Links Úteis:
 - SCORE2: [ESC Guidelines](https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice-guidelines)
-- Framingham: [CDC](https://www.cdc.gov/heartdisease/framingham.htm) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/18212285/)
+- Framingham: [CDC](https://www.cdc.gov/heartdisease) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/18212285/)
 ---
 ## 🧑‍💻 Tecnologia
 

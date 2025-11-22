@@ -1,6 +1,11 @@
 # CVDRiskScores
 
-CVDRiskScores is a multi-platform application for simulating and calculating cardiovascular risk scores, designed for clinicians, researchers, and health-minded individuals. The app enables users to estimate individual 10-year risk of cardiovascular events using validated algorithms such as SCORE2 and Framingham, based on key patient data (age, gender, blood pressure, cholesterol, smoking status, etc).
+[![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-Cross%20Platform-blueviolet)](https://github.com/dotnet/maui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
+[![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Windows%20%7C%20Mac%20%7C%20Tizen-brightgreen)]()
+[![GitHub CI](https://img.shields.io/github/workflow/status/fauxtix/CVDRiskScores/.NET)](https://github.com/fauxtix/CVDRiskScores/actions) <!-- If you add CI -->
+
+_CVDRiskScores is a multi-platform application for simulating and calculating cardiovascular risk scores, designed for clinicians, researchers, and health-minded individuals. The app enables users to estimate individual 10-year risk of cardiovascular events using validated algorithms such as SCORE2 and Framingham, based on key patient data (age, gender, blood pressure, cholesterol, smoking status, etc)._
 
 Built on .NET MAUI, CVDRiskScores offers a modern, cross-platform user experience on mobile and desktop, with support for multiple languages and interactive results.
 
@@ -38,8 +43,8 @@ Built on .NET MAUI, CVDRiskScores offers a modern, cross-platform user experienc
 
 ### Prerequisites
 
-- [.NET SDK 7.0+](https://dotnet.microsoft.com/download) installed
-- Compatible platform (Android, iOS, Windows, Mac, Tizen)
+- [.NET SDK 7.0+](https://dotnet.microsoft.com/download)
+- Compatible platform: Android, iOS, Windows, Mac, Tizen
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (recommended for building/debugging)
 
 ### Installation
@@ -95,7 +100,7 @@ dotnet build -t:Run -f net7.0-windows10.0.19041.0
 ## License
 
 MIT License  
-See [LICENSE](LICENSE) for details.
+See [LICENSE.txt](LICENSE.txt) for details.
 
 ---
 

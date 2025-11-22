@@ -7,10 +7,9 @@
     xmlns:resx="clr-namespace:CVDRiskScores.Resources.Languages"
     xmlns:vm="clr-namespace:CVDRiskScores.MVVM.ViewModels.SCORE2"
     BackgroundColor="#AA000000"
-	Padding="2"
+    Padding="2"
     x:DataType="vm:CalibrationExamplesViewModel">
 
-	<!-- Card centralizado -->
 	<Frame
         x:Name="RootFrame"
         CornerRadius="20"
@@ -21,10 +20,8 @@
         VerticalOptions="Center"
         HorizontalOptions="Center">
 
-        <!-- Use Grid so the CollectionView can scroll and the button remains visible -->
 		<Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
 
-			<!-- Título -->
 			<Label Grid.Row="0"
                 Text="{Binding Title}"
                 FontSize="22"
@@ -32,7 +29,6 @@
                 TextColor="{AppThemeBinding Light=Black, Dark=White}"
                 HorizontalTextAlignment="Center"/>
 
-			<!-- CollectionView com scroll (row 1) -->
 			<CollectionView Grid.Row="1"
                 ItemsSource="{Binding Examples}"
                 SelectionMode="None"
@@ -46,23 +42,26 @@
 
 				<CollectionView.ItemTemplate>
 					<DataTemplate x:DataType="vm:CalibrationExampleVm">
-						<Frame
-                            CornerRadius="12"
-                            BorderColor="#E6E6E6"
-                            Padding="12"
-                            Margin="0,4">
+						<Frame CornerRadius="12" BorderColor="#E6E6E6" Padding="12" Margin="0,4">
 							<VerticalStackLayout Spacing="4">
+								<Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
 
-								<HorizontalStackLayout>
-									<Label Text="{Binding Title}"
-                                           FontAttributes="Bold"
-                                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                                           HorizontalOptions="Start"/>
-									<Label Text="{Binding Risk}"
-                                           FontAttributes="Bold"
-                                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                                           HorizontalOptions="End"/>
-								</HorizontalStackLayout>
+								<!-- NOVO: Mostra os riscos para cada calibração -->
+								<Label Text="{Binding RisikenPorCalibracao}"
+                                       FontSize="12"
+                                       FontAttributes="Italic"
+                                       TextColor="DarkOrange"
+                                       LineBreakMode="WordWrap"
+                                       Margin="0,2,0,8"/>
+
+								<Label Text="{Binding Risk}"
+                                       FontSize="Large"
+                                       FontAttributes="Bold"
+                                       TextColor="#6C3483"
+                                       Margin="0,2,0,4"/>
 
 								<Label Text="{Binding InputsSummary}"
                                        LineBreakMode="WordWrap"
@@ -79,7 +78,6 @@
 				</CollectionView.ItemTemplate>
 			</CollectionView>
 
-			<!-- Botão Fechar (row 2) -->
 			<HorizontalStackLayout Grid.Row="2" HorizontalOptions="End">
 				<Button Margin="0,8,0,0"
                     Text="{resx:Localize Key=Btn_Close}"

@@ -1,5 +1,4 @@
 ﻿using CVDRiskScores.Enums;
-using Microsoft.Maui.Graphics;
 
 namespace CVDRiskScores.Models.SCORE2;
 
@@ -31,9 +30,11 @@ public class Score2Model
     public string? ValidationError { get; set; }
 
     // Calibration key (Low/Moderate/High) - default to Moderate
-    public string CalibrationKey { get; set; } = "Moderate";
+    public string CalibrationKey { get; set; } = "Low";
 
     // Optional: detailed calculation output (LP, MeanLP, S0, contributions, etc.)
     // Stored as object so popup can inspect properties dynamically.
     public object? ScoreDetails { get; set; }
+
+    public bool ForceRealCalculation { get; set; } = false;
 }

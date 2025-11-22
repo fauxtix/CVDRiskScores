@@ -1,9 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CVDRiskScores.Models.SCORE2;
 using CVDRiskScores.Resources.Languages;
+using CVDRiskScores.Services.SCORE2;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using CVDRiskScores.Services.SCORE2;
 
 namespace CVDRiskScores.MVVM.ViewModels.SCORE2;
 
@@ -37,7 +37,6 @@ public partial class CalibrationExampleVm : ObservableObject
             parts.Add($"{hdlLbl}: {Hdl?.ToString("F2", CultureInfo.CurrentCulture) ?? "-"}");
             parts.Add($"{smokeLbl}: {(IsSmoker.HasValue ? (IsSmoker.Value ? (AppResources.Sim ?? "Sim") : (AppResources.Nao ?? "Não")) : "-")}");
 
-            // join with newlines so each input appears on its own line in the Label
             return string.Join("\n", parts);
         }
     }
@@ -88,19 +87,34 @@ public partial class CalibrationExamplesViewModel : ObservableObject
 
             if (model != null)
             {
-                vm.Age = model.Age; vm.SBP = model.SystolicBloodPressure; vm.TotalChol = model.TotalCholesterol; vm.Hdl = model.HDLCholesterol; vm.IsSmoker = model.IsSmoker;
+                vm.Age = model.Age;
+                vm.SBP = model.SystolicBloodPressure;
+                vm.TotalChol = model.TotalCholesterol;
+                vm.Hdl = model.HDLCholesterol;
+                vm.IsSmoker = model.IsSmoker;
+
                 try
                 {
                     var g = GetPropValue(model, "Gender");
                     if (g != null)
                     {
                         var gs = g.ToString() ?? string.Empty;
-                        if (gs.IndexOf("male", StringComparison.OrdinalIgnoreCase) >= 0 || gs.IndexOf("masc", StringComparison.OrdinalIgnoreCase) >= 0)
-                            vm.Gender = AppResources.TituloMasculino ?? gs;
-                        else if (gs.IndexOf("female", StringComparison.OrdinalIgnoreCase) >= 0 || gs.IndexOf("fem", StringComparison.OrdinalIgnoreCase) >= 0)
-                            vm.Gender = AppResources.TituloFeminino ?? gs;
-                        else
-                            vm.Gender = gs;
+                        switch (gs.ToLowerInvariant())
+                        {
+                            case "male":
+                            case "masc":
+                            case "masculino":
+                                vm.Gender = AppResources.TituloMasculino ?? gs;
+                                break;
+                            case "female":
+                            case "fem":
+                            case "feminino":
+                                vm.Gender = AppResources.TituloFeminino ?? gs;
+                                break;
+                            default:
+                                vm.Gender = gs;
+                                break;
+                        }
                     }
                 }
                 catch { }
@@ -108,18 +122,29 @@ public partial class CalibrationExamplesViewModel : ObservableObject
             else
             {
                 vm.Age = TryParseInt(TryGetPropAsString(GetPropValue(ex, "Model"), "Age"));
-                // Gender from anonymous/unknown model
-                var gval = TryGetPropAsString(GetPropValue(ex, "Model"), "Gender") ?? TryGetPropAsString(GetPropValue(ex, "Model"), "GenderId");
+                var gval = TryGetPropAsString(GetPropValue(ex, "Model"), "Gender")
+                    ?? TryGetPropAsString(GetPropValue(ex, "Model"), "GenderId");
+
                 if (!string.IsNullOrWhiteSpace(gval))
                 {
-                    if (gval.IndexOf("male", StringComparison.OrdinalIgnoreCase) >= 0 || gval.IndexOf("masc", StringComparison.OrdinalIgnoreCase) >= 0)
-                        vm.Gender = AppResources.TituloMasculino ?? gval;
-                    else if (gval.IndexOf("female", StringComparison.OrdinalIgnoreCase) >= 0 || gval.IndexOf("fem", StringComparison.OrdinalIgnoreCase) >= 0)
-                        vm.Gender = AppResources.TituloFeminino ?? gval;
-                    else vm.Gender = gval;
+                    switch (gval.ToLowerInvariant())
+                    {
+                        case "male":
+                        case "masc":
+                        case "masculino":
+                            vm.Gender = AppResources.TituloMasculino ?? gval;
+                            break;
+                        case "female":
+                        case "fem":
+                        case "feminino":
+                            vm.Gender = AppResources.TituloFeminino ?? gval;
+                            break;
+                        default:
+                            vm.Gender = gval;
+                            break;
+                    }
                 }
                 vm.SBP = TryParseInt(TryGetPropAsString(GetPropValue(ex, "Model"), "SystolicBloodPressure"));
-                // try to read TotalChol and HDL and IsSmoker from anonymous model
                 var tot = TryGetPropAsString(GetPropValue(ex, "Model"), "TotalCholesterol");
                 if (double.TryParse(tot, NumberStyles.Any, CultureInfo.CurrentCulture, out var td) || double.TryParse(tot, NumberStyles.Any, CultureInfo.InvariantCulture, out td))
                     vm.TotalChol = td;
@@ -134,7 +159,6 @@ public partial class CalibrationExamplesViewModel : ObservableObject
                     else if (sm == "0" || sm.Equals("false", StringComparison.OrdinalIgnoreCase)) vm.IsSmoker = false;
                 }
             }
-
             var rawRisk = GetPropValue(detObj, "Risk");
             if (rawRisk is double rd)
             {

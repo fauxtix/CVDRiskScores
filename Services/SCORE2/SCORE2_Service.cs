@@ -1,11 +1,9 @@
 ﻿using CVDRiskScores.Enums;
 using CVDRiskScores.Models.SCORE2;
 using CVDRiskScores.Resources.Languages;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 
 namespace CVDRiskScores.Services.SCORE2
 {
@@ -86,7 +84,7 @@ namespace CVDRiskScores.Services.SCORE2
 
             score2Model.ValidationError = null;
 
-            // validate presence first (values in mmol/L for cholesterol)
+            // validações de input
             if (!score2Model.Age.HasValue)
                 score2Model.ValidationError = AppResources.Validation_PleaseFillAge;
             else if (score2Model.Age < 40 || score2Model.Age > 69)
@@ -109,7 +107,7 @@ namespace CVDRiskScores.Services.SCORE2
             if (score2Model.ValidationError != null)
                 return score2Model;
 
-            // Basic plausibility check: block if values look like mg/dL instead of mmol/L
+            // validação simples de plausibilidade das unidades
             try
             {
                 if (score2Model.TotalCholesterol.HasValue && score2Model.TotalCholesterol.Value > 50.0)
@@ -127,10 +125,7 @@ namespace CVDRiskScores.Services.SCORE2
             }
             catch { }
 
-            // Assume inputs are provided in mmol/L. Keep validation simple.
-
-            // Enforce sex-specific HDL minima in mmol/L
-            // Male >= 1.04 mmol/L, Female >= 1.29 mmol/L
+            // mínimos de HDL por sexo
             var hdlMin = score2Model.Gender == Genero.Female ? 1.29 : 1.04;
             if (score2Model.HDLCholesterol < hdlMin)
             {
@@ -143,10 +138,9 @@ namespace CVDRiskScores.Services.SCORE2
 
             var calibKey = string.IsNullOrWhiteSpace(score2Model.CalibrationKey) ? "Moderate" : score2Model.CalibrationKey;
 
-            // Use detailed calculator to get component contributions and risk
+            // cálculo dos detalhes SCORE2
             var details = Score2Calculator.CalculateDetails(score2Model, calibKey);
 
-            // attach details for diagnostics display in popup
             score2Model.ScoreDetails = details;
 
             if (details == null || double.IsNaN(details.Risk))
@@ -155,20 +149,22 @@ namespace CVDRiskScores.Services.SCORE2
                 return score2Model;
             }
 
-            // Detect extreme LP/exponent which produces 100% risk and apply conservative fallback mapping
+            // Fallback só em caso de erro efetivo ou risco extremo!
             var lpMinusMean = details.LP - details.MeanLP;
             bool useFallback = false;
-            try
-            {
-                if (double.IsNaN(lpMinusMean) || double.IsInfinity(lpMinusMean)) useFallback = true;
-                else if (lpMinusMean > 10.0) useFallback = true; // exp(10) ~ 22k, may underflow survival
-                else if (details.Risk >= 99.9) useFallback = true;
-            }
-            catch { useFallback = true; }
+
+            if (
+                double.IsNaN(lpMinusMean) ||
+                double.IsInfinity(lpMinusMean) ||
+                details.Risk >= 99.9
+            )
+                useFallback = true;
+            else
+                useFallback = false;
 
             if (useFallback)
             {
-                // compute integer points using same banding used for display
+                // heurístico por pontos (apenas casos extremos)
                 score2Model.AgePoints = MapAgePoints(age);
 
                 var nonHdl = score2Model.NonHDLCholesterol ?? (score2Model.TotalCholesterol.HasValue && score2Model.HDLCholesterol.HasValue
@@ -180,7 +176,6 @@ namespace CVDRiskScores.Services.SCORE2
 
                 var totalPoints = score2Model.AgePoints + score2Model.NonHDLPoints + score2Model.SBPPoints + score2Model.SmokingPoints;
 
-                // conservative mapping from points to approximate % risk (heuristic)
                 double approxRisk;
                 if (totalPoints <= 0) approxRisk = 1.0;
                 else if (totalPoints == 1) approxRisk = 2.5;
@@ -195,27 +190,27 @@ namespace CVDRiskScores.Services.SCORE2
                 else approxRisk = 75.0;
 
                 details.Risk = approxRisk;
+                details.IsFallback = true;
 
                 Debug.WriteLine($"[SCORE2 Service] Fallback risk applied. LP-Mean={lpMinusMean:F3}, totalPoints={totalPoints}, approxRisk={approxRisk}%");
             }
+            else
+            {
+                details.IsFallback = false;
+            }
 
-            // populate point breakdown using band mappings so UI shows meaningful integers
-            // Age points come directly from age bands
+            // os pontos para visualização (sempre calculados, não usados no risco a não ser em fallback)
             score2Model.AgePoints = MapAgePoints(age);
 
-            // Non-HDL points computed from non-HDL bands (mmol/L)
             var nonHdlVal = score2Model.NonHDLCholesterol ?? (score2Model.TotalCholesterol.HasValue && score2Model.HDLCholesterol.HasValue
                 ? score2Model.TotalCholesterol.Value - score2Model.HDLCholesterol.Value
                 : double.NaN);
             score2Model.NonHDLPoints = MapNonHDLPoints(nonHdlVal);
 
-            // SBP points from systolic bands
             score2Model.SBPPoints = MapSBPPoints(sbp);
 
-            // Smoking points: simple binary mapping (2 points if smoker)
             score2Model.SmokingPoints = score2Model.IsSmoker ? 2 : 0;
 
-            // store result (risk already in percent 0..100)
             score2Model.RiskScore = Math.Round(details.Risk, 1);
 
             if (score2Model.RiskScore < 5)
@@ -226,13 +221,11 @@ namespace CVDRiskScores.Services.SCORE2
             else if (score2Model.RiskScore < 10)
             {
                 score2Model.RiskCategory = AppResources.Risk_Medium ?? "Intermédio";
-                // use DarkOrange to match previous palette
                 score2Model.RiskColor = Colors.DarkOrange;
             }
             else
             {
                 score2Model.RiskCategory = AppResources.Risk_High ?? "Alto";
-                // use DarkRed for a stronger tone
                 score2Model.RiskColor = Colors.DarkRed;
             }
 
@@ -243,9 +236,7 @@ namespace CVDRiskScores.Services.SCORE2
                     : AppResources.Validation_SCORE2_Recomendacao_3;
 
             return score2Model;
-        }
-
-        // Helper: age bands -> points
+        }        // Helper: age bands -> points
         private int MapAgePoints(int age)
         {
             if (age >= 40 && age <= 49) return 1;

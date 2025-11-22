@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Linq;
-using CVDRiskScores.Models.SCORE2;
 using CVDRiskScores.Enums;
+using CVDRiskScores.Models.SCORE2;
+using System.Text.Json;
 
 namespace CVDRiskScores.Services.SCORE2
 {
@@ -123,6 +120,7 @@ namespace CVDRiskScores.Services.SCORE2
             public double SmokingContribution { get; set; }
             public double S0 { get; set; }
             public double MeanLP { get; set; }
+            public bool IsFallback { get; set; } // Diagnóstico: true se foi fallback heurístico
         }
 
         // Returns detailed breakdown and computed risk (0..100)

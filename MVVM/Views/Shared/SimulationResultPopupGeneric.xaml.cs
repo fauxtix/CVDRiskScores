@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CVDRiskScores.Enums;
+using CVDRiskScores.MVVM.Models.Shared;
 using CVDRiskScores.Resources.Languages;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
-using CVDRiskScores.MVVM.Models.Shared;
 
 namespace CVDRiskScores.MVVM.Views.Shared
 {
@@ -104,14 +104,14 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
         void BuildScore2Details(object model, object parentVm)
         {
-            var lblAge = AppResources.TituloIdade ?? "Idade";
-            var lblGender = AppResources.TituloSexo ?? "Género";
-            var lblNonHdl = AppResources.Titulo_Score2_ColesterolTotal ?? "Non‑HDL / Total Colesterol";
-            var lblTotalChol = AppResources.TituloColesterolTotal ?? "Colesterol total";
-            var lblSbp = AppResources.Titulo_Score2_TA_Sistolica ?? "TA sistólica (mmHg)";
-            var lblSmoker = AppResources.Simulacao_Fumador ?? "Fumador";
-            var lblPoints = AppResources.TituloPontos ?? "Pontos";
-            var lblValidation = AppResources.TituloErroValidacao ?? "Erro de validação";
+            var lblAge = AppResources.TituloIdade;
+            var lblGender = AppResources.TituloSexo;
+            var lblNonHdl = AppResources.Titulo_Score2_ColesterolTotal;
+            var lblTotalChol = AppResources.TituloColesterolTotal;
+            var lblSbp = AppResources.Titulo_Score2_TA_Sistolica;
+            var lblSmoker = AppResources.Simulacao_Fumador;
+            var lblPoints = AppResources.TituloPontos;
+            var lblValidation = AppResources.TituloErroValidacao;
 
             AddLabelValue(lblAge, GetFormattedProp(model, "Age"));
             AddLabelValue(lblGender, GetFormattedProp(model, "Gender"));
@@ -137,15 +137,15 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
         void BuildFraminghamDetails(object model, object? parentVm)
         {
-            var lblAge = AppResources.TituloIdade ?? "Idade";
-            var lblGender = AppResources.TituloSexo ?? "Género";
-            var lblTotalChol = AppResources.TituloColesterolTotal ?? "Colesterol total";
-            var lblHdl = AppResources.TituloColesterolHDL ?? "Colesterol HDL";
-            var lblSbp = AppResources.TituloPressaoArterial ?? "TA sistólica (mmHg)";
-            var lblSmoker = AppResources.Simulacao_Fumador ?? "Fumador";
-            var lblTreated = AppResources.Simulacao_Medicacao_TA ?? "Medicação para a tensão arterial";
-            var lblPoints = AppResources.TituloPontos ?? "Pontos";
-            var lblValidation = AppResources.TituloErroValidacao ?? "Erro de validação";
+            var lblAge = AppResources.TituloIdade;
+            var lblGender = AppResources.TituloSexo;
+            var lblTotalChol = AppResources.TituloColesterolTotal;
+            var lblHdl = AppResources.TituloColesterolHDL;
+            var lblSbp = AppResources.TituloPressaoArterial;
+            var lblSmoker = AppResources.Simulacao_Fumador;
+            var lblTreated = AppResources.Simulacao_Medicacao_TA;
+            var lblPoints = AppResources.TituloPontos;
+            var lblValidation = AppResources.TituloErroValidacao;
 
             AddLabelValue(lblAge, GetFormattedProp(model, "Age"));
             AddLabelValue(lblGender, GetFormattedProp(model, "Gender"));
@@ -273,7 +273,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
         }
 
         string LocalizeBool(bool b) =>
-            b ? (AppResources.Sim ?? "Sim") : (AppResources.Nao ?? "Não");
+            b ? (AppResources.Sim) : (AppResources.Nao);
 
         string GetFormattedProp(object obj, int propIndex, bool boolAsYesNo = false)
         {
@@ -311,8 +311,8 @@ namespace CVDRiskScores.MVVM.Views.Shared
             // Current app only uses Genero; extend here for other enums if necessary.
             if (e is Genero g)
             {
-                return g == Genero.Male ? (AppResources.TituloMasculino ?? "Homem")
-                                       : (AppResources.TituloFeminino ?? "Mulher");
+                return g == Genero.Male ? AppResources.TituloMasculino
+                                       : AppResources.TituloFeminino;
             }
 
             // fallback to enum ToString()

@@ -88,8 +88,8 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
         {
             GenderOptions.Clear();
             // Ensure picker order matches enum Genero (Male=0, Female=1)
-            GenderOptions.Add(AppResources.TituloMasculino ?? "Masculino");
-            GenderOptions.Add(AppResources.TituloFeminino ?? "Feminino");
+            GenderOptions.Add(AppResources.TituloMasculino);
+            GenderOptions.Add(AppResources.TituloFeminino);
         }
 
         // keep SelectedIndex and Gender synchronized
@@ -115,7 +115,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             List<Score> womanScores = new()
             {
                 // localized examples (you can add specific keys for each label)
-                new Score{ Points = AppResources.FemalePoints_Below9 ?? "Abaixo de 9", Percentage = "< 1"},
+                new Score{ Points = AppResources.FemalePoints_Below9, Percentage = "< 1"},
                 new Score{ Points = "9 - 12", Percentage = "1"},
                 new Score{ Points = "13 - 14", Percentage = "2"},
                 new Score{ Points = "15", Percentage = "3"},
@@ -128,7 +128,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                 new Score{ Points = "22", Percentage = "17"},
                 new Score{ Points = "23", Percentage = "22"},
                 new Score{ Points = "24", Percentage = "27"},
-                new Score{ Points = ">= 25", Percentage = AppResources.MoreThan30 ?? "Mais de 30"},
+                new Score{ Points = ">= 25", Percentage = AppResources.MoreThan30},
             };
 
             return womanScores;
@@ -151,7 +151,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                 new Score{ Points = "14", Percentage = "16"},
                 new Score{ Points = "15", Percentage = "20"},
                 new Score{ Points = "16", Percentage = "25"},
-                new Score{ Points = ">= 17", Percentage = AppResources.MoreThan30 ?? "Mais de 30"},
+                new Score{ Points = ">= 17", Percentage = AppResources.MoreThan30},
             };
 
             return manScores;
@@ -182,7 +182,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
                 }
 
                 // localized alert title and OK button (fallback to "Ok")
-                await Shell.Current.DisplayAlert(AppResources.FillRequiredDataTitle ?? "Preencha dados requeridos, p.f.", sb.ToString(), "Ok");
+                await Shell.Current.DisplayAlert(AppResources.FillRequiredDataTitle, sb.ToString(), "Ok");
                 return;
             }
 
@@ -191,8 +191,8 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             RiskCategory = GetRiskCategory(RiskScore);
 
             // localize risk color logic remains same, riskCategory is localized
-            RiskColor = RiskCategory == (AppResources.Risk_Low ?? "Baixo") ? Colors.DarkGreen
-                        : RiskCategory == (AppResources.Risk_Medium ?? "Intermédio") ? Colors.DarkOrange
+            RiskColor = RiskCategory == AppResources.Risk_Low ? Colors.DarkGreen
+                        : RiskCategory == AppResources.Risk_Medium ? Colors.DarkOrange
                         : Colors.DarkRed;
 
             FraminghamModel resultModel = new()
@@ -219,7 +219,7 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
             this.Model = resultModel;
 
-            await _popupService.ShowSimulationResultAsync(resultModel, title: AppResources.TituloFramingham ?? "Framingham", subtitle: RiskCategory ?? string.Empty, badge: RiskScore.ToString());
+            await _popupService.ShowSimulationResultAsync(resultModel, title: AppResources.TituloFramingham, subtitle: RiskCategory ?? string.Empty, badge: RiskScore.ToString());
         }
 
         private int CalculateCVDRiskScores()
@@ -237,9 +237,9 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
         private string GetRiskCategory(int riskScore)
         {
-            if (riskScore <= 10) return AppResources.Risk_Low ?? "Baixo";
-            else if (riskScore <= 20) return AppResources.Risk_Medium ?? "Intermédio";
-            else return AppResources.Risk_High ?? "Alto";
+            if (riskScore <= 10) return AppResources.Risk_Low;
+            else if (riskScore <= 20) return AppResources.Risk_Medium;
+            else return AppResources.Risk_High;
         }
 
         private List<string> ValidateEntries()
@@ -248,19 +248,19 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
 
             if (!Age.HasValue)
             {
-                errorMessages.Add(AppResources.Validation_PleaseFillAge ?? "Preencha idade");
+                errorMessages.Add(AppResources.Validation_PleaseFillAge);
             }
             if (!TotalCholesterol.HasValue)
             {
-                errorMessages.Add(AppResources.Validation_PleaseFillTotalCholesterol ?? "Preencha Cloresterol Total");
+                errorMessages.Add(AppResources.Validation_PleaseFillTotalCholesterol);
             }
             if (!HDLCholesterol.HasValue)
             {
-                errorMessages.Add(AppResources.Validation_PleaseFillHDL ?? "Preencha Cloresterol HDL");
+                errorMessages.Add(AppResources.Validation_PleaseFillHDL);
             }
             if (!SystolicBloodPressure.HasValue)
             {
-                errorMessages.Add(AppResources.Validation_PleaseFillSystolicBP ?? "Preencha T.A. Sistólica");
+                errorMessages.Add(AppResources.Validation_PleaseFillSystolicBP);
             }
 
             if (errorMessages.Count > 0)
@@ -269,19 +269,19 @@ namespace CVDRiskScores.MVVM.ViewModels.Framingham
             // range validations
             if (Age!.Value < 20 || Age.Value > 79)
             {
-                errorMessages.Add(AppResources.Validation_AgeRange ?? "idade entre 20 e 79 anos");
+                errorMessages.Add(AppResources.Validation_AgeRange);
             }
             if (TotalCholesterol!.Value < 1)
             {
-                errorMessages.Add(AppResources.Validation_TotalCholesterolGTZero ?? "Cloresterol Total > 0");
+                errorMessages.Add(AppResources.Validation_TotalCholesterolGTZero);
             }
             if (HDLCholesterol!.Value < 1)
             {
-                errorMessages.Add(AppResources.Validation_HDLCholesterolGTZero ?? "Cloresterol HDL > 0");
+                errorMessages.Add(AppResources.Validation_HDLCholesterolGTZero);
             }
             if (SystolicBloodPressure!.Value < 1)
             {
-                errorMessages.Add(AppResources.Validation_SystolicBPGTZero ?? "T.A. Sistólica > 0");
+                errorMessages.Add(AppResources.Validation_SystolicBPGTZero);
             }
 
             return errorMessages;

@@ -147,12 +147,12 @@ public partial class Score2IntroPage : ContentPage
 
         var moderate = new Score2Model
         {
-            Age = 60,
-            Gender = Genero.Male,
+            Age = 55,
+            Gender = Genero.Female,
             IsSmoker = false,
             SystolicBloodPressure = 140,
             TotalCholesterol = 5.0,
-            HDLCholesterol = 1.2,
+            HDLCholesterol = 1.3,
             CalibrationKey = "Moderate"
         };
 

@@ -116,8 +116,8 @@ namespace CVDRiskScores.MVVM.ViewModels.SCORE2
         void PopulateGenderOptions()
         {
             GenderOptions.Clear();
-            GenderOptions.Add(AppResources.TituloMasculino ?? "Masculino");
-            GenderOptions.Add(AppResources.TituloFeminino ?? "Feminino");
+            GenderOptions.Add(AppResources.TituloMasculino);
+            GenderOptions.Add(AppResources.TituloFeminino);
         }
 
         void PopulateCalibrationOptions()

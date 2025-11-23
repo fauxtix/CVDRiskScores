@@ -133,9 +133,7 @@ dotnet build -t:Run -f net9.0-windows10.0.19041.0
 
 ## 🖼️ Screenshots
 
-<!-- Paste screenshots here! -->
-<!-- ![App Main Screen](screenshots/main.png) -->
-<!-- ![Risk Result Popup](screenshots/result_popup.png) -->
+👉 See all screenshots and UI examples here: [Screenshots.md](Screenshots.md)
 
 ---
 

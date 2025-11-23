@@ -13,6 +13,5 @@
 <img width="389" height="786" alt="Framingham_Calculator_Filled" src="https://github.com/user-attachments/assets/a8ce9e33-e6be-4147-8e23-25c683783fa3" />
 <img width="386" height="794" alt="Framingham_Result" src="https://github.com/user-attachments/assets/c6d02756-5ea5-4422-82b3-0df0d5d47312" />
 
-
-
+<img width="387" height="792" alt="Settings_Language" src="https://github.com/user-attachments/assets/0eaa11fa-0f50-4349-8cd6-5a1fcda5ce90" />
 

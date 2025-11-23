@@ -48,7 +48,7 @@ O SCORE2 (Sociedade Europeia de Cardiologia) estima o risco de eventos cardiovas
 **Categorias:** Baixo, Moderado, Alto (os limiares variam conforme país/região).
 
 ### Framingham Risk Score
-Calcula o risco cardiovascular aos 10 anos com base em idade, género, colesterol total, HDL, pressão arterial sistólica, tratamento antihipertensor e tabaco.
+Calcula o risco cardiovascular aos 10 anos com base em idade, género, colesterol total, HDL, pressão arterial sistólica, tratamento antihipertensor e hábitos tabágicos.
 
 #### Tabela Exemplo Pontuação Framingham:
 | Idade | Homens | Mulheres |
@@ -103,8 +103,6 @@ dotnet build -t:Run -f net9.0-windows10.0.19041.0
 
 # 📱 Android/iOS/MacCatalyst/Tizen: consulte a documentação MAUI para targets específicos
 ```
-
----
 
 ## 📝 Utilização
 

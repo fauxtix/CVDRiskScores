@@ -235,7 +235,7 @@
     <value>Estado</value>
   </data>
   <data name="TituloFeminino" xml:space="preserve">
-    <value>Mulher</value>
+    <value>Feminino</value>
   </data>
   <data name="TituloFim" xml:space="preserve">
     <value>Fim</value>
@@ -259,7 +259,7 @@
     <value>Marca</value>
   </data>
   <data name="TituloMasculino" xml:space="preserve">
-    <value>Homem</value>
+    <value>Masculino</value>
   </data>
   <data name="TituloMedicacao" xml:space="preserve">
     <value>Medicação</value>
@@ -751,10 +751,10 @@
     <value>Detectou glucose elevada em análises?</value>
   </data>
   <data name="TituloMasculinos" xml:space="preserve">
-    <value>Homens</value>
+    <value>Masculinos</value>
   </data>
   <data name="TituloFemininos" xml:space="preserve">
-    <value>Mulheres</value>
+    <value>Femininos</value>
   </data>
   <data name="Bmi_VeryLow" xml:space="preserve">
     <value>Muito baixo</value>
@@ -1064,5 +1064,11 @@
   </data>
   <data name="LanguageSettings_Legend_Message" xml:space="preserve">
     <value>A legenda explica os termos e opções desta página relacionados com a seleção de idioma.</value>
+  </data>
+  <data name="Titulo_TA_BP" xml:space="preserve">
+    <value>TA</value>
+  </data>
+  <data name="TituloTabaco" xml:space="preserve">
+    <value>Tabaco</value>
   </data>
 </root>

@@ -19,6 +19,47 @@
             <conv:KeyHighlightConverter x:Key="KeyHighlightConverter" />
             <conv:StringToColorConverter x:Key="StringToColorConverter" />
             <conv:IsColorMarkerConverter x:Key="IsColorMarkerConverter" />
+            <conv:HexToBrushConverter x:Key="HexToBrush" />
+
+            <Style x:Key="PopupBaseButton" TargetType="Button">
+                <Setter Property="HeightRequest" Value="36" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="15,6" />
+                <Setter Property="MinimumWidthRequest" Value="84" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="PopupPrimaryButton" TargetType="Button" BasedOn="{StaticResource PopupBaseButton}">
+                <Setter Property="BackgroundColor" Value="#28A745" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="15,6" />
+
+                <Setter Property="BorderWidth" Value="0" />
+            </Style>
+
+            <Style x:Key="PopupSecondaryButton" TargetType="Button" BasedOn="{StaticResource PopupBaseButton}">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="#000000" />
+                <Setter Property="BorderColor" Value="#2B0B98" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="15,6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+
+            <Style x:Key="PopupGhostButton" TargetType="Button" BasedOn="{StaticResource PopupBaseButton}">
+                <Setter Property="BackgroundColor" Value="#C0C0C0" />
+                <Setter Property="TextColor" Value="#000000" />
+                <Setter Property="BorderColor" Value="#2B0B98" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="15,6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
         </ResourceDictionary>
     </toolkit:Popup.Resources>
 
@@ -42,7 +83,9 @@
                         BackgroundColor="White" 
                         Padding="8" HorizontalOptions="End" 
                         VerticalOptions="Center">
-                    <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="24" />
+                    </Border.StrokeShape>
                     <Label x:Name="BadgeLabel" Text="-" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Primary}"
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                 </Border>
@@ -86,7 +129,9 @@
         <!-- Details -->
         <Border Grid.Row="1" Margin="0,12,0,12"
                 Background="{AppThemeBinding Light={StaticResource WhiteBrush}, Dark={StaticResource Gray950Brush}}">
-            <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
 
             <Grid RowDefinitions="Auto,*,Auto">
                 <!-- subtle guideline -->
@@ -177,61 +222,52 @@
                  AlignItems="Center"
                  HorizontalOptions="Fill"
                  VerticalOptions="Center">
-                 <!-- Voltar -->
-                 <Border StrokeShape="RoundRectangle 16"
+                <!-- Voltar -->
+                <!-- Share -->
+                <Border StrokeShape="RoundRectangle 16"
                      BackgroundColor="Transparent"
                      Stroke="{StaticResource Secondary}"
                      Padding="0"
                      Margin="4"
                      StrokeThickness="1">
-                     <Button x:Name="CloseAndBackButton"
-                         FontAttributes="Bold"
-                         TextColor="Black"
-                         FontSize="14"
-                         CornerRadius="16"
-                         BackgroundColor="Transparent"
-                         HorizontalOptions="Fill"
-                         Padding="15,6"
-                         Clicked="OnCloseAndBackClicked"
-                         Text="{resx:Localize Key=TituloVoltar}"/>
-                 </Border>
-                 <!-- Share -->
-                 <Border StrokeShape="RoundRectangle 16"
+                    <Button x:Name="ShareButton"
+                                 CornerRadius="16"
+                                 HorizontalOptions="Fill"
+                                 Style="{StaticResource PopupPrimaryButton}"
+                                 Clicked="OnShareClicked"
+                                 Text="{resx:Localize Key=TituloPartilhar}"/>
+                </Border>
+                <!-- Copy -->
+                <Border StrokeShape="RoundRectangle 16"
                      BackgroundColor="Transparent"
                      Stroke="{StaticResource Secondary}"
                      Padding="0"
                      Margin="4"
                      StrokeThickness="1">
-                         <Button x:Name="ShareButton"
-                         FontAttributes="Bold"
-                         TextColor="Black"
-                         FontSize="14"
-                         CornerRadius="16"
-                         BackgroundColor="Transparent"
-                         HorizontalOptions="Fill"
-                         Padding="15,6"
-                         Clicked="OnShareClicked"
-                         Text="{resx:Localize Key=TituloPartilhar}"/>
-                 </Border>
-                 <!-- Copy -->
-                 <Border StrokeShape="RoundRectangle 16"
+                    <Button x:Name="CopyButton"
+                            CornerRadius="16"
+                            TextColor="Black"
+                            HorizontalOptions="Fill"
+                            Style="{StaticResource PopupSecondaryButton}"
+                            Clicked="OnCopyClicked"
+                            Text="{resx:Localize Key=TituloCopiar}"/>
+                </Border>
+                <Border StrokeShape="RoundRectangle 16"
                      BackgroundColor="Transparent"
                      Stroke="{StaticResource Secondary}"
                      Padding="0"
                      Margin="4"
                      StrokeThickness="1">
-                         <Button x:Name="CopyButton"
-                         FontAttributes="Bold"
-                         TextColor="Black"
-                         FontSize="14"
-                         CornerRadius="16"
-                         BackgroundColor="Transparent"
-                         HorizontalOptions="Fill"
-                         Padding="15,6"
-                         Clicked="OnCopyClicked"
-                         Text="{resx:Localize Key=Btn_Copy}"/>
-                 </Border>
-             </FlexLayout>
-         </Border>
-     </Grid>
- </toolkit:Popup>
+                    <Button x:Name="CloseAndBackButton"                           
+                            CornerRadius="16"
+                            TextColor="Black"
+                            HorizontalOptions="Fill"
+                            Style="{StaticResource PopupGhostButton}"
+                            Clicked="OnCloseAndBackClicked"
+                            Text="{resx:Localize Key=TituloVoltar}"/>
+                </Border>
+
+            </FlexLayout>
+        </Border>
+    </Grid>
+</toolkit:Popup>

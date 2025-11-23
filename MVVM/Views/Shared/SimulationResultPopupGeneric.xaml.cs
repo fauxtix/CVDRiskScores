@@ -123,8 +123,8 @@ namespace CVDRiskScores.MVVM.Views.Shared
             AddLabelValue(lblSmoker, GetFormattedProp(model, "IsSmoker", boolAsYesNo: true));
             AddLabelValue($"{lblPoints} — {lblAge}", GetFormattedProp(model, "AgePoints"));
             AddLabelValue($"{lblPoints} — Non‑HDL", GetFormattedProp(model, "NonHDLPoints"));
-            AddLabelValue($"{lblPoints} — TA", GetFormattedProp(model, "SBPPoints"));
-            AddLabelValue($"{lblPoints} — Tabaco", GetFormattedProp(model, "SmokingPoints"));
+            AddLabelValue($"{lblPoints} — {AppResources.Titulo_TA_BP}", GetFormattedProp(model, "SBPPoints"));
+            AddLabelValue($"{lblPoints} — {AppResources.TituloTabaco}", GetFormattedProp(model, "SmokingPoints"));
             AddLabelValue(lblValidation, TryGetPropAsString(model, "ValidationError") ?? TryGetPropAsString(parentVm, "ValidationError") ?? "-");
 
             TryPopulateDiagnostics(model, parentVm);
@@ -268,24 +268,6 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
         string LocalizeBool(bool b) =>
             b ? (AppResources.Sim) : (AppResources.Nao);
-
-        string GetFormattedProp(object obj, int propIndex, bool boolAsYesNo = false)
-        {
-            // Get the property using the indexer
-            var prop = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.GetIndexParameters().Length == 0)
-                .ElementAt(propIndex);
-
-            var v = GetPropValue(obj, prop.Name);
-            if (v == null) return "-";
-            if (v is bool bb) return boolAsYesNo ? LocalizeBool(bb) : bb.ToString();
-            if (v is Enum e) return LocalizeEnum(e);
-            if (v is double d) return d.ToString("F2", CultureInfo.CurrentCulture);
-            if (v is float f) return f.ToString("F2", CultureInfo.CurrentCulture);
-            if (v is decimal m) return m.ToString("F2", CultureInfo.CurrentCulture);
-            if (v is int i) return i.ToString(CultureInfo.CurrentCulture);
-            return v.ToString() ?? "-";
-        }
 
         string GetFormattedProp(object obj, string propName, bool boolAsYesNo = false)
         {
@@ -601,7 +583,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
             if (v == null) return "-";
             return v switch
             {
-                bool b => b ? "Sim" : "Não",
+                bool b => b ? AppResources.Sim : AppResources.Nao,
                 double d => d.ToString("F2", CultureInfo.CurrentCulture),
                 float f => f.ToString("F2", CultureInfo.CurrentCulture),
                 decimal m => m.ToString("F2", CultureInfo.CurrentCulture),
@@ -627,7 +609,7 @@ namespace CVDRiskScores.MVVM.Views.Shared
 
             if (type == typeof(bool) || type == typeof(bool?))
             {
-                if (v is bool b) return b ? "Sim" : "Não";
+                if (v is bool b) return b ? AppResources.Sim : AppResources.Nao;
             }
 
             if (v is double d) return d.ToString("F2", CultureInfo.CurrentCulture);
@@ -673,14 +655,14 @@ namespace CVDRiskScores.MVVM.Views.Shared
                 lines.AddRange(_rows.Select(r => $"{r.Key}: {r.Value}"));
                 var request = new ShareTextRequest
                 {
-                    Title = "Resultado da simulação",
+                    Title = AppResources.TituloResultado,
                     Text = string.Join(Environment.NewLine, lines)
                 };
                 await Share.Default.RequestAsync(request);
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Partilha", "A partilha falhou.", "OK");
+                await Shell.Current.DisplayAlert(AppResources.TituloPartilhar, AppResources.TituloFalhaAoPartilhar, "OK");
             }
         }
         async void OnCopyClicked(object sender, EventArgs e)
@@ -689,11 +671,11 @@ namespace CVDRiskScores.MVVM.Views.Shared
             {
                 var text = string.Join(Environment.NewLine, _rows.Select(r => $"{r.Key}: {r.Value}"));
                 await Clipboard.Default.SetTextAsync(text);
-                await Shell.Current.DisplayAlert("Copiado", "Resumo copiado para a área de transferência.", "OK");
+                await Shell.Current.DisplayAlert(AppResources.TituloCopiar, AppResources.TituloCopiadoClipboard, "OK");
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Erro", "Não foi possível copiar.", "OK");
+                await Shell.Current.DisplayAlert(AppResources.ErrorTitle, AppResources.TituloFalhaAoCopiar, "OK");
             }
         }
         async void CloseAndBackAsync()
@@ -744,7 +726,8 @@ namespace CVDRiskScores.MVVM.Views.Shared
             }
             catch (Exception ex)
             {
-                throw;
+                Debug.WriteLine($"DetermineSimulationRoute failed: {ex.Message}");
+                return "";
             }
         }
     }

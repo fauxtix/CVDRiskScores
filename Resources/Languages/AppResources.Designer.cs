@@ -1402,6 +1402,15 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TA.
+        /// </summary>
+        public static string Titulo_TA_BP {
+            get {
+                return ResourceManager.GetString("Titulo_TA_BP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Título.
         /// </summary>
         public static string Titulo_Titulo {
@@ -1969,7 +1978,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mulher.
+        ///   Looks up a localized string similar to Feminino.
         /// </summary>
         public static string TituloFeminino {
             get {
@@ -1978,7 +1987,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mulheres.
+        ///   Looks up a localized string similar to Femininos.
         /// </summary>
         public static string TituloFemininos {
             get {
@@ -2176,7 +2185,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Homem.
+        ///   Looks up a localized string similar to Masculino.
         /// </summary>
         public static string TituloMasculino {
             get {
@@ -2185,7 +2194,7 @@ namespace CVDRiskScores.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Homens.
+        ///   Looks up a localized string similar to Masculinos.
         /// </summary>
         public static string TituloMasculinos {
             get {
@@ -2541,6 +2550,15 @@ namespace CVDRiskScores.Resources.Languages {
         public static string TituloSituacao {
             get {
                 return ResourceManager.GetString("TituloSituacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tabaco.
+        /// </summary>
+        public static string TituloTabaco {
+            get {
+                return ResourceManager.GetString("TituloTabaco", resourceCulture);
             }
         }
         

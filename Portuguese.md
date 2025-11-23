@@ -109,7 +109,7 @@ dotnet build -t:Run -f net9.0-windows10.0.19041.0
 **Passos para Simular Risco:**
 
 1. 🏁 **Selecionar Calculadora:**  
-   Escolha SCORE2 ou Framingham no dashboard inicial.
+   Escolha SCORE2 ou Framingham no 'TabBar' em rodapé.
 2. ✏️ **Introduzir Dados:**  
    Idade, género, pressão arterial, colesterol, tabagismo, etc.
 3. 🔍 **Ver Resultados:**  

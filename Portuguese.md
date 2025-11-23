@@ -125,7 +125,7 @@ dotnet build -t:Run -f net9.0-windows10.0.19041.0
 
 - Troque o idioma nas definições (Português/Inglês disponível; expansível para outros).
 - Todo o texto da UI é gerido por ficheiros RESX.
-- Aceitamos contribuições para novos idiomas!
+- Aceitam-se contribuições para novos idiomas!
 
 ---
 

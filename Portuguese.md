@@ -67,7 +67,7 @@ Valores finais dão uma percentagem de risco e categoria: baixo (<10%), moderado
 Os scores são auxiliares; não substituem avaliação médica individual.
 
 ### Links Úteis:
-- SCORE2: [ESC Guidelines](https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice-guidelines)
+- SCORE2: [ESC Guidelines](https://www.escardio.org/)
 - Framingham: [CDC](https://www.cdc.gov/heartdisease) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/18212285/)
 ---
 ## 🧑‍💻 Tecnologia

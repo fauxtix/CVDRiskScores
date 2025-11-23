@@ -66,7 +66,7 @@ Final score gives risk percentage and category: low (<10%), moderate (10–20%),
 These algorithms support clinical decision-making but do not replace medical judgment.
 
 ### Useful Links:
-- SCORE2: [ESC Guidelines](https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice-guidelines)
+- SCORE2: [ESC Guidelines](https://www.escardio.org)
 - Framingham: [CDC](https://www.cdc.gov/heartdisease) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/18212285/)
 
 ---
